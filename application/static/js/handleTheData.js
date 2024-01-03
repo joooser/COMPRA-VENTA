@@ -25,7 +25,7 @@ $(document).ready(function() {
 
         $.ajax({
 
-            url: '/handle_data',
+            url: '/_handle_data',
             type: 'POST',
             contentType: 'application/json',
             data: JSON.stringify(dataToSend),
@@ -38,6 +38,7 @@ $(document).ready(function() {
 
               alert('Ocurrió un error al enviar el formulario');
             }
+
         });
     });
 });

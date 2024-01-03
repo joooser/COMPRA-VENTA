@@ -1,0 +1,14 @@
+<!-- templates/question.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ question }}</title>
+</head>
+<body>
+    <h1>{{ question }}</h1>
+    <form method="post" action="{{ url_for('question', question_id=question_id) }}">
+        <input type="text" name="answer">
+        <input type="submit" value="Siguiente">
+    </form>
+</body>
+</html>

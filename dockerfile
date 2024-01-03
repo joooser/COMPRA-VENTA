@@ -1,17 +1,14 @@
-# Use an official Python runtime as a parent image
-FROM python:3.7-slim
+# Usar una imagen base de Python
+FROM python:3.8
 
-# Set the working directory in the container to /app
-WORKDIR /app
+# Establecer el directorio de trabajo en el contenedor
+WORKDIR /usr/src/app
 
-# Add the current directory contents into the container at /app
-ADD . /app
+# Copiar los archivos necesarios al contenedor
+COPY . .
 
-# Install any needed packages specified in requirements.txt
+# Instalar las dependencias
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Make port 80 available to the world outside this container
-EXPOSE 80
-
-# Run app.py when the container launches
-CMD ["python", "Compra_venta_vehiculo.ipynb"]
+# Comando para ejecutar la aplicación
+CMD ["python", "./main.py"]

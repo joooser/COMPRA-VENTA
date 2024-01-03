@@ -1,37 +1,31 @@
+# create_pdf.py
 from fpdf import FPDF
 
 class PDFWithHeader(FPDF):
     def header(self):
-        # Image "a" centrada
-        img_a_path = "/content/b.jpg"  # Reemplaza con la ruta de tu imagen "a"
-        self.image(img_a_path, (self.w - 40) / 2, 10, 40)
+        # Asegúrate de que las rutas a las imágenes sean correctas y accesibles
+        img_a_path = "path_to_image_a.jpg"
+        img_b_path = "path_to_image_b.jpg"
 
-        # Image "b" justificada a la derecha
-        img_b_path = "/content/gnido logo.png"  # Reemplaza con la ruta de tu imagen "b"
-        self.image(img_b_path, self.w - 50, 10, 40)
+        # Colocación de imágenes en el encabezado
+        self.image(img_a_path, 10, 8, 33)
+        self.image(img_b_path, 165, 8, 33)
 
-        # Move to the bottom of the images
-        self.ln(35)
+    def footer(self):
+        # Opcional: Agregar un pie de página si es necesario
+        self.set_y(-15)
+        self.set_font('Arial', 'I', 8)
+        self.cell(0, 10, 'Page ' + str(self.page_no()), 0, 0, 'C')
 
-
-
-    def chapter_body(self, body):
-        # Body text
-        self.set_font('Arial', '', 12)
-        self.multi_cell(0, 10, body)
-        self.ln()
-
-def create_pdf(output_filename):
+def create_pdf(documento, output_filename):
     pdf = PDFWithHeader()
-
     pdf.add_page()
-    pdf.set_auto_page_break(auto=True, margin=15)
 
-
-    text = documento
-    pdf.chapter_body(text)
-
+    # Establecer fuente y agregar el texto del documento
+    pdf.set_font('Arial', '', 12)
+    pdf.multi_cell(0, 10, documento)
+    
     pdf.output(output_filename)
 
-if __name__ == "__main__":
-    create_pdf("output.pdf")
+# Ejemplo de uso:
+# create_pdf(documento_final, "output.pdf")

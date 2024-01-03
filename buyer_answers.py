@@ -1,44 +1,18 @@
-questions_buyer = [
-    "Cual es el nombre del comprador?",
-    "Cual es la nacionalidad del comprador?",
-    "Cual es la cedula del comprador?",
-    "Cual es el estado civil del comprador?",
-    "Cual es el domicilio del comprador?"
-]
+# buyer_answers.py
 
-buyer_answers = {}
+def get_buyer_answers(questions_buyer, questions_car, questions_transaction):
+    buyer_answers = {}
 
-for question in questions_buyer:
-    answer = input(question)
-    buyer_answers[question] = answer
+    # Hacer preguntas generales al comprador
+    for question in questions_buyer:
+        buyer_answers[question] = input(question + ": ")
 
-questions_car = [
-    "Cual es la marca del vehiculo?",
-    "Cual es el modelo del vehiculo?",
-    "Cual es la placa del vehiculo?",
-    "Cual es el serial motor del vehiculo?",
-    "Cual es el serial de caroceria del vehiculo?",
-    "Cual es el año del vehiculo?",
-    "Cual es el tipo del vehiculo?",
-    "Cual es el color del vehiculo?",
-    "Cual es la clase del vehiculo?",
-    "Cual es el uso del vehiculo?"
-]
+    # Hacer preguntas relacionadas con el vehículo
+    for question in questions_car:
+        buyer_answers[question] = input(question + ": ")
 
-car_answers = {}
+    # Hacer preguntas relacionadas con la transacción
+    for question in questions_transaction:
+        buyer_answers[question] = input(question + ": ")
 
-for question in questions_car:
-    answer = input(question)
-    car_answers[question] = answer
-
-questions_transaction = [
-    "Cual es el precio del vehiculo?",
-    "En que moneda se hizo el pago el vehiculo?",
-    "Con que instrumento se pago el vehiculo?"
-]
-
-transaction_answers = {}
-
-for question in questions_transaction:
-    answer = input(question)
-    transaction_answers[question] = answer
+    return buyer_answers

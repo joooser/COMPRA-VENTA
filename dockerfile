@@ -13,7 +13,7 @@ RUN git clone https://github.com/Pythagora-io/gpt-pilot.git
 COPY ./custom-docker-compose.yml /gpt-pilot/docker-compose.yml
 
 # Expose port 7681 for the web terminal
-EXPOSE 7681
+EXPOSE 7681 80 443
 
 # Set the working directory
 WORKDIR /gpt-pilot

@@ -22,7 +22,7 @@ docker build -f dockerfile -t dockerhost .
 
 3. run the recently created docker img:
 
-docker run -v ./app:/host-workspace -v /var/run/docker.sock:/var/run/docker.sock --privileged dockerhost
+docker run -v ./app:/gpt-pilot/workspace -v /var/run/docker.sock:/var/run/docker.sock --privileged dockerhost
 
 4. In a browser go to:
 
@@ -31,7 +31,7 @@ http://localhost:7681/
 5. run:
 
 python db_init.py (initialize the database)
-python main.py (start GPT Pilot)
+python main.py (start GPT Pilot). For advance architecture python main.py advanced=True
 
 6. follow gpt-pilot instructions.
 
@@ -42,3 +42,7 @@ docker ps (look for the line with IMAGE == dockerhost and copy "CONTAINER ID")
 8. to enter the container run (The container ID goes without ""):
 
 docker exec -it "CONTAINER ID" /bin/bash 
+
+
+#### For more info. 
+Source: https://github.com/Pythagora-io/gpt-pilot#how-to-start-using-gpt-pilot

@@ -99,3 +99,9 @@ def question(question_id):
     else:
         # Logic for when all questions have been answered
         return redirect(url_for('some_final_endpoint'))
+    
+@app.route('/create_task', methods=['POST'])
+def create_task():
+    # Implement the logic to handle task creation
+    # ...
+    return redirect(url_for('home_page'))

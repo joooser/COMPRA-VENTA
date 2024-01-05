@@ -92,12 +92,10 @@ def logout_page():
 @app.route('/questions/<int:question_id>', methods=['GET', 'POST'])
 def question(question_id):
     all_questions = questions_seller + questions_seller_a + questions_seller_b + questions_seller_c + questions_buyer + questions_car + questions_transaction
-
-    if question_id >= len(all_questions):
-        return redirect(url_for('generate_document'))
-
-    current_question = all_questions[question_id]
-
-    if request.method == 'POST':
-        answer = request.form.get('answer')
-    return render_template('questions.html', question=current_question, question_id=question_id)
+    if question_id < len(all_questions):
+        current_question = all_questions[question_id]
+        # Your logic to display the question and handle the answer
+        return render_template('questions.html', question=current_question, question_id=question_id)
+    else:
+        # Logic for when all questions have been answered
+        return redirect(url_for('some_final_endpoint'))

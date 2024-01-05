@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>{{ question }}</title>
+{% endblock %}
+
+{% block body %}
+<h1>{{ question }}</h1>
+<form method="post" action="{{ url_for('question', question_id=question_id) }}">
+    <input type="text" name="answer">
+    <input type="submit" value="Siguiente">
+</form>
+{% endblock %}

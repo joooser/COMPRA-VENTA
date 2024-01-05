@@ -13,18 +13,28 @@ Desarrollo de una app que, que permita realizar documentos "on the go"  de compr
 4. En una sgeunda fase seria muy importante agregar Computer vision, para evitar la friccion y el error humano en el input de los datos.
 
 
-### Usage
+## How To Run
+1. Install `virtualenv`:
+```
+pip install virtualenv
+```
 
-1. Navigate to the project directory.
+2. Open a terminal in the project root directory and run:
+```
+virtualenv env
+```
 
-2. Build Docker img (-f for file. -t for tag):
+3. Then run the command:
+```
+.\env\Scripts\activate
+```
 
-docker build -f dockerfile_app -t mi-aplicacion-flask-1 .
+4. Then install the dependencies:
+```
+pip install -r requirements.txt
+```
 
-3. run the recently created docker img:
-
-docker run -p 5000:5000 mi-aplicacion-flask-1
-
-4. In a browser go to:
-
-http://localhost:5000/
+5. Finally start the web server:
+```
+python app.py
+```

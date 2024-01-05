@@ -1,13 +1,13 @@
 # main.py
-from variables import (
+from application.variables import (
     questions_seller, questions_seller_a, questions_seller_b, questions_seller_c,
     questions_buyer, questions_car, questions_transaction,
     documento
 )
-from seller_answers import get_seller_answers
-from buyer_answers import get_buyer_answers
-from transform_answers import transform_document
-from create_pdf import create_pdf
+from application.seller_answers import get_seller_answers
+from application.buyer_answers import get_buyer_answers
+from application.transform_answers import transform_document
+from application.create_pdf import create_pdf
 
 def main():
     # Obtener respuestas del vendedor

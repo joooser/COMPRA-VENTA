@@ -1,7 +1,7 @@
 from application import app, db
 from flask import render_template, redirect, url_for, flash, request
 from flask_login import login_user, logout_user, login_required, current_user
-from application.models import Item, User
+from application.models import *
 from application.forms import RegisterForm, LoginForm, PurchaseItemForm, SellItemForm
 from application.variables import (
     questions_seller, questions_seller_a, questions_seller_b, questions_seller_c,
@@ -10,6 +10,7 @@ from application.variables import (
 from application.transform_answers import transform_document
 from application.seller_answers import get_seller_answers
 from application.buyer_answers import get_buyer_answers
+
 
 @app.route('/')
 @app.route('/home')

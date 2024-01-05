@@ -1,10 +1,15 @@
 from flask import Flask, request, render_template, session, redirect, url_for
-from variables import (questions_seller, questions_seller_a, questions_seller_b, questions_seller_c, 
+from flask_sqlalchemy import SQLAlchemy
+from application.variables import (questions_seller, questions_seller_a, questions_seller_b, questions_seller_c, 
                        questions_buyer, questions_car, questions_transaction, documento)
-from transform_answers import transform_document
-from create_pdf import create_pdf
+from application.transform_answers import transform_document
+from application.create_pdf import create_pdf
 
 app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
+app.config['SECRET_KEY'] = 'some_random_key'
+
+db = SQLAlchemy(app)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login_page():

@@ -6,7 +6,9 @@ from .forms import LoginForm, RegisterForm, QuestionForm
 from .transform_answers import transform_document
 from .create_pdf import create_pdf
 from .extensions import db, bcrypt
-from .question_logic import fetch_and_organize_questions, get_next_question_set, store_question_response, clear_questions_from_session
+from .question_logic import (initialize_question_session, fetch_questions, 
+                             handle_question_response, has_more_questions, 
+                             advance_to_next_set, clear_questions_from_session)
 
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/login', methods=['GET', 'POST'])
@@ -68,48 +70,33 @@ def logout_page():
 @login_required
 def create_document():
     if 'questions' not in session:
-        organized_questions = fetch_and_organize_questions()
-        session['questions'] = organized_questions
-        session['question_index'] = 0
-        session['current_question_set'] = 'initial'
-    else:
-        organized_questions = session['questions']
-        question_set = session['current_question_set']
-        question_index = session.get('question_index', 0)
-
-    print(f"Question Set: {question_set}")  # Debugging line
-    print(f"Organized Questions: {organized_questions}")  # Debugging line
+        initialize_question_session()
+        fetch_questions('seller')  # Start with the first set
 
     if request.method == 'POST':
-        # Handle the user's response to the current question
-        current_question = organized_questions[question_set][question_index]
         response = request.form.get('response')
-        store_question_response(current_question, response)
+        handle_question_response(response)
 
-        # Move to next question or next set
-        if question_index + 1 < len(organized_questions[question_set]):
-            session['question_index'] = question_index + 1
-        else:
-            next_set = get_next_question_set()
-            if next_set:
-                session['current_question_set'] = next_set
-                session['question_index'] = 0
-            else:
-                clear_questions_from_session()
-                return redirect(url_for('generate_document'))
+        if not has_more_questions():
+            advance_to_next_set()
+
         return redirect(url_for('create_document'))
 
-    # Check if the current question set has questions
-    if question_set in organized_questions:
-        current_questions = organized_questions[question_set]
-        if len(current_questions) > 0:
-            current_question = current_questions[question_index]
-            return render_template('create_document.html', question=current_question, question_index=question_index)
-        else:
-        # If no questions are available, redirect to document generation or an appropriate page
-            clear_questions_from_session()
-        return redirect(url_for('generate_document'))
+    current_questions = session.get('questions', [])
+    question_index = session.get('question_index', 0)
+    if len(current_questions) > 0:
+        current_question = current_questions[question_index]
+        return render_template('questions.html', question=current_question, question_index=question_index)
+    else:
+        clear_questions_from_session()
+        # Redirect to a final page or handle the end of the process
+        return redirect(url_for('generated_document.html'))  # Replace with the actual final page
 
+@app.route('/generate_document')
+@login_required
+def generate_document():
+    # Logic for generating the document goes here
+    return render_template('generated_document.html')
 
 
 # Añade cualquier otra ruta que necesites aquí

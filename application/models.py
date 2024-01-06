@@ -1,7 +1,7 @@
-from application import db, login_manager
-from application import bcrypt
+from application.extensions import db, login_manager, bcrypt
 from flask_login import UserMixin
 from datetime import datetime
+
 
 @login_manager.user_loader
 def load_user(user_id):

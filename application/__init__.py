@@ -1,15 +1,13 @@
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
-from flask_bcrypt import Bcrypt
-from flask_login import LoginManager
+from application.extensions import db, bcrypt, login_manager
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
-app.config['SECRET_KEY'] = 'some_random_key'
-db = SQLAlchemy(app)
-bcrypt = Bcrypt(app)
-login_manager = LoginManager(app)
-login_manager.login_view = "login_page"
-login_manager.login_message_category = "info"
+app.config['SECRET_KEY'] = 'ec9439cfc6c796ae2029594d'
 
+db.init_app(app)
+bcrypt.init_app(app)
+login_manager.init_app(app)
+
+# Import routes here
 from application import routes

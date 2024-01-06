@@ -36,5 +36,5 @@ pip install -r requirements.txt
 
 5. Finally start the web server:
 ```
-python app.py
+python run.py
 ```

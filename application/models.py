@@ -1,4 +1,4 @@
-from application.extensions import db, login_manager, bcrypt
+from .extensions import db, login_manager, bcrypt
 from flask_login import UserMixin
 from datetime import datetime
 
@@ -94,6 +94,21 @@ class Document(db.Model):
     # Aquí puedes añadir relaciones con ForeignKey si es necesario
     # ...
 
+class Question(db.Model):
+    __tablename__ = 'questions'
+    id = db.Column(db.Integer, primary_key=True)
+    text = db.Column(db.String(255), nullable=False)
+    category = db.Column(db.String(50), nullable=False)  # e.g., 'seller', 'buyer', 'car', etc.
+
+    def __repr__(self):
+        return f'<Question {self.text}>'
+
+class DocumentTemplate(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    template_text = db.Column(db.Text, nullable=False)  # Stores the template text
+
+    def __repr__(self):
+        return f'<DocumentTemplate {self.id}>'
 
 # No olvides inicializar tu base de datos con db.create_all() después de definir tus modelos,
 # especialmente si no estás utilizando Flask-Migrate.

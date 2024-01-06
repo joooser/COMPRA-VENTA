@@ -2,14 +2,11 @@ from application import app
 from flask import render_template, redirect, url_for, flash, request, session
 from flask_login import login_user, logout_user, login_required, current_user
 from .models import User, Role, Subscription, Vehicle, Contractor, PropertyTitle, PropertyDocument, Document
-from .forms import LoginForm, RegisterForm
-from .variables import (
-    questions_seller, questions_seller_a, questions_seller_b, questions_seller_c,
-    questions_buyer, questions_car, questions_transaction
-)
+from .forms import LoginForm, RegisterForm, QuestionForm
 from .transform_answers import transform_document
 from .create_pdf import create_pdf
 from .extensions import db, bcrypt
+from .question_logic import fetch_and_organize_questions, get_next_question_set, store_question_response, clear_questions_from_session
 
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/login', methods=['GET', 'POST'])
@@ -19,15 +16,17 @@ def login_page():
 
     form = LoginForm()
     if form.validate_on_submit():
-        user = User.query.filter((User.username == form.username.data) | 
+        attempted_user = User.query.filter((User.username == form.username.data) |
                                  (User.email == form.username.data)).first()
-        if user and bcrypt.check_password_hash(user.password_hash, form.password.data):
-            login_user(user)
+        if attempted_user and bcrypt.check_password_hash(attempted_user.password_hash, form.password.data):
+            login_user(attempted_user)
+            flash(f'Success! You are logged in as: {attempted_user.username}', category='success')
             next_page = request.args.get('next')
             return redirect(next_page) if next_page else redirect(url_for('home_page'))
         else:
             flash('Inicio de sesión fallido. Por favor, comprueba tu nombre de usuario y contraseña', 'danger')
     return render_template('login.html', form=form)
+
 
 @app.route('/register', methods=['GET', 'POST'])
 def register_page():
@@ -54,40 +53,58 @@ def home_page():
     # Aquí puedes agregar lógica para mostrar información relevante en el home
     return render_template('home.html')
 
-@app.route('/questions/<int:question_id>', methods=['GET', 'POST'])
-@login_required
-def question(question_id):
-    all_questions = questions_seller + questions_seller_a + questions_seller_b + questions_seller_c + \
-                    questions_buyer + questions_car + questions_transaction
-    if question_id < len(all_questions):
-        current_question = all_questions[question_id]
-        if request.method == 'POST':
-            answer = request.form.get('answer')
-            session['responses'][current_question] = answer
-            session.modified = True
-            next_question_id = question_id + 1
-            if next_question_id < len(all_questions):
-                return redirect(url_for('question', question_id=next_question_id))
-            else:
-                return redirect(url_for('generate_document'))
-        return render_template('questions.html', question=current_question, question_id=question_id)
-    else:
-        # Lógica cuando todas las preguntas hayan sido respondidas
-        return redirect(url_for('generate_document'))
-
-@app.route('/generate_document')
-@login_required
-def generate_document():
-    documento_final = transform_document(session['responses'], documento)
-    output_pdf = "output.pdf"
-    create_pdf(documento_final, output_pdf)
-    return render_template('success.html', pdf_file=output_pdf)
-
 @app.route('/logout')
 def logout_page():
     logout_user()
     flash("Has cerrado sesión con éxito", 'info')
     return redirect(url_for('login_page'))
+
+@app.route('/create_document', methods=['GET', 'POST'])
+@login_required
+def create_document():
+    if 'questions' not in session:
+        # Initialize questions in session
+        organized_questions = fetch_and_organize_questions()
+        session['questions'] = organized_questions
+        session['question_index'] = 0  # Initialize question index
+    else:
+        organized_questions = session['questions']
+
+    print(organized_questions)  # Debugging line to see what questions are being fetched
+    # Retrieve the current question index from session or set to 0 if not found
+    question_index = session.get('question_index', 0)
+    question_set = session.get('current_question_set', 'initial')
+
+    if request.method == 'POST':
+        # Handle the user's response to the current question
+        current_question = organized_questions[question_set][question_index]
+        response = request.form.get('response')
+        store_question_response(current_question, response)
+
+        # Check if there are more questions to ask
+        if question_index + 1 < len(organized_questions[question_set]):
+            # Not the last question, increment index for the next question
+            session['question_index'] += 1
+        else:
+            # Last question in the current set, proceed to the next set or end
+            next_set = get_next_question_set()
+            if next_set:
+                session['current_question_set'] = next_set
+                session['question_index'] = 0
+            else:
+                # If no more questions, proceed to document generation
+                clear_questions_from_session()
+                return redirect(url_for('generate_document'))
+
+        # Redirect to the same page to display the next question
+        return redirect(url_for('create_document'))
+
+    # Get the current question to display
+    current_question = organized_questions[question_set][question_index]
+    return render_template('create_document.html', question=current_question, question_index=question_index)
+
+
+
 
 # Añade cualquier otra ruta que necesites aquí
 

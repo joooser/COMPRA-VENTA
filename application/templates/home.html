@@ -1,47 +1,9 @@
 {% extends 'base.html' %}
 
 {% block title %}
-<title>Compra Venta de Vehículos</title>
+Compra Venta de Vehículos
 {% endblock %}
 
 {% block content %}
-<div class="content">
-    <h1 style="text-align: center">Formulario de Venta de Vehículos</h1>
-    {% if tasks %}
-    <table class="table table-dark mt-4">
-        <thead>
-            <tr>
-                <th>Task</th>
-                <th>Added</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for task in tasks %}
-                <tr>
-                    <td>{{ task.content }}</td>
-                    <td>{{ task.date_created.date() }}</td>
-                    <td>
-                        <a href="/delete/{{task.id}}">Delete</a>
-                        |
-                        <a href="/update/{{task.id}}">Update</a>
-                    </td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    {% else %}
-    <h4 style="text-align: center">No hay documentos. ¡Cree uno a continuación!</h4>
-    {% endif %}
 
-    <div class="form">
-        <form action="{{ url_for('home_page') }}" method="POST" class="mt-4">
-            <div class="form-group">
-                <label for="seller_name">Nombre del vendedor:</label>
-                <input type="text" class="form-control" id="seller_name" name="seller_name">
-            </div>
-            <input type="submit" class="btn btn-primary" value="Enviar">
-        </form>
-    </div>
-</div>
 {% endblock %}

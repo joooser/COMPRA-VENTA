@@ -1,8 +1,7 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, HiddenField
-from wtforms.validators import Length, EqualTo, Email, DataRequired, ValidationError
+from wtforms import StringField, PasswordField, SubmitField
+from wtforms.validators import Length, Email, EqualTo, DataRequired, ValidationError
 from application.models import User
-
 
 class RegisterForm(FlaskForm):
     def validate_username(self, username_to_check):
@@ -10,25 +9,20 @@ class RegisterForm(FlaskForm):
         if user:
             raise ValidationError('Username already exists! Please try a different username')
 
-    def validate_email_address(self, email_address_to_check):
-        email_address = User.query.filter_by(email_address=email_address_to_check.data).first()
-        if email_address:
-            raise ValidationError('Email Address already exists! Please try a different email address')
+    def validate_email(self, email_to_check):
+        email = User.query.filter_by(email=email_to_check.data).first()
+        if email:
+            raise ValidationError('Email already exists! Please try a different email address')
 
-    username = StringField(label='User Name:', validators=[Length(min=2, max=30), DataRequired()])
-    email_address = StringField(label='Email Address:', validators=[Email(), DataRequired()])
-    password1 = PasswordField(label='Password:', validators=[Length(min=6), DataRequired()])
-    password2 = PasswordField(label='Confirm Password:', validators=[EqualTo('password1'), DataRequired()])
-    submit = SubmitField(label='Create Account')
-
+    name = StringField(label='Nombre:', validators=[DataRequired()])
+    lastname = StringField(label='Apellido:', validators=[DataRequired()])
+    username = StringField(label='Nombre de Usuario:', validators=[Length(min=3, max=30), DataRequired()])
+    email = StringField(label='Correo Electrónico:', validators=[Email(), DataRequired()])
+    password1 = PasswordField(label='Contraseña:', validators=[Length(min=6), DataRequired()])
+    password2 = PasswordField(label='Confirmar Contraseña:', validators=[EqualTo('password1'), DataRequired()])
+    submit = SubmitField(label='Crear Cuenta')
 
 class LoginForm(FlaskForm):
-    username = StringField(label='User Name:', validators=[DataRequired()])
-    password = PasswordField(label='Password:', validators=[DataRequired()])
-    submit = SubmitField(label='Sign in')
-
-class PurchaseItemForm(FlaskForm):
-    submit = SubmitField(label='Purchase Item!')
-
-class SellItemForm(FlaskForm):
-    submit = SubmitField(label='Sell Item!')
+    username = StringField(label='Nombre de Usuario:', validators=[DataRequired()])
+    password = PasswordField(label='Contraseña:', validators=[DataRequired()])
+    submit = SubmitField(label='Iniciar Sesión')

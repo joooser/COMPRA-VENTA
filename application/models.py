@@ -17,6 +17,7 @@ class Role(db.Model):
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer(), primary_key=True)
+    username = db.Column(db.String(length=30), nullable=False, unique=True)
     email = db.Column(db.String(length=50), nullable=False, unique=True)
     signup_date = db.Column(db.DateTime(), nullable=False, default=datetime.utcnow)
     name = db.Column(db.String(length=30), nullable=False)
@@ -36,7 +37,7 @@ class User(db.Model, UserMixin):
         return bcrypt.check_password_hash(self.password_hash, attempted_password)
 
     def __repr__(self):
-        return f'User {self.name}'
+        return f'User {self.username}'
 
 class Subscription(db.Model):
     id = db.Column(db.Integer(), primary_key=True)

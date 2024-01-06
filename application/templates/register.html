@@ -8,7 +8,7 @@
     <div class="container">
         <form method="POST" class="form-register" style="color:white">
             {{ form.hidden_tag() }}
-            <img class="mb-4" src="https://res.cloudinary.com/jimshapedcoding/image/upload/v1597332609/android-icon-192x192_ove2a7.png" alt="">
+            <img class="mb-4" src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExYXZ3NWhjbDViYWJ6MGx4YTdhODVnc3cwaDhtZWk2cjRycXdwbGkzMiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/UCdgDDvbJy12WXJpDU/giphy.gif" alt="">
             <h1 class="h3 mb-3 font-weight-normal">
                 Please Create your Account
             </h1>
@@ -16,8 +16,14 @@
             {{ form.username.label() }}
             {{ form.username(class="form-control", placeholder="User Name") }}
 
-            {{ form.email_address.label() }}
-            {{ form.email_address(class="form-control", placeholder="Email Address") }}
+            {{ form.name.label() }}
+            {{ form.name(class="form-control", placeholder="Name") }}
+
+            {{ form.lastname.label() }}
+            {{ form.lastname(class="form-control", placeholder="Last Name") }}
+
+            {{ form.email.label() }}
+            {{ form.email(class="form-control", placeholder="Email Address") }}
 
             {{ form.password1.label() }}
             {{ form.password1(class="form-control", placeholder="Password") }}

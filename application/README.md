@@ -32,8 +32,9 @@ pip install -r requirements.txt
 python run.py
 ```
 
-
-####### DB Creation
+### SQL Lite cmds
+ 
+###### DB Creation
 Identation is important
 
 from application import app, db
@@ -64,9 +65,13 @@ with app.app_context():
 
         db.session.commit()
 
+###### DB drop.
 
+```
+db.drop_all()
+```
 
-####### DB Migration, upgrade or change.
+###### DB Migration, upgrade or change.
 
 ```
 set FLASK_APP=run.py

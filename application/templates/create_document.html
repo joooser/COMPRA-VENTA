@@ -1,24 +1,18 @@
 <!-- create_document.html -->
-{{ questions | pprint }}
 {% extends 'base.html' %}
-{% block title %}
-    Crear Documento
-{% endblock %}
+{% block title %} Crear Documento {% endblock %}
 
 {% block content %}
 <body>
     <div class="container">
         <h2>Crear Documento</h2>
         <form method="POST">
-            {% for question in questions %}
-                <div class="form-group">
-                    <label for="question_{{ loop.index }}">{{ question }}</label>
-                    <input type="text" class="form-control" id="question_{{ loop.index }}" name="question_{{ loop.index }}">
-                </div>
-{% endfor %}
-            <input type="hidden" name="question_index" value="{{ question_index }}">
-                <button type="submit" class="btn btn-primary">Siguiente</button>
-                    </form>
+            <div class="form-group">
+                <label for="response">{{ question }}</label>
+                <input type="text" class="form-control" id="response" name="response">
+            </div>
+            <button type="submit" class="btn btn-primary">Siguiente</button>
+        </form>
     </div>
 </body>
 {% endblock %}

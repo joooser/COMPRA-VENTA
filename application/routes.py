@@ -43,8 +43,13 @@ def register_page():
                               password_hash=hashed_password)
         db.session.add(user_to_create)
         db.session.commit()
-        flash('Registro exitoso! Ahora puedes iniciar sesión.', 'success')
-        return redirect(url_for('login_page'))
+        login_user(user_to_create)
+        flash(f"Registro exitoso! Has iniciado sesion como {user_to_create.username}", category='success')
+        return redirect(url_for('home_page'))
+    if form.errors != {}: #If there are not errors from the validations
+        for err_msg in form.errors.values():
+            flash(f'Hubo un error creando el usuario: {err_msg}', category='danger')
+
     return render_template('register.html', form=form)
 
 @app.route('/home')
@@ -63,17 +68,17 @@ def logout_page():
 @login_required
 def create_document():
     if 'questions' not in session:
-        # Initialize questions in session
         organized_questions = fetch_and_organize_questions()
         session['questions'] = organized_questions
-        session['question_index'] = 0  # Initialize question index
+        session['question_index'] = 0
+        session['current_question_set'] = 'initial'
     else:
         organized_questions = session['questions']
+        question_set = session['current_question_set']
+        question_index = session.get('question_index', 0)
 
-    print(organized_questions)  # Debugging line to see what questions are being fetched
-    # Retrieve the current question index from session or set to 0 if not found
-    question_index = session.get('question_index', 0)
-    question_set = session.get('current_question_set', 'initial')
+    print(f"Question Set: {question_set}")  # Debugging line
+    print(f"Organized Questions: {organized_questions}")  # Debugging line
 
     if request.method == 'POST':
         # Handle the user's response to the current question
@@ -81,28 +86,29 @@ def create_document():
         response = request.form.get('response')
         store_question_response(current_question, response)
 
-        # Check if there are more questions to ask
+        # Move to next question or next set
         if question_index + 1 < len(organized_questions[question_set]):
-            # Not the last question, increment index for the next question
-            session['question_index'] += 1
+            session['question_index'] = question_index + 1
         else:
-            # Last question in the current set, proceed to the next set or end
             next_set = get_next_question_set()
             if next_set:
                 session['current_question_set'] = next_set
                 session['question_index'] = 0
             else:
-                # If no more questions, proceed to document generation
                 clear_questions_from_session()
                 return redirect(url_for('generate_document'))
-
-        # Redirect to the same page to display the next question
         return redirect(url_for('create_document'))
 
-    # Get the current question to display
-    current_question = organized_questions[question_set][question_index]
-    return render_template('create_document.html', question=current_question, question_index=question_index)
-
+    # Check if the current question set has questions
+    if question_set in organized_questions:
+        current_questions = organized_questions[question_set]
+        if len(current_questions) > 0:
+            current_question = current_questions[question_index]
+            return render_template('create_document.html', question=current_question, question_index=question_index)
+        else:
+        # If no questions are available, redirect to document generation or an appropriate page
+            clear_questions_from_session()
+        return redirect(url_for('generate_document'))
 
 
 

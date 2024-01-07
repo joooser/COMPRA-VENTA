@@ -5,14 +5,68 @@
 {% endblock %}
 
 {% block content %}
-<div class="container">
-    <h2>Question {{ question_index + 1 }}</h2>
-    <form method="POST">
-        <div class="form-group">
+{% include 'includes/new_title_modals.html' %}
+<div style="margin-top:30px">
+<!-- Button to Open Modal for New Document -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#documentTitleModal">
+    Nuevo Documento
+</button>
+</div>
+
+<div class="container" style="margin-top:30px">
+    <h2>{{ question_label }}</h2>
+    <form id="question-form" method="POST"> <!-- Add an ID to the form for the jQuery selector -->
+        <div class="form-group" style="margin-top:30px">
             <label for="response">{{ question }}</label>
             <input type="text" class="form-control" id="response" name="response">
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" id="submit-response" class="btn btn-primary">Submit</button>
     </form>
 </div>
+
+<!-- Create PDF Button and Modal Confirmation -->
+<div class="container" style="margin-top:30px">
+  <button id="create-pdf" class="btn btn-secondary" type="button">Crear PDF</button>
+</div>
+
+
+<div id="document-preview" class="p-20 mb-2 bg-light text-dark" style="margin-top:30px; min-height: 400px; overflow-y: auto;">
+    <!-- Dynamic document preview will be rendered here -->
+
+
+<script>
+    $(document).ready(function() {
+        // Existing modal and AJAX code...
+
+        // Real-time preview update on input event
+        $('#response').on('input', function() {
+            var currentResponse = $(this).val().toUpperCase(); // Convert to uppercase
+
+            // Implement the logic to update the document preview here.
+            // This may involve more complex processing to place the response in the right location.
+            // For example:
+            // var previewText = "Some static part of the document..." + currentResponse;
+            // $('#document-preview').html(previewText);
+            
+            // Update the document preview area with the response
+            // This is a placeholder logic; you'll replace it with actual implementation
+            $('#document-preview').text(currentResponse);
+        });
+
+        // Handle the "Create PDF" button click
+        $('#create-pdf').click(function() {
+            // Show the confirmation modal
+            $('#confirmationModal').modal('show');
+        });
+
+        // Handle the confirmation for PDF creation
+        $('#confirm-pdf').click(function() {
+            // Implement the AJAX call to save the document and generate the PDF
+            // ...
+        });
+    });
+</script>
+</div>
+
+
 {% endblock %}

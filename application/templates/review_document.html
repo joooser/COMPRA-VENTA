@@ -1,0 +1,13 @@
+<!-- review_document.html -->
+{% extends "base.html" %}
+
+{% block content %}
+<div class="document-content">
+    <h2>Revisar Documento</h2>
+    <!-- Usa 'safe' para renderizar HTML si la plantilla tiene etiquetas HTML -->
+    <div>{{ content|safe }}</div>
+    <form action="{{ url_for('generate_pdf', document_id=document_id) }}" method="post">
+        <button type="submit" class="btn btn-primary">Crear PDF</button>
+    </form>
+</div>
+{% endblock %}

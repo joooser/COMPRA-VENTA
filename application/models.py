@@ -105,10 +105,12 @@ class Question(db.Model):
 
 class DocumentTemplate(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    template_text = db.Column(db.Text, nullable=False)  # Stores the template text
+    template_text = db.Column(db.Text, nullable=False)
 
     def __repr__(self):
         return f'<DocumentTemplate {self.id}>'
 
-# No olvides inicializar tu base de datos con db.create_all() después de definir tus modelos,
-# especialmente si no estás utilizando Flask-Migrate.
+class Resulting_Document(db.Model):
+    id = db.Column(db.Integer(), primary_key=True)
+    title = db.Column(db.String(255), nullable=False)
+    answers_json = db.Column(db.Text, nullable=True)

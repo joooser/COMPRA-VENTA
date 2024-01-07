@@ -4,7 +4,7 @@ services:
         environment:
             # OPENAI/AZURE/OPENROUTER
             - ENDPOINT=OPENAI
-            - OPENAI_API_KEY=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
+            - OPENAI_API_KEY=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
             # - AZURE_API_KEY=
             # - AZURE_ENDPOINT=
             # - OPENROUTER_API_KEY=

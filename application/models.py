@@ -114,3 +114,9 @@ class Resulting_Document(db.Model):
     id = db.Column(db.Integer(), primary_key=True)
     title = db.Column(db.String(255), nullable=False)
     answers_json = db.Column(db.Text, nullable=True)
+
+class Response(db.Model):
+    id = db.Column(db.Integer, primary_key=True) 
+    question_id = db.Column(db.Integer, db.ForeignKey('questions.id'), nullable=False)
+    answer = db.Column(db.Text, nullable=False)
+    document_id = db.Column(db.Integer, db.ForeignKey('document.id'), nullable=False)

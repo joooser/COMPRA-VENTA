@@ -36,5 +36,7 @@ pip install -r requirements.txt
 
 5. Finally start the web server:
 ```
-python run.py
+export FLASK_ENV=development or $env:FLASK_ENV="development"
+set FLASK_APP=run.py or $env:FLASK_APP = "run.py"
+python run.py or flask run
 ```

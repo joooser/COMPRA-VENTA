@@ -15,3 +15,4 @@ cloudwatch? open source o free tool
 s3 logs? flow logs?
 monitoring?
 
+debe existir en la tabla un documento que nos diga los borradores rechazados y los que si terminaron pagando

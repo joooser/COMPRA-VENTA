@@ -1,4 +1,5 @@
 # variables.py
+import logging
 
 # ################## Questions for Seller ##################
 questions_seller = [
@@ -73,13 +74,10 @@ Yo, [questions_seller1], de nacionalidad [questions_seller2], mayor de edad, de 
 \n\n[questions_buyer1]
 """
 
-# Función para hacer preguntas y recopilar respuestas
-def ask_questions(questions):
-    answers = {}
-    for question in questions:
-        answers[question] = input(question + " ")
-    return answers
 
-# Funciones específicas para diferentes grupos de preguntas
-def function_from_questions_seller():
-    return ask_questions(questions_seller)
+
+logging.basicConfig(filename='app.log', level=logging.INFO)
+
+# Use logging in your application
+logging.info('Info message')
+logging.error('Error message')

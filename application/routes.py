@@ -1,10 +1,13 @@
 from application import app
+from flask import render_template, request, session, jsonify, redirect, url_for
+from flask_login import login_required
+from application.auth.auth_routes import auth_blueprint
 from flask import render_template
 from flask_login import login_required
 from application.auth.auth_routes import auth_blueprint
-from flask import render_template, jsonify, redirect, url_for, request, session
-from flask_login import login_required
-from application.auth.auth_routes import auth_blueprint
+from .services.questions_service import get_questions_grouped_by_category
+from .services.contract_service import get_template_text_by_id, process_template_text
+from .extensions import db
 
 
 # Register the authentication blueprint
@@ -18,38 +21,18 @@ def home():
     # Aquí puedes agregar lógica para mostrar información relevante en el home
     return render_template('home.html', title='Home')
 
-@app.route('/create_document', methods=['GET', 'POST'])
+@app.route('/create-document')
 @login_required
 def create_document():
-    def initialize_question_session():
-        # Add your implementation here
-        pass
+    template_text = get_template_text_by_id(1, db.session)
+    processed_text = process_template_text(template_text.template_text)
+    
+    if request.method == 'POST':
+        # Store the answers in the session for debugging
+        session['answers'] = request.form.to_dict()
+        print(session['answers'])  # Print the answers to the console for debugging
+        return jsonify(success=True)  # You can redirect or respond as needed
+    
+    questions_by_category = get_questions_grouped_by_category()
 
-    def fetch_questions(question_set):
-        # Add your implementation here
-        pass
-
-    if 'questions' not in session:
-        initialize_question_session()
-        fetch_questions(session['current_question_set'])
-
-    if request.method == 'POST' and 'document_title' in request.form:
-        session['document_title'] = request.form['document_title']
-
-        # Redirect to the next step in the document creation process
-        next_url = url_for('create_document')  # Replace with your actual view function
-        return jsonify({'success': True, 'redirect': next_url})
-
-    current_questions = session.get('questions', [])
-    question_index = session.get('question_index', 0)
-
-    if current_questions:
-        current_question = current_questions[question_index]
-        set_name = session.get('current_set_name', 'Set de Preguntas')
-        full_question_label = f"{set_name}: Pregunta {question_index + 1}"
-        return render_template('questions.html',
-                                question=current_question,
-                                question_label=full_question_label,
-                                question_index=question_index)
-
-    return redirect(url_for('create_document'))
+    return render_template('create_document.html', processed_text=processed_text, questions_by_category=questions_by_category)

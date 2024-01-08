@@ -1,18 +1,56 @@
-<!-- create_document.html -->
-{% extends 'base.html' %}
-{% block title %} Crear Documento {% endblock %}
+{% extends "base.html" %}
+
+{% block title %}
+    Questions
+{% endblock %}
 
 {% block content %}
-<body>
-    <div class="container">
-        <h2>Crear Documento</h2>
-        <form method="POST">
-            <div class="form-group">
-                <label for="response">{{ question }}</label>
-                <input type="text" class="form-control" id="response" name="response">
-            </div>
-            <button type="submit" class="btn btn-primary">Siguiente</button>
-        </form>
-    </div>
-</body>
+{% include 'includes/new_title_modals.html' %}
+{% include 'includes/question_form.html' %}
+
+<form id="questions-form" method="post">
+  {% for category, questions in questions_by_category.items() %}
+      <h2>{{ category }}</h2>
+      {% for question in questions %}
+          <div class="question">
+              <label for="question_{{ question.id }}">{{ question.text }}</label>
+              <input type="text" name="question_{{ question.id }}" id="question_{{ question.id }}" required>
+          </div>
+      {% endfor %}
+  {% endfor %}
+  <button type="submit" class="btn btn-primary">Submit Answers</button>
+</form>
+
+<!-- Create PDF Button and Modal Confirmation -->
+<div class="container" style="margin-top:30px">
+  <button id="create-pdf" class="btn btn-secondary" type="button">Crear PDF</button>
+</div>
+
+
+<div id="document-preview" class="p-20 mb-2 bg-light text-dark" style="margin-top:30px; min-height: 400px; overflow-y: auto;">
+    <!-- Dynamic document preview will be rendered here -->
+    <p style="font-size: 16px; color: black; text-align: justify; user-select: none;">
+      {{ processed_text|safe }}
+    </p>
+</div>
+
+<script>
+  document.getElementById('questions-form').onsubmit = function(event) {
+      event.preventDefault();
+      var formData = new FormData(this);
+      fetch('/create_document', {
+          method: 'POST',
+          body: formData
+      }).then(response => response.json()).then(data => {
+          if (data.success) {
+              console.log('Answers submitted successfully');
+              // Handle success, e.g., redirect or display a message
+          } else {
+              console.log('Failed to submit answers');
+              // Handle failure
+          }
+      });
+  };
+  </script>
+
 {% endblock %}

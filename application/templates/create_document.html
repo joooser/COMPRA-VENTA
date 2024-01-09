@@ -8,13 +8,14 @@
 {% include 'includes/new_title_modals.html' %}
 {% include 'includes/question_form.html' %}
 
-<form id="questions-form" method="post">
+<form id="questions-form">
   {% for category, questions in questions_by_category.items() %}
       <h2>{{ category }}</h2>
       {% for question in questions %}
           <div class="question">
               <label for="question_{{ question.id }}">{{ question.text }}</label>
               <input type="text" name="question_{{ question.id }}" id="question_{{ question.id }}" required>
+              <button type="submit" class="btn btn-primary">Submit</button>
           </div>
       {% endfor %}
   {% endfor %}
@@ -26,6 +27,28 @@
   <button id="create-pdf" class="btn btn-secondary" type="button">Crear PDF</button>
 </div>
 
+<div id="document-template" class="p-20 mb-2 bg-light text-dark" style="margin-top:30px; min-height: 400px; overflow-y: auto;">
+  Document Template:
+  Yo, <span data-placeholder="1"></span>, de nacionalidad <span data-placeholder="2"></span>, mayor de edad, de estado civil <span data-placeholder="4"></span>, domiciliado en <span data-placeholder="5"></span>, y titular de la Cédula de Identidad No. <span data-placeholder="3"></span>, por medio del presente documento expresamente declaro: Que doy en venta, pura y simple, perfecta e irrevocable a la ciudadana <span data-placeholder="18"></span>, de nacionalidad <span data-placeholder="19"></span>, mayor de edad, de estado civil <span data-placeholder="21"></span>, domiciliada en <span data-placeholder="22"></span>, titular de la Cédula de Identidad No. <span data-placeholder="20"></span>.
+  
+  Un vehículo de mi exclusiva propiedad, de las siguientes características: CLASE: <span data-placeholder="31"></span>; MODELO: <span data-placeholder="24"></span>; MARCA: <span data-placeholder="23"></span>; AÑO: <span data-placeholder="28"></span>; COLOR: <span data-placeholder="30"></span>; USO: <span data-placeholder="32"></span>; TIPO: <span data-placeholder="29"></span>; SERIAL DEL MOTOR: <span data-placeholder="26"></span>; SERIAL DE CARROCERÍA: <span data-placeholder="27"></span>; PLACA DEL VEHÍCULO: <span data-placeholder="25"></span>.
+  
+  El referido vehículo me pertenece según se evidencia de Certificado de Registro de Vehículo No. <span data-placeholder="7"></span>, número de forma <span data-placeholder="8"></span> emanado del Instituto Nacional de Tránsito y Transporte Terrestre de fecha de emisión el <span data-placeholder="9"></span>. Dicho vehículo se encuentra libre de gravámenes y nada debe por concepto de impuestos nacionales, ni municipales.
+  
+  El precio de esta venta es por la cantidad de <span data-placeholder="33"></span> <span data-placeholder="34"></span>, los cuales recibo en este acto, de manos del comprador mediante instrumento <span data-placeholder="35"></span> girado contra BANESCO Banco Universal.
+  
+  Con el otorgamiento de este documento hago la tradición legal al comprador del bien vendido.
+  
+  Yo, <span data-placeholder="18"></span>, arriba identificada, declaro: Que acepto la venta que se me hace y en los términos anteriormente expuestos.
+  
+  En la ciudad de San Antonio de Los Altos, en la fecha de su otorgamiento.
+  
+  <span data-placeholder="1"></span>
+  
+  <span data-placeholder="18"></span>
+  
+</div>
+
 
 <div id="document-preview" class="p-20 mb-2 bg-light text-dark" style="margin-top:30px; min-height: 400px; overflow-y: auto;">
     <!-- Dynamic document preview will be rendered here -->
@@ -34,23 +57,9 @@
     </p>
 </div>
 
-<script>
-  document.getElementById('questions-form').onsubmit = function(event) {
-      event.preventDefault();
-      var formData = new FormData(this);
-      fetch('/create_document', {
-          method: 'POST',
-          body: formData
-      }).then(response => response.json()).then(data => {
-          if (data.success) {
-              console.log('Answers submitted successfully');
-              // Handle success, e.g., redirect or display a message
-          } else {
-              console.log('Failed to submit answers');
-              // Handle failure
-          }
-      });
-  };
-  </script>
+<!-- Container for input fields -->
+<div id="input-fields-container"></div>
+
+<script type="text/javascript" src="{{ url_for('static', filename='js/document-preview.js') }}"></script>
 
 {% endblock %}

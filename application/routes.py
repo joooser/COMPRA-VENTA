@@ -21,15 +21,18 @@ def home():
     # Aquí puedes agregar lógica para mostrar información relevante en el home
     return render_template('home.html', title='Home')
 
-@app.route('/create-document')
+@app.route('/create-document', methods=['GET', 'POST'])
 @login_required
 def create_document():
     template_text = get_template_text_by_id(1, db.session)
     processed_text = process_template_text(template_text.template_text)
     
     if request.method == 'POST':
+        # Process the form data and save it as needed
+        answers = request.form.to_dict()
         # Store the answers in the session for debugging
         session['answers'] = request.form.to_dict()
+        # Perform any server-side processing here
         print(session['answers'])  # Print the answers to the console for debugging
         return jsonify(success=True)  # You can redirect or respond as needed
     

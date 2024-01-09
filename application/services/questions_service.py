@@ -1,5 +1,5 @@
 from application.extensions import db
-from application.models import Question  # Assuming you have a Question model
+from application.models import Question
 
 def get_questions_grouped_by_category():
     questions = db.session.query(Question).all()

@@ -15,7 +15,6 @@
           <div class="question">
               <label for="question_{{ question.id }}">{{ question.text }}</label>
               <input type="text" name="question_{{ question.id }}" id="question_{{ question.id }}" required>
-              <button type="submit" class="btn btn-primary">Submit</button>
           </div>
       {% endfor %}
   {% endfor %}
@@ -28,6 +27,8 @@
 </div>
 
 <div id="document-template" class="p-20 mb-2 bg-light text-dark" style="margin-top:30px; min-height: 400px; overflow-y: auto;">
+  <!-- Dynamic document preview will be rendered here -->
+  <p style="font-size: 16px; color: black; text-align: justify; user-select: none;">
   Document Template:
   Yo, <span data-placeholder="1"></span>, de nacionalidad <span data-placeholder="2"></span>, mayor de edad, de estado civil <span data-placeholder="4"></span>, domiciliado en <span data-placeholder="5"></span>, y titular de la Cédula de Identidad No. <span data-placeholder="3"></span>, por medio del presente documento expresamente declaro: Que doy en venta, pura y simple, perfecta e irrevocable a la ciudadana <span data-placeholder="18"></span>, de nacionalidad <span data-placeholder="19"></span>, mayor de edad, de estado civil <span data-placeholder="21"></span>, domiciliada en <span data-placeholder="22"></span>, titular de la Cédula de Identidad No. <span data-placeholder="20"></span>.
   
@@ -46,9 +47,8 @@
   <span data-placeholder="1"></span>
   
   <span data-placeholder="18"></span>
-  
+</p>
 </div>
-
 
 <div id="document-preview" class="p-20 mb-2 bg-light text-dark" style="margin-top:30px; min-height: 400px; overflow-y: auto;">
     <!-- Dynamic document preview will be rendered here -->
@@ -56,9 +56,6 @@
       {{ processed_text|safe }}
     </p>
 </div>
-
-<!-- Container for input fields -->
-<div id="input-fields-container"></div>
 
 <script type="text/javascript" src="{{ url_for('static', filename='js/document-preview.js') }}"></script>
 

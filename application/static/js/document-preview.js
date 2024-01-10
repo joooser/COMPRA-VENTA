@@ -1,23 +1,30 @@
 $(document).ready(function () {
+    
     // Assume we have a JSON object with questions and answers
     var answers = {};
 
     // Function to update placeholders with answers
     function updatePlaceholders() {
-    console.log(questions); // Debug the questions array
-    $('[data-placeholder]').each(function() {
-        var questionId = $(this).data('placeholder');
-        console.log('Looking for questionId:', questionId); // Debug the questionId
-        var question = questions.find(q => q.id == questionId);
-        if (question) {
-            var questionText = question.text;
-            if (answers[questionId]) {
-                $(this).text(answers[questionId].toUpperCase()); // Convert text to uppercase
-                $(this).addClass('text-uppercase fw-bold'); // Add Bootstrap classes for styling
-            } else {
-                $(this).text(questionText.toUpperCase()); // Display the question text in uppercase when the answer is empty
-                $(this).addClass('text-uppercase fw-bold'); // Add Bootstrap classes for styling
-            }
+        $('[data-placeholder]').each(function() {
+
+            var questionId = $(this).data('placeholder');
+            var question = questions.find(q => q.id == questionId);
+
+            if (question) {
+
+                var questionText = question.text;
+
+                if (answers[questionId]) {
+
+                    $(this).text(answers[questionId].toUpperCase()); // Convert text to uppercase
+                    $(this).addClass('text-uppercase fw-bold'); // Add Bootstrap classes for styling
+
+                } else {
+
+                    $(this).text(questionText.toUpperCase()); // Display the question text in uppercase when the answer is empty
+                    $(this).addClass('text-uppercase fw-bold'); // Add Bootstrap classes for styling
+
+                }
             } else {
                 console.error('Question not found for questionId:', questionId); // Error if question not found           
             }
@@ -26,9 +33,12 @@ $(document).ready(function () {
 
     // Event listener for input changes
     $(document).on('input', 'input', function() {
+
         var questionId = $(this).attr('name').split('_')[1];
         var answer = $(this).val();
+        
         answers[questionId] = answer;
+
         updatePlaceholders();
     });
 
@@ -72,12 +82,6 @@ $(document).ready(function () {
         { id: 35, text: 'Con que instrumento se pago el vehiculo?' }
     ];
 
-    // Create input fields for each question
-    questions.forEach(function(question) {
-        var input = $('<input>').attr('data-question-id', question.id);
-        $('body').append(input); // Append input to the body or a specific form
-    });
-
     // Initialize placeholders
     updatePlaceholders();
 
@@ -85,7 +89,7 @@ $(document).ready(function () {
     // If the save-button is part of your implementation, keep this part.
     // Otherwise, you may not need this AJAX call here.
     $('#questions-form').on('submit', function(event) {
-        event.preventDefault(); // Prevent the default form submission
+        event.preventDefault(); // Prevent the form from submitting normally
     
         var formData = $(this).serialize(); // Serialize the form data
         

@@ -50,12 +50,28 @@
 </p>
 </div>
 
+
+<!-- 
+    This div element with the id "document-preview" is used to display the preview of a document.
+    It has the following styles applied:
+    - margin-top: 30px
+    - min-height: 400px
+    - overflow-y: auto
+
+    Inside the div, there is a paragraph element with the following styles applied:
+    - font-size: 16px
+    - color: black
+    - text-align: justify
+    - user-select: none
+
+    The content of the paragraph is dynamically rendered using the "processed_text" variable, which is HTML-safe.
+
 <div id="document-preview" class="p-20 mb-2 bg-light text-dark" style="margin-top:30px; min-height: 400px; overflow-y: auto;">
-    <!-- Dynamic document preview will be rendered here -->
     <p style="font-size: 16px; color: black; text-align: justify; user-select: none;">
       {{ processed_text|safe }}
     </p>
 </div>
+-->
 
 <script type="text/javascript" src="{{ url_for('static', filename='js/document-preview.js') }}"></script>
 

@@ -1,14 +1,8 @@
 from application import app
-from flask import render_template, request, session, jsonify, redirect, url_for
-from flask_login import login_required
-from application.auth.auth_routes import auth_blueprint
-from flask import render_template
+from flask import render_template, request, jsonify
 from flask_login import login_required
 from application.auth.auth_routes import auth_blueprint
 from .services.questions_service import get_questions_grouped_by_category
-from .services.contract_service import get_template_text_by_id, process_template_text
-from .extensions import db
-
 
 # Register the authentication blueprint
 app.register_blueprint(auth_blueprint, url_prefix='/auth')
@@ -24,18 +18,28 @@ def home():
 @app.route('/create-document', methods=['GET', 'POST'])
 @login_required
 def create_document():
-    template_text = get_template_text_by_id(1, db.session)
-    processed_text = process_template_text(template_text.template_text)
-    
+
     if request.method == 'POST':
         # Process the form data and save it as needed
-        answers = request.form.to_dict()
-        # Store the answers in the session for debugging
-        session['answers'] = request.form.to_dict()
-        # Perform any server-side processing here
-        print(session['answers'])  # Print the answers to the console for debugging
-        return jsonify(success=True)  # You can redirect or respond as needed
+        answers = request.get_json()
+
+        return jsonify(success=True)
     
     questions_by_category = get_questions_grouped_by_category()
 
-    return render_template('create_document.html', processed_text=processed_text, questions_by_category=questions_by_category)
+    return render_template('create_document.html', questions_by_category=questions_by_category)
+
+
+@app.route('/questions')
+@login_required
+def index():
+    return render_template('questions.html')
+
+
+@app.route('/dynamic')
+@login_required
+def dynamic():
+
+    questions_by_category = get_questions_grouped_by_category()
+
+    return render_template('review_document.html', questions_by_category=questions_by_category)

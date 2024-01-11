@@ -1,78 +1,107 @@
-// Function to render the questions
-function renderQuestions(title, questions) {
-  // Set the title of the document
-  document.title = title;
+$(document).ready(function () {
+  
 
-  // Create a form element
-  const form = document.createElement('form');
+  function renderQuestions(title, questions) {
+    document.title = title;
 
-  // Iterate over the questions
-  questions.forEach((question) => {
-    // Create a div for each question
-    const questionDiv = document.createElement('div');
+    const form = document.createElement('form');
+    form.id = 'questions-form';
 
-    // Create a label for the question
-    const questionLabel = document.createElement('label');
-    questionLabel.textContent = question.text;
+    questions.forEach((question) => {
+      // Create a div for each question
+      const questionDiv = document.createElement('div');
+      questionDiv.className = 'question'; // Add a class to the div
 
-    // Create an input field for the answer
-    const answerInput = document.createElement('input');
-    answerInput.type = 'text';
-    answerInput.name = question.id;
+      // Create a label for the question
+      const questionLabel = document.createElement('label');
+      questionLabel.textContent = question.text;
+      questionLabel.htmlFor = `question_${question.id}`; // Set the 'for' attribute
 
-    // Append the label and input to the question div
-    questionDiv.appendChild(questionLabel);
-    questionDiv.appendChild(answerInput);
+      // Create an input field for the answer
+      const answerInput = document.createElement('input');
+      answerInput.type = 'text';
+      answerInput.name = `question_${question.id}`; // Use a descriptive name
+      answerInput.id = `question_${question.id}`; // Set the ID
 
-    // Append the question div to the form
-    form.appendChild(questionDiv);
-  });
+      // Append the label and input to the question div
+      questionDiv.appendChild(questionLabel);
+      questionDiv.appendChild(answerInput);
 
-  // Create a submit button
-  const submitButton = document.createElement('button');
-  submitButton.type = 'submit';
-  submitButton.textContent = 'Submit';
+      // Append the question div to the form
+      form.appendChild(questionDiv);
+    });
 
-  // Add an event listener to the form submit event
-  form.addEventListener('submit', (event) => {
-    event.preventDefault();
+    // Create a submit button
+    const submitButton = document.createElement('button');
+    submitButton.type = 'submit';
+    submitButton.textContent = 'Submit';
+    submitButton.id = 'submit-answers'; // Add an ID to the button
 
-    // Create an object to store the answers
-    const answers = {};
+    // Append the form and submit button to the questions-container div
+    form.appendChild(submitButton);
 
-    // Iterate over the form elements
-    for (const element of form.elements) {
-      if (element.name) {
-        answers[element.name] = element.value;
-      }
-    }
+    const questionsContainer = document.getElementById('questions-container');
+    questionsContainer.appendChild(form);
 
-    // Send the answers to the backend
-    // Replace the URL with your backend endpoint
-    fetch('/backend/endpoint', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(answers),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        // Handle the response from the backend
-        console.log(data);
-      })
-      .catch((error) => {
-        // Handle any errors
-        console.error(error);
+    // Add an event listener to the form submit event
+    form.addEventListener('submit', handleFormSubmit);
+  }
+
+  function handleFormSubmit(event) {
+      event.preventDefault();
+
+      // Create an object to store the answers
+      const answers = {};
+
+      const formElements = Array.from(event.target.elements);
+
+      formElements.forEach(element => {
+        if (element.name && element.type !== 'submit') {
+          answers[element.name] = element.value;
+        }
       });
+
+      // Send the answers to the backend
+      fetch('/create-document', { // Update the URL to the Flask endpoint
+            method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(answers),
+      })
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch(error => console.error(error));
+  }
+
+  // Fetch the questions from the backend and render them
+  // Uncomment the following lines if you want to fetch questions from a backend service
+  /*
+    // Fetch the questions from the backend and render them
+    fetch('/get-questions')
+      .then(response => response.json())
+      .then(questions => {
+        renderQuestions('Question Form', questions);
+      })
+      .catch(error => {
+        console.error('Error fetching questions:', error);
+      });
+
+
+  // Append the form and submit button to the questions-container div
+  const questionsContainer = document.getElementById('questions-container');
+  questionsContainer.appendChild(form);
+  questionsContainer.appendChild(submitButton);
+  */
+
+  // Call renderQuestions with the title and questions array when the DOM is fully loaded
+  document.addEventListener('DOMContentLoaded', () => {
+    renderQuestions(title, questions);
   });
+});
 
-  // Append the form and submit button to the document body
-  document.body.appendChild(form);
-  document.body.appendChild(submitButton);
-}
-
-// Usage example
+// Load questions and create input fields
+// This should be done by retrieving questions from the database
 const title = 'Question Form';
 const questions = [
   { id: 1, text: 'Cual es el nombre del vendedor?' },
@@ -111,5 +140,3 @@ const questions = [
   { id: 34, text: 'En que moneda se hizo el pago el vehiculo?' },
   { id: 35, text: 'Con que instrumento se pago el vehiculo?' }
 ];
-
-renderQuestions(title, questions);

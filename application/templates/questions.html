@@ -1,22 +1,72 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 
 {% block title %}
-    Questions
+Questions
 {% endblock %}
 
 {% block content %}
-{% include 'includes/new_title_modals.html' %}
-{% include 'includes/question_form.html' %}
+<!-- 
+<title>Flask with JavaScript</title>
 
-<!-- Create PDF Button and Modal Confirmation -->
-<div class="container" style="margin-top:30px">
-  <button id="create-pdf" class="btn btn-secondary" type="button">Crear PDF</button>
-</div>
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
 
+<body>
+    <h1>Welcome to Flask with JavaScript</h1>
+    <p>This is a basic example of linking JavaScript to a Flask template.</p>
 
-<div id="document-preview" class="p-20 mb-2 bg-light text-dark" style="margin-top:30px; min-height: 400px; overflow-y: auto;">
-    <!-- Dynamic document preview will be rendered here -->
-    <p style="font-size: 16px; color: black; text-align: justify; user-select: none;">{{ text }}</p>
-</div>
+    <button id="myButton">Click me!</button>
+
+    <p id="demo"></p>
+</body>
+
+<title>Test 2</title>
+<body>
+  <h1>Welcome to Flask with JavaScript</h1>
+  <p>This is a basic example of linking JavaScript to a Flask template.</p>
+
+  <button id="myButton">Click me!</button>
+
+  <form id="userInfoForm">
+      <label for="userName">Name:</label>
+      <input type="text" id="userName" required><br>
+
+      <label for="userLastName">Last Name:</label>
+      <input type="text" id="userLastName" required><br>
+
+      <label for="userDOB">Date of Birth:</label>
+      <input type="text" id="userDOB" pattern="\d{4}-\d{2}-\d{2}" placeholder="YYYY-MM-DD" required><br>
+
+      <input type="submit" value="Submit">
+  </form>
+
+  <p id="demo"></p>
+</body>
+-->
+
+<title>Test 3</title>
+<body>
+  <h1>Welcome to Flask with JavaScript</h1>
+  <p>This is a basic example of linking JavaScript to a Flask template.</p>
+
+  <button id="myButton">Click me!</button>
+
+  <!-- Form for collecting user information -->
+  <form id="userInfoForm" style="display: none;">
+      <label for="userName">Name:</label>
+      <input type="text" id="userName" required><br>
+
+      <label for="userLastName">Last Name:</label>
+      <input type="text" id="userLastName" required><br>
+
+      <label for="userDOB">Date of Birth:</label>
+      <input type="text" id="userDOB" pattern="\d{4}-\d{2}-\d{2}" placeholder="YYYY-MM-DD" required><br>
+
+      <input type="button" id="nextButton1" value="Next">
+      <input type="button" id="nextButton2" value="Next">
+      <input type="submit" id="submitButton" value="Submit">
+  </form>
+
+  <p id="demo"></p>
+</body>
 
 {% endblock %}

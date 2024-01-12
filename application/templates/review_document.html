@@ -8,21 +8,34 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='css/dynamic_form.css') }}">
 
 <form id="multistepsform">
+  
     <!-- progressbar -->
     <ul id="progressbar">
       <!-- Use Jinja2 to dynamically generate progress bar items based on categories -->
+      
       {% for category, questions in questions_by_category.items() %}
         <li class="{% if loop.index == 1 %}active{% endif %}">{{ category }}</li>
       {% endfor %}
+      <!--
+      <li class="active">seller</li>
+      <li>seller_a</li>
+      <li>seller_b</li>
+      <li>seller_c</li>
+      <li>buyer</li>
+      <li>car</li>
+      <li>transaction</li>
+       -->
     </ul>
+
     <!-- fieldsets -->
     {% for category, questions in questions_by_category.items() %}
     <fieldset>
       <h2 class="fs-title">{{ category }}</h2>
       <h3 class="fs-subtitle"></h3>
       {% for question in questions %}
-        <label for="{{ question.id }}">{{ question.text }}</label>
-        <input type="text" name="{{ question.id }}" placeholder="{{ question.placeholder }}" />
+      <!-- If i want the questions outside the box uncoment next line -->
+      <!--  <label for="{{ question.id }}">{{ question.text }}</label> -->
+        <input type="text" name="{{ question.id }}" placeholder="{{ question.text }}" />
       {% endfor %}
       <!-- Add navigation buttons -->
       {% if not loop.first %}

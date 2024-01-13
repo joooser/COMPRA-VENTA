@@ -9,7 +9,7 @@ Questions
 
 <body>
 
- <form action="/" method="POST" name="myForm" id="myForm">
+ <form action="{{ url_for('main.home') }}" method="POST" name="myForm" id="myForm">
  Name:
  <input type="text" name="name">
  Age:

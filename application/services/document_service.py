@@ -1,3 +1,7 @@
+from flask import render_template
+from application.models.models import Document
+
+
 class DocumentService:
     def __init__(self, db):
         self.db = db
@@ -24,6 +28,6 @@ class DocumentService:
         html = render_template('pdf.html', content=document.content)
         
         # Convert to PDF
-        pdf = pdfkit.from_string(html, False)
+        pdf = PDFWithHeader.from_string(html, False)
         
         return pdf

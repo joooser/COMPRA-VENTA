@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, redirect, url_for, flash, request
 from flask_login import login_user, logout_user, current_user
 from .forms import LoginForm, RegisterForm  
-from application.models import User, Role
+from application.models.models import User, Role
 from application import db, bcrypt
 
 
@@ -11,7 +11,7 @@ auth_blueprint = Blueprint('auth', __name__)
 @auth_blueprint.route('/register', methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:
-        return redirect(url_for('home'))
+        return redirect(url_for('main.home'))
 
     form = RegisterForm()
     if form.validate_on_submit():
@@ -29,7 +29,7 @@ def register():
         db.session.commit()
         login_user(user)
         flash(f"Registro exitoso! Has iniciado sesion como {user.username}", category='success')
-        return redirect(url_for('home'))
+        return redirect(url_for('main.home'))
     if form.errors != {}:  # If there are not errors from the validations
         for err_msg in form.errors.values():
             flash(f'Hubo un error creando el usuario: {err_msg}', category='danger')
@@ -39,7 +39,7 @@ def register():
 @auth_blueprint.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for('home'))
+        return redirect(url_for('main.home'))
 
     form = LoginForm()
     if form.validate_on_submit():
@@ -49,7 +49,7 @@ def login():
             login_user(attempted_user)
             flash(f'Success! You are logged in as: {attempted_user.username}', category='success')
             next_page = request.args.get('next')
-            return redirect(next_page) if next_page else redirect(url_for('home'))
+            return redirect(next_page) if next_page else redirect(url_for('main.home'))
         else:
             flash('Inicio de sesión fallido. Por favor, comprueba tu nombre de usuario y contraseña', 'danger')
     return render_template('login.html', title='Login', form=form)

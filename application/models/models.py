@@ -1,4 +1,4 @@
-from .extensions import db, login_manager, bcrypt
+from ..extensions.extensions import db, login_manager, bcrypt
 from flask_login import UserMixin
 from datetime import datetime
 

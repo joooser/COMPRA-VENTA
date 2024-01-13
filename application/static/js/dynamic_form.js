@@ -3,6 +3,9 @@ $(document).ready(function() {
   var current_fs, next_fs, previous_fs;
   var left, opacity, scale;
   var animating;
+  var result = final_preview_document();
+  var formData = $("#multistepsform").serializeArray();
+
 
   $(".next").click(function () {
     if (animating) return false;
@@ -34,6 +37,7 @@ $(document).ready(function() {
       }
     );
   });
+
 
   $(".previous").click(function () {
     if (animating) return false;
@@ -69,7 +73,34 @@ $(document).ready(function() {
     );
   });
 
-  $(".submit").click(function () {
-    return false;
+
+  $(".submit").click(function (event) {
+
+    event.preventDefault();
+
+    $.ajax({
+
+        url: '/create-document',
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify(formData),
+        
+        success: function(response) {
+
+          if (response.success) {
+
+              window.location.href = response.redirect;
+
+          } else {
+
+              console.error('Form submission failed');
+          }
+        },
+
+        error: function(xhr, status, error) {
+
+            console.error("Error occurred: " + error);
+        }
+    });
   });
 })

@@ -1,3 +1,6 @@
+from application.models.models import Document, DocumentTemplate
+from application import db
+
 class UserRepository:
     def __init__(self, db):
         self.db = db

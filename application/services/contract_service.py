@@ -1,5 +1,5 @@
 # contract_service.py
-from application.models import DocumentTemplate
+from application.models.models import DocumentTemplate
 from sqlalchemy.orm import Session
 import re
 

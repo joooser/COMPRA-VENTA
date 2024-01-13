@@ -15,7 +15,8 @@
 <div class="form-and-preview-container">
 
 <div id="multistepsform-container">
-<form id="multistepsform">
+  
+<form id="multistepsform" method="POST" name="multistepsform">
 
   <!-- progressbar -->
   <ul id="progressbar">
@@ -60,24 +61,22 @@
 </form>
 </div>
 
-<div id="document-template" class="p-20 mb-2 bg-light text-dark" style="margin-top:30px; min-height: 400px; overflow-y: auto;">
-  
+<div id="document-template" class="bg-light" style="font-size: smaller; color: black; user-select: none; margin-left: auto; margin-right: auto; min-height: auto; overflow-y: auto; text-align: center;">
   <!-- Dynamic document preview will be rendered here -->
-
-  <p style="font-size: 12px; color: black; text-align: justify; user-select: none;">
-  <p>Document Template:</p>
-  <p>Yo, <span data-placeholder="1"></span>, de nacionalidad <span data-placeholder="2"></span>, mayor de edad, de estado civil <span data-placeholder="4"></span>, domiciliado en <span data-placeholder="5"></span>, y titular de la Cédula de Identidad No. <span data-placeholder="3"></span>, por medio del presente documento expresamente declaro: Que doy en venta, pura y simple, perfecta e irrevocable a la ciudadana <span data-placeholder="18"></span>, de nacionalidad <span data-placeholder="19"></span>, mayor de edad, de estado civil <span data-placeholder="21"></span>, domiciliada en <span data-placeholder="22"></span>, titular de la Cédula de Identidad No. <span data-placeholder="20"></span>.</p>
-<p>Un vehículo de mi exclusiva propiedad, de las siguientes características: CLASE: <span data-placeholder="31"></span>; MODELO: <span data-placeholder="24"></span>; MARCA: <span data-placeholder="23"></span>; AÑO: <span data-placeholder="28"></span>; COLOR: <span data-placeholder="30"></span>; USO: <span data-placeholder="32"></span>; TIPO: <span data-placeholder="29"></span>; SERIAL DEL MOTOR: <span data-placeholder="26"></span>; SERIAL DE CARROCERÍA: <span data-placeholder="27"></span>; PLACA DEL VEHÍCULO: <span data-placeholder="25"></span>.</p>
-<p>El referido vehículo me pertenece según se evidencia de Certificado de Registro de Vehículo No. <span data-placeholder="7"></span>, número de forma <span data-placeholder="8"></span> emanado del Instituto Nacional de Tránsito y Transporte Terrestre de fecha de emisión el <span data-placeholder="9"></span>. Dicho vehículo se encuentra libre de gravámenes y nada debe por concepto de impuestos nacionales, ni municipales.</p>
-<p>El precio de esta venta es por la cantidad de <span data-placeholder="33"></span> <span data-placeholder="34"></span>, los cuales recibo en este acto, de manos del comprador mediante instrumento <span data-placeholder="35"></span> girado contra BANESCO Banco Universal.</p>
-<p>Con el otorgamiento de este documento hago la tradición legal al comprador del bien vendido.</p>
-<p>Yo, <span data-placeholder="18"></span>, arriba identificada, declaro: Que acepto la venta que se me hace y en los términos anteriormente expuestos.</p>
-<p>En la ciudad de San Antonio de Los Altos, en la fecha de su otorgamiento.</p>
-<p><span data-placeholder="1"></span></p>
-<p><span data-placeholder="18"></span></p>
-</p>
-
+    <p>Compra Venta:</p>
+    <p>Yo, <span data-placeholder="1"></span>, de nacionalidad <span data-placeholder="2"></span>, mayor de edad, de estado civil <span data-placeholder="4"></span>, domiciliado en <span data-placeholder="5"></span>, y titular de la Cédula de Identidad No. <span data-placeholder="3"></span>, por medio del presente documento expresamente declaro:</p>
+    <p>Que doy en venta, pura y simple, perfecta e irrevocable a la ciudadana <span data-placeholder="18"></span>, de nacionalidad <span data-placeholder="19"></span>, mayor de edad, de estado civil <span data-placeholder="21"></span>, domiciliada en <span data-placeholder="22"></span>, titular de la Cédula de Identidad No. <span data-placeholder="20"></span>.</p>
+    <p>Un vehículo de mi exclusiva propiedad, de las siguientes características:</p>
+    <p>CLASE: <span data-placeholder="31"></span>; MODELO: <span data-placeholder="24"></span>; MARCA: <span data-placeholder="23"></span>; AÑO: <span data-placeholder="28"></span>; COLOR: <span data-placeholder="30"></span>; USO: <span data-placeholder="32"></span>; TIPO: <span data-placeholder="29"></span>; SERIAL DEL MOTOR: <span data-placeholder="26"></span>; SERIAL DE CARROCERÍA: <span data-placeholder="27"></span>; PLACA DEL VEHÍCULO: <span data-placeholder="25"></span>.</p>
+    <p>El referido vehículo me pertenece según se evidencia de Certificado de Registro de Vehículo No. <span data-placeholder="7"></span>, número de forma <span data-placeholder="8"></span> emanado del Instituto Nacional de Tránsito y Transporte Terrestre de fecha de emisión el <span data-placeholder="9"></span>. Dicho vehículo se encuentra libre de gravámenes y nada debe por concepto de impuestos nacionales, ni municipales.</p>
+    <p>El precio de esta venta es por la cantidad de <span data-placeholder="33"></span> <span data-placeholder="34"></span>, los cuales recibo en este acto, de manos del comprador mediante instrumento <span data-placeholder="35"></span> girado contra BANESCO Banco Universal.</p>
+    <p>Con el otorgamiento de este documento hago la tradición legal al comprador del bien vendido.</p>
+    <p>Yo, <span data-placeholder="18"></span>, arriba identificada, declaro: Que acepto la venta que se me hace y en los términos anteriormente expuestos.</p>
+    <p>En la ciudad de San Antonio de Los Altos, en la fecha de su otorgamiento.</p>
+    <p><span data-placeholder="1"></span></p>
+    <p><span data-placeholder="18"></span></p>
 </div>
+
 
 </div>
 {% endblock %}

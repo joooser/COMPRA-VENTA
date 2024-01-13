@@ -4,7 +4,7 @@ import sys
 sys.path.append('C:/Users/Alfonzo/Documents/GitHub/COMPRA-VENTA')
 
 from application import app, db 
-from application.models import Question, DocumentTemplate
+from application.models.models import Question, DocumentTemplate
 from application.variables import (
     questions_seller, questions_seller_a, questions_seller_b, questions_seller_c,
     questions_buyer, questions_car, questions_transaction, documento

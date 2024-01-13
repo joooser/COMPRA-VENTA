@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Questions
+{% endblock %}
+
+{% block content %}
+<script type="text/javascript" src="{{ url_for('static', filename='js/test.js') }}"></script>
+
+<body>
+
+ <form action="/" method="POST" name="myForm" id="myForm">
+ Name:
+ <input type="text" name="name">
+ Age:
+ <input type="text" name="age">
+ <input type="submit">
+ </form> 
+
+</body>
+</html>
+
+{% endblock %}

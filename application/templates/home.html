@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Compra Venta de Vehículos
+{% endblock %}
+
+{% block content %}
+This is our content for the Home Page
+{% include 'includes/new_title_modals.html' %}
+<!-- Button to Open Modal for New Document -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#documentTitleModal">
+    Nuevo Documento
+</button>
+<script>
+    $('#newDocumentForm').on('submit', function(e) {
+      e.preventDefault();
+    var title = $('#document-title').val();
+    // Realizar una llamada AJAX para enviar el título
+    $.post('/create_document', { document_title: title }, function(response) {
+        // Check if the response indicates success and a redirect URL is provided
+        if(response.success && response.redirect) {
+            window.location.href = response.redirect;
+        } else {
+            // Handle any errors or issues here
+            console.error('Error or no redirection URL provided.');
+        }
+        $('#documentTitleModal').modal('hide');
+    }).fail(function(error) {
+        // Handle errors here
+        console.error('Error occurred: ', error);
+    });
+    });
+</script>
+    
+{% endblock %}

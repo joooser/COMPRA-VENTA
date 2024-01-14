@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<script src="{{ url_for('static', filename='js/dynamic_form.js') }}"></script>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/dynamic_form.css') }}">
+
+<form id="multistepsform">
+
+    <!-- progressbar -->
+    <ul id="progressbar">
+      <!-- Use Jinja2 to dynamically generate progress bar items based on categories -->
+      
+      {% for category, questions in questions_by_category.items() %}
+        <li class="{% if loop.index == 1 %}active{% endif %}">{{ category }}</li>
+      {% endfor %}
+
+    </ul>
+
+    <!-- fieldsets -->
+    {% for category, questions in questions_by_category.items() %}
+    <fieldset>
+      <h2 class="fs-title">{{ category }}</h2>
+      <h3 class="fs-subtitle"></h3>
+      {% for question in questions %}
+
+      <!-- If i want the questions outside the box uncoment next line -->
+      <!--  <label for="{{ question.id }}">{{ question.text }}</label> -->
+        <input type="text" name="{{ question.id }}" placeholder="{{ question.text }}" />
+
+      {% endfor %}
+
+      <!-- Navigation buttons -->
+      {% if not loop.first %}
+
+        <input type="button" name="previous" class="previous action-button" value="Previous" />
+
+      {% endif %}
+      {% if not loop.last %}
+
+        <input type="button" name="next" class="next action-button" value="Next" />
+        
+      {% else %}
+
+        <input type="submit" name="submit" class="submit action-button" value="Submit" />
+
+      {% endif %}
+    </fieldset>
+    {% endfor %}
+</form>
+
+{% endblock %}

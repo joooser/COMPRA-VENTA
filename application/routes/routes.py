@@ -2,8 +2,9 @@ from application import app, db
 from flask import Blueprint, render_template, request, jsonify, url_for, flash
 from flask_login import login_required, current_user
 from application.services.questions_service import get_questions_grouped_by_category
-import json
+from application.services.pdf_service import create_new_pdf
 from application.models.models import Resulting_Document
+import json
 
 # Create a Blueprint for the main routes
 main_blueprint = Blueprint('main', __name__)
@@ -36,16 +37,14 @@ def handle_data():
         if request.method == 'POST':
 
             answers = request.json
-            print(answers)
+            # print(answers)
 
-            # Assuming 'answers' is a dictionary with the form data
             formData = answers.get('formData', {})
             documentTitle = answers.get('documentTitle', '')
             documentText = answers.get('documentText', '')
 
             responses_json = json.dumps(formData)
             
-            # Create a new Resulting_Document instance
             new_document = Resulting_Document(
                 title=documentTitle,
                 document=documentText,
@@ -56,9 +55,9 @@ def handle_data():
             db.session.add(new_document)
             db.session.commit()
 
-            # Optionally, flash a success message
-            flash('Documento creado satisfactoriamente!', 'success')
+            create_new_pdf()
 
+            flash('Documento creado satisfactoriamente!', 'success')
             return jsonify(success=True, redirect=url_for('main.home'))
 
     except Exception as e:

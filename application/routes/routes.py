@@ -1,4 +1,4 @@
-from application import app, db
+from application import db
 from flask import Blueprint, render_template, request, jsonify, url_for, flash
 from flask_login import login_required, current_user
 from application.services.questions_service import get_questions_grouped_by_category

@@ -73,7 +73,7 @@ $(document).ready(function() {
     );
   });
 
-
+/*
   $(".submit").click(function (event) {
 
     event.preventDefault();
@@ -89,18 +89,19 @@ $(document).ready(function() {
 
           if (response.success) {
 
-              window.location.href = response.redirect;
+            window.location.href = response.redirect;
 
           } else {
 
-              console.error('Form submission failed');
+            console.error('Form submission failed');
           }
         },
 
         error: function(xhr, status, error) {
 
-            console.error("Error occurred: " + error);
+          console.error("Error occurred: " + error);
         }
     });
   });
+  */
 })

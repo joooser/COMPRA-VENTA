@@ -1,8 +1,8 @@
 $(document).ready(function () {
 
-    // Load questions and create input fields
     // This should be done by retrieving questions from the database
     var questions = [
+        { id: 0, text: 'Compra - Venta del vehiculo' },
         { id: 1, text: 'Cual es el nombre del vendedor?' },
         { id: 2, text: 'Cual es la nacionalidad del vendedor?' },
         { id: 3, text: 'Cual es la cedula del vendedor?' },
@@ -40,10 +40,8 @@ $(document).ready(function () {
         { id: 35, text: 'Con que instrumento se pago el vehiculo?' }
     ];
     
-    // Assume we have a JSON object with questions and answers
     var answers = {};
 
-    // Function to update placeholders with answers
     function updatePlaceholders() {
         $('[data-placeholder]').each(function() {
 
@@ -56,22 +54,21 @@ $(document).ready(function () {
 
                 if (answers[questionId]) {
 
-                    $(this).text(answers[questionId].toUpperCase()); // Convert text to uppercase
+                    $(this).text(answers[questionId].toUpperCase());
                     $(this).addClass('text-uppercase fw-bold'); // Add Bootstrap classes for styling
 
                 } else {
 
-                    $(this).text(questionText.toUpperCase()); // Display the question text in uppercase when the answer is empty
+                    $(this).text(questionText.toUpperCase());
                     $(this).addClass('text-uppercase fw-bold'); // Add Bootstrap classes for styling
 
                 }
             } else {
-                console.error('Question not found for questionId:', questionId); // Error if question not found           
+                console.error('Question not found for questionId:', questionId);         
             }
         });
     }
 
-    // Event listener for input changes
     $(document).on('input', 'input', function() {
 
         var questionId = $(this).attr('name').split('_')[1];

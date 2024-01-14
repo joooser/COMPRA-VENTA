@@ -1,10 +1,4 @@
-{% extends "base.html" %}
-
-{% block title %}
-    Questions
-{% endblock %}
-
-{% block content %}
+{% extends "base.html" %} {% block title %} Questions {% endblock %} {% block content %}
 
 <script type="text/javascript" src="{{ url_for('static', filename='js/document-preview.js') }}"></script>
 
@@ -14,71 +8,66 @@
 
 <link rel="stylesheet" href="{{ url_for('static', filename='css/dynamic_form.css') }}">
 
+
 <div class="form-and-preview-container">
 
-<div id="multistepsform-container">
-  
-<form id="multistepsform" method="POST" name="multistepsform">
+    <div id="multistepsform-container">
 
-  <!-- progressbar -->
-  <ul id="progressbar">
-    <!-- Use Jinja2 to dynamically generate progress bar items based on categories -->
-    
-    {% for category, questions in questions_by_category.items() %}
-      <li class="{% if loop.index == 1 %}active{% endif %}">{{ category }}</li>
-    {% endfor %}
+        <form id="multistepsform" method="POST" name="multistepsform">
 
-  </ul>
+          <input type="text" name="question_0" placeholder="Titulo del Documento" id="document-title" required/>
 
-  <!-- fieldsets -->
-  {% for category, questions in questions_by_category.items() %}
-  <fieldset>
-    <h2 class="fs-title">{{ category }}</h2>
-    <h3 class="fs-subtitle"></h3>
-    {% for question in questions %}
+            <ul id="progressbar">
 
-    <!-- If i want the questions outside the box uncoment next line -->
-    <!--  <label for="{{ question.id }}">{{ question.text }}</label> -->
-      <input type="text" name="question_{{ question.id }}" placeholder="{{ question.text }}" id="question_{{ question.id }}" required/>
+                <!-- Use Jinja2 to dynamically generate progress bar items based on categories -->
+                {% for category, questions in questions_by_category.items() %}
 
-    {% endfor %}
+                <li class="{% if loop.index == 1 %}active{% endif %}">{{ category }}</li>
 
-    <!-- Navigation buttons -->
-    {% if not loop.first %}
+                {% endfor %}
+            </ul>
 
-      <input type="button" name="previous" class="previous action-button" value="Previous" />
+            {% for category, questions in questions_by_category.items() %}
 
-    {% endif %}
-    {% if not loop.last %}
+            <fieldset>
 
-      <input type="button" name="next" class="next action-button" value="Next" />
-      
-    {% else %}
+                <h2 class="fs-title">{{ category }}</h2>
+                <h3 class="fs-subtitle"></h3>
 
-      <input type="submit" name="submit" class="submit action-button" value="Submit" />
+                {% for question in questions %}
 
-    {% endif %}
-  </fieldset>
-  {% endfor %}
-</form>
-</div>
+                <!-- If i want the questions outside the box uncoment next line -->
+                <!--  <label for="{{ question.id }}">{{ question.text }}</label> -->
+                <input type="text" name="question_{{ question.id }}" placeholder="{{ question.text }}" id="question_{{ question.id }}" required/> {% endfor %}
 
-<div id="document-template" class="bg-light" style="font-size: smaller; color: black; user-select: none; margin-left: auto; margin-right: auto; min-height: auto; overflow-y: auto; text-align: center;">
-  <!-- Dynamic document preview will be rendered here -->
-    <p>Compra Venta:</p>
-    <p>Yo, <span data-placeholder="1"></span>, de nacionalidad <span data-placeholder="2"></span>, mayor de edad, de estado civil <span data-placeholder="4"></span>, domiciliado en <span data-placeholder="5"></span>, y titular de la Cédula de Identidad No. <span data-placeholder="3"></span>, por medio del presente documento expresamente declaro:</p>
-    <p>Que doy en venta, pura y simple, perfecta e irrevocable a la ciudadana <span data-placeholder="18"></span>, de nacionalidad <span data-placeholder="19"></span>, mayor de edad, de estado civil <span data-placeholder="21"></span>, domiciliada en <span data-placeholder="22"></span>, titular de la Cédula de Identidad No. <span data-placeholder="20"></span>.</p>
-    <p>Un vehículo de mi exclusiva propiedad, de las siguientes características:</p>
-    <p>CLASE: <span data-placeholder="31"></span>; MODELO: <span data-placeholder="24"></span>; MARCA: <span data-placeholder="23"></span>; AÑO: <span data-placeholder="28"></span>; COLOR: <span data-placeholder="30"></span>; USO: <span data-placeholder="32"></span>; TIPO: <span data-placeholder="29"></span>; SERIAL DEL MOTOR: <span data-placeholder="26"></span>; SERIAL DE CARROCERÍA: <span data-placeholder="27"></span>; PLACA DEL VEHÍCULO: <span data-placeholder="25"></span>.</p>
-    <p>El referido vehículo me pertenece según se evidencia de Certificado de Registro de Vehículo No. <span data-placeholder="7"></span>, número de forma <span data-placeholder="8"></span> emanado del Instituto Nacional de Tránsito y Transporte Terrestre de fecha de emisión el <span data-placeholder="9"></span>. Dicho vehículo se encuentra libre de gravámenes y nada debe por concepto de impuestos nacionales, ni municipales.</p>
-    <p>El precio de esta venta es por la cantidad de <span data-placeholder="33"></span> <span data-placeholder="34"></span>, los cuales recibo en este acto, de manos del comprador mediante instrumento <span data-placeholder="35"></span> girado contra BANESCO Banco Universal.</p>
-    <p>Con el otorgamiento de este documento hago la tradición legal al comprador del bien vendido.</p>
-    <p>Yo, <span data-placeholder="18"></span>, arriba identificada, declaro: Que acepto la venta que se me hace y en los términos anteriormente expuestos.</p>
-    <p>En la ciudad de San Antonio de Los Altos, en la fecha de su otorgamiento.</p>
-    <p><span data-placeholder="1"></span></p>
-    <p><span data-placeholder="18"></span></p>
-</div>
+                <!-- Navigation buttons -->
+                {% if not loop.first %}
 
+                <input type="button" name="previous" class="previous action-button" value="Previous" /> {% endif %} {% if not loop.last %}
+                <input type="button" name="next" class="next action-button" value="Next" /> {% else %}
+                <input type="submit" name="submit" class="submit action-button" value="Submit" /> {% endif %}
+
+            </fieldset>
+            {% endfor %}
+        </form>
+    </div>
+
+    <div id="document-template" class="bg-light" style="font-size: smaller; color: black; user-select: none; margin-left: auto; margin-right: auto; min-height: auto; overflow-y: auto; text-align: center;">
+
+        <p><span data-placeholder="0">Compra Venta:</span></p>
+        <p>Yo, <span data-placeholder="1"></span>, de nacionalidad <span data-placeholder="2"></span>, mayor de edad, de estado civil <span data-placeholder="4"></span>, domiciliado en <span data-placeholder="5"></span>, y titular de la Cédula de Identidad No. <span data-placeholder="3"></span>, por medio del presente documento expresamente declaro:</p>
+        <p>Que doy en venta, pura y simple, perfecta e irrevocable a la ciudadana <span data-placeholder="18"></span>, de nacionalidad <span data-placeholder="19"></span>, mayor de edad, de estado civil <span data-placeholder="21"></span>, domiciliada en <span data-placeholder="22"></span>, titular de la Cédula de Identidad No. <span data-placeholder="20"></span>.</p>
+        <p>Un vehículo de mi exclusiva propiedad, de las siguientes características:</p>
+        <p>CLASE: <span data-placeholder="31"></span>; MODELO: <span data-placeholder="24"></span>; MARCA: <span data-placeholder="23"></span>; AÑO: <span data-placeholder="28"></span>; COLOR: <span data-placeholder="30"></span>; USO: <span data-placeholder="32"></span>; TIPO: <span data-placeholder="29"></span>; SERIAL DEL MOTOR: <span data-placeholder="26"></span>; SERIAL DE CARROCERÍA: <span data-placeholder="27"></span>; PLACA DEL VEHÍCULO: <span data-placeholder="25"></span>.</p>
+        <p>El referido vehículo me pertenece según se evidencia de Certificado de Registro de Vehículo No. <span data-placeholder="7"></span>, número de forma <span data-placeholder="8"></span> emanado del Instituto Nacional de Tránsito y Transporte Terrestre de fecha de emisión el <span data-placeholder="9"></span>. Dicho vehículo se encuentra libre de gravámenes y nada debe por concepto de impuestos nacionales, ni municipales.</p>
+        <p>El precio de esta venta es por la cantidad de <span data-placeholder="33"></span> <span data-placeholder="34"></span>, los cuales recibo en este acto, de manos del comprador mediante instrumento <span data-placeholder="35"></span> girado contra BANESCO Banco Universal.</p>
+        <p>Con el otorgamiento de este documento hago la tradición legal al comprador del bien vendido.</p>
+        <p>Yo, <span data-placeholder="18"></span>, arriba identificada, declaro: Que acepto la venta que se me hace y en los términos anteriormente expuestos.</p>
+        <p>En la ciudad de San Antonio de Los Altos, en la fecha de su otorgamiento.</p>
+        <p><span data-placeholder="1"></span></p>
+        <p><span data-placeholder="18"></span></p>
+
+    </div>
 
 </div>
 {% endblock %}

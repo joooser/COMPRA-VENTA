@@ -12,16 +12,20 @@ $(document).ready(function() {
         });
       
         var documentText = $('#document-template').text();
+        var documentTitle = $('#document-title').val();
       
-        // Crear objeto de datos para enviar
         var dataToSend = {
           formData: formData,
-          documentText: documentText
+          documentText: documentText,
+          documentTitle: documentTitle
         };
+
+        //console.log(dataToSend);
+        //console.log(documentTitle);
 
         $.ajax({
 
-            url: '/create-document',
+            url: '/handle_data',
             type: 'POST',
             contentType: 'application/json',
             data: JSON.stringify(dataToSend),

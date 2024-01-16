@@ -1,7 +1,15 @@
-# contract_service.py
-from application.models.models import DocumentTemplate
-from sqlalchemy.orm import Session
+import traceback
 import re
+
+# Database
+from sqlalchemy.orm import Session
+
+# Logger
+from application.utils.Logger import Logger
+
+# Models
+from application.models import DocumentTemplate
+
 
 class ContractService:
     def __init__(self, contract_repository, template_engine):
@@ -9,24 +17,41 @@ class ContractService:
         self.template_engine = template_engine
 
     def create_contract(self, contract_data):
-        # Logic to create a contract from the provided data
-        contract = self.template_engine.render_contract_template(contract_data)
-        saved_contract = self.contract_repository.save(contract)
-        return saved_contract
+        try:
+            contract = self.template_engine.render_contract_template(contract_data)
+            saved_contract = self.contract_repository.save(contract)
+            return saved_contract
+        except Exception as ex:
+            Logger.add_to_log("error", str(ex))
+            Logger.add_to_log("error", traceback.format_exc())
 
     def get_contract(self, contract_id):
-        # Logic to retrieve a contract by its ID
-        contract = self.contract_repository.get_by_id(contract_id)
-        return contract
+        try:
+            contract = self.contract_repository.get_by_id(contract_id)
+            return contract
+        except Exception as ex:
+            Logger.add_to_log("error", str(ex))
+            Logger.add_to_log("error", traceback.format_exc())
 
 
 def get_template_text_by_id(template_id: int, db_session: Session):
-    return db_session.query(DocumentTemplate).filter(DocumentTemplate.id == template_id).first()
+    try:
+        return db_session.query(DocumentTemplate).filter(DocumentTemplate.id == template_id).first()
+    except Exception as ex:
+        Logger.add_to_log("error", str(ex))
+        Logger.add_to_log("error", traceback.format_exc())
 
 def make_bold_uppercase(match):
-    word = match.group(0)
-    return f'<strong>{word[1:-1].upper()}</strong>'
+    try:
+        word = match.group(0)
+        return f'<strong>{word[1:-1].upper()}</strong>'
+    except Exception as ex:
+        Logger.add_to_log("error", str(ex))
+        Logger.add_to_log("error", traceback.format_exc())
 
 def process_template_text(template_text):
-    return re.sub(r'\{([^}]*)\}', make_bold_uppercase, template_text)
-
+    try:
+        return re.sub(r'\{([^}]*)\}', make_bold_uppercase, template_text)
+    except Exception as ex:
+        Logger.add_to_log("error", str(ex))
+        Logger.add_to_log("error", traceback.format_exc())

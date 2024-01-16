@@ -1,4 +1,4 @@
-from .base import FlaskForm, StringField, PasswordField, SubmitField, DataRequired
+from base import FlaskForm, StringField, PasswordField, SubmitField, DataRequired
 
 
 class LoginForm(FlaskForm):

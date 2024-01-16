@@ -5,7 +5,7 @@ from .extensions.extensions import db, bcrypt, login_manager, migrate
 
 # Routes
 from .routes.routes import main_blueprint
-from .auth.auth_routes import auth_blueprint
+from .routes.auth_routes import auth_blueprint
 
 
 def init_app(config_class):

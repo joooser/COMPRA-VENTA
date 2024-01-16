@@ -1,4 +1,4 @@
-from base import FlaskForm, StringField, PasswordField, SubmitField, DataRequired, ValidationError, Length, Email, EqualTo, User
+from .base import FlaskForm, StringField, PasswordField, SubmitField, DataRequired, ValidationError, Length, Email, EqualTo, User
 
 class RegisterForm(FlaskForm):
     def validate_username(self, username_to_check):

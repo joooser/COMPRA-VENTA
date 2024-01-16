@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, redirect, url_for, flash, request
 from flask_login import login_user, logout_user, current_user
-from ..forms.forms import LoginForm, RegisterForm  
+from application.forms import LoginForm, RegisterForm  
 from application.models import User, Role
 from application import db, bcrypt
 
@@ -16,7 +16,7 @@ def register():
     form = RegisterForm()
     if form.validate_on_submit():
         default_role = Role.query.filter_by(name='guest').first()
-        hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+        hashed_password = bcrypt.generate_password_hash(form.password1.data).decode('utf-8')
         user = User(
             username=form.username.data,
             email=form.email.data,

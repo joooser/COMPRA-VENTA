@@ -5,15 +5,9 @@ Questions
 {% endblock %}
 
 {% block content %}
-<script type="text/javascript" src="{{ url_for('static', filename='js/document-preview.js') }}"></script>
-
-<script src="{{ url_for('static', filename='js/dynamic_form.js') }}"></script>
-
-<script src="{{ url_for('static', filename='js/handleTheData.js') }}"></script>
-
 <link rel="stylesheet" href="{{ url_for('static', filename='css/dynamic_form.css') }}">
 
-
+<div class="container">
 <div class="form-and-preview-container" class="row">
 
     <div id="multistepsform-container" class="col-sm-4">
@@ -186,6 +180,10 @@ Questions
             <p><span data-placeholder="18"></span></p>
         </span></dd>
     </div>
-
 </div>
+</div>
+
+<script type="text/javascript" src="{{ url_for('static', filename='js/document-preview.js') }}"></script>
+<script src="{{ url_for('static', filename='js/dynamic_form.js') }}"></script>
+<script src="{{ url_for('static', filename='js/handleTheData.js') }}"></script>
 {% endblock %}

@@ -51,7 +51,7 @@ class VehicleSaleForm(FlaskForm):
     car_model = StringField('Cual es el modelo del vehiculo?', validators=[DataRequired(), Length(max=50)])
     car_plate = StringField('Cual es la placa del vehiculo?', validators=[DataRequired(), Length(max=10)])
     car_engine_serial = StringField('Cual es el serial motor del vehiculo?', validators=[DataRequired(), Length(max=20)])
-    car_chassis_serial = StringField('Cual es el serial de carroceria del vehiculo?', validators=[DataRequired(), Length(max=20)])
+    car_chassis_serial = StringField('Cual es el serial de caroceria del vehiculo?', validators=[DataRequired(), Length(max=20)])
     car_year = IntegerField('Cual es el año del vehiculo?', validators=[DataRequired()])
     car_type = StringField('Cual es el tipo del vehiculo?', validators=[DataRequired(), Length(max=50)])
     car_color = StringField('Cual es el color del vehiculo?', validators=[DataRequired(), Length(max=20)])
@@ -62,8 +62,6 @@ class VehicleSaleForm(FlaskForm):
     vehicle_price = FloatField('Cual es el precio del vehiculo?', validators=[DataRequired()])
     transaction_currency = StringField('En que moneda se hizo el pago del vehiculo?', validators=[DataRequired(), Length(max=20)])
     payment_instrument = StringField('Con que instrumento se pago el vehiculo?', validators=[DataRequired(), Length(max=50)])
-    bank = StringField('En que Banco?', validators=[DataRequired(), Length(max=50)])
-    city = StringField('En que ciudad realiza la transacción?', validators=[DataRequired(), Length(max=50)])
 
     #recaptcha = RecaptchaField()
     submit    = SubmitField(label='Crear')

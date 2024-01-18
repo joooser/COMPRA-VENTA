@@ -1,191 +1,71 @@
-{% extends "base.html" %}
-
-{% block title %}
-Create Document
-{% endblock %}
-
-{% block content %}
-<link 
-rel="stylesheet"
-href="{{ url_for('static', filename='css/dynamic_form.css') }}"/>
-
-<div class="container justify-content-center">
-    <div class="row justify-content-md-center" id="multistepsform-container">
-        <div class="col-md-auto">
-            
-            <form id="multistepsform" method="POST" name="multistepsform">
-                {{ form.hidden_tag() }}
-                <ul id="progressbar">
-                    {% set steps = ['Vendedor', 'El Vehiculo a Vender', 'Datos de Notaria', 'La que manda', 'Comprador', 'Coroto', 'Pago'] %}
-                    {% for step in steps %}
-                        <li class="{{ 'active' if loop.index == 1 }}">{{ step }}</li>
-                    {% endfor %}
-                </ul>
-
-                <!-- fieldsets -->
-                <fieldset>
-                    <h2 class="fs-title">Vendedor</h2>
-                    <h3 class="fs-subtitle">Are you sure you want to sell?</h3>
-                
-                    <input type="text" name="seller_1" required minlength="2" maxlength="40" placeholder="Cual es el nombre del vendedor?">
-                    <input type="text" name="seller_2" required maxlength="50" placeholder="Cual es la nacionalidad del vendedor?">
-                    <input type="text" name="seller_3" required minlength="2" maxlength="10" placeholder="Cual es la cedula del vendedor?">
-                
-                    <select name="seller_4" class="form-control-choice" placeholder="Estado civil" required>
-                        <option value="">Select Marital Status</option>
-                        <option value="soltero(a)">Soltero(a)</option>
-                        <option value="casado(a)">Casado(a)</option>
-                        <option value="viudo(a)">Viudo(a)</option>
-                    </select>
-                
-                    <input type="text" name="seller_5" required maxlength="100" placeholder="Cual es el domicilio del vendedor?">
-                
-                    <select name="vehicle_6" class="form-control-choice" placeholder="Doc. Acredita al Titular" required>
-                        <option value="">Select Document Type</option>
-                        <option value="titulo_inttt">Titulo INTTT</option>
-                        <option value="documento_notariado">Documento Notariado</option>
-                    </select>
-                
-                    <input type="button" name="next" class="next action-button" value="Next" />
-                </fieldset>
-            
-                <fieldset>
-                    <h2 class="fs-title">El Vehiculo a Vender</h2>
-                    <h3 class="fs-subtitle">A nice ride</h3>
-                
-                    <!-- Fields for 'titulo inttt' -->
-                    <input type="text" name="vehicle_7" maxlength="20" placeholder="Cual es el numero del titulo del vehiculo?">
-                    <input type="text" name="vehicle_8" maxlength="20" placeholder="Cual es el numero de forma titulo del vehiculo?">
-                    <input type="date" name="vehicle_9" placeholder="De que fecha es el titulo?">
-                
-                    <input type="button" name="previous" class="previous action-button" value="Previous" />
-                    <input type="button" name="next" class="next action-button" value="Next" />
-                </fieldset>
-                <fieldset>
-                    <h2 class="fs-title">Datos de Notaria</h2>
-                    <h3 class="fs-subtitle">The Bureaucrats</h3>
-                
-                    <!-- Fields for 'documento notariado' -->
-                    <input type="text" name="notary_10" maxlength="50" placeholder="Que notaria autentico el documento?">
-                    <input type="number" name="document_11" placeholder="Bajo que numero quedo autenticado el documento?">
-                
-                    <select name="document_12" class="form-control-choice" placeholder="Tomo de Autenticado" required>
-                        <option value="">Select Volume</option>
-                        <option value="1ro">Primero</option>
-                        <option value="2do">Segundo</option>
-                        <option value="3ro">Tercero</option>
-                    </select>
-                
-                    <input type="date" name="document_13" placeholder="En que fecha fue autenticado el documento?">
-                
-                    <input type="button" name="previous" class="previous action-button" value="Previous" />
-                    <input type="button" name="next" class="next action-button" value="Next" />
-                </fieldset>
-                <fieldset>
-                    <h2 class="fs-title">La que manda</h2>
-                    <h3 class="fs-subtitle">Que no se entere</h3>
-                
-                    <!-- Fields for questions_seller_c -->
-                    <input type="text" name="seller_14" maxlength="40" placeholder="Cual es el nombre del conyuge del vendedor?">
-                    <input type="text" name="seller_15" maxlength="50" placeholder="Cual es la nacionalidad del conyuge del vendedor?">
-                    <input type="text" name="seller_16" maxlength="10" placeholder="Cual es la cedula del conyuge del vendedor?">
-                    <input type="text" name="seller_17" maxlength="100" placeholder="Cual es el domicilio conyuge del vendedor?">
-                
-                    <input type="button" name="previous" class="previous action-button" value="Previous" />
-                    <input type="button" name="next" class="next action-button" value="Next" />
-                </fieldset>
-            
-                <fieldset>
-                    <h2 class="fs-title">Comprador</h2>
-                    <h3 class="fs-subtitle">El que se lleva el coroto</h3>
-                
-                    <!-- Fields for questions_buyer -->
-                    <input type="text" name="buyer_18" maxlength="40" placeholder="Cual es el nombre del comprador?" required>
-                    <input type="text" name="buyer_19" maxlength="50" placeholder="Cual es la nacionalidad del comprador?" required>
-                    <input type="text" name="buyer_20" maxlength="10" placeholder="Cual es la cedula del comprador?" required>
-                
-                    <select name="buyer_21" class="form-control-choice" placeholder="Estado Civil" required>
-                        <option value="">Select Marital Status</option>
-                        <option value="soltero">Soltero</option>
-                        <option value="casado">Casado</option>
-                        <option value="viudo">Viudo</option>
-                    </select>
-                
-                    <input type="text" name="buyer_22" maxlength="100" placeholder="Cual es el domicilio del comprador?" required>
-                
-                    <input type="button" name="previous" class="previous action-button" value="Previous" />
-                    <input type="button" name="next" class="next action-button" value="Next" />
-                </fieldset>
-            
-                <fieldset>
-                    <h2 class="fs-title">Coroto</h2>
-                    <h3 class="fs-subtitle">Para que se usa el corotico?</h3>
-                
-                    <!-- Fields for questions_car -->
-                    <input type="text" name="car_23" maxlength="50" placeholder="Cual es la marca del vehiculo?" required>
-                    <input type="text" name="car_24" maxlength="50" placeholder="Cual es el modelo del vehiculo?" required>
-                    <input type="text" name="car_25" maxlength="10" placeholder="Cual es la placa del vehiculo?" required>
-                    <input type="text" name="car_26" maxlength="20" placeholder="Cual es el serial motor del vehiculo?" required>
-                    <input type="text" name="car_27" maxlength="20" placeholder="Cual es el serial de caroceria del vehiculo?" required>
-                    <input type="number" name="car_28" placeholder="Cual es el año del vehiculo?" required>
-                    <input type="text" name="car_29" maxlength="50" placeholder="Cual es el tipo del vehiculo?" required>
-                    <input type="text" name="car_30" maxlength="20" placeholder="Cual es el color del vehiculo?" required>
-                    <input type="text" name="car_31" maxlength="50" placeholder="Cual es la clase del vehiculo?" required>
-                    <input type="text" name="car_32" maxlength="50" placeholder="Cual es el uso del vehiculo?" required>
-                
-                    <input type="button" name="previous" class="previous action-button" value="Previous" />
-                    <input type="button" name="next" class="next action-button" value="Next" />
-                </fieldset>
-                <fieldset>
-                    <h2 class="fs-title">Pago</h2>
-                    <h3 class="fs-subtitle">Cuanto hay pa eso?</h3>
-                
-                    <!-- Fields for questions_transaction -->
-                    <input type="number" step="0.01" name="vehicle_33" placeholder="Cual es el precio del vehiculo?" required>
-                    <input type="text" name="transaction_34" maxlength="20" placeholder="En que moneda se hizo el pago del vehiculo?" required>
-                    <input type="text" name="payment_35" maxlength="50" placeholder="Con que instrumento se pago el vehiculo?" required>
-                    <input type="text" name="bank_36" maxlength="50" placeholder="En que banco?" required>
-                    <input type="text" name="where_37" maxlength="50" placeholder="En que ciudad realiza la transacción?" required>
-                    <input type="button" name="previous" class="previous action-button" value="Previous" />
-                    <input type="submit" name="submit" class="submit action-button" value="Submit" />
-                </fieldset>
-            </form>
-        </div>
-        <div id="document-template"
-            class="col justify-content-center bg-light 
-                bg-gradient p-2 text-dark
-                text-md-start rounded-5 user-select-none overflow-auto
-                fw-normal fs-8 font-monospace
-                shadow p-5 mb-5">
-
-            <p class="lh-sm text-break">Yo, <span class="text-decoration-underline"data-placeholder="1"></span>, de nacionalidad <span class="text-decoration-underline"data-placeholder="2"></span>, mayor de edad, de estado civil <span class="text-decoration-underline"data-placeholder="4"></span>, domiciliado en <span class="text-decoration-underline"data-placeholder="5"></span>, y titular de la Cédula de Identidad No. <span class="text-decoration-underline"data-placeholder="3"></span>, por medio del presente documento expresamente declaro:</p>
-            <p class="lh-sm text-break">Que doy en venta, pura y simple, perfecta e irrevocable a la ciudadana <span class="text-decoration-underline"data-placeholder="18"></span>, de nacionalidad <span class="text-decoration-underline"data-placeholder="19"></span>, mayor de edad, de estado civil <span class="text-decoration-underline"data-placeholder="21"></span>, domiciliada en <span class="text-decoration-underline"data-placeholder="22"></span>, titular de la Cédula de Identidad No. <span class="text-decoration-underline"data-placeholder="20"></span>.</p>
-            <p class="lh-sm text-break">Un vehículo de mi exclusiva propiedad, de las siguientes características:</p>
-            <ul class="lh-sm fs-10 fw-normal text-break">
-                <li>CLASE: <span class="text-decoration-underline"data-placeholder="31"></span></li>
-                <li>MODELO: <span class="text-decoration-underline"data-placeholder="24"></span></li>
-                <li>MARCA: <span class="text-decoration-underline"data-placeholder="23"></span></li>
-                <li>AÑO: <span class="text-decoration-underline"data-placeholder="28"></span></li>
-                <li>COLOR: <span class="text-decoration-underline"data-placeholder="30"></span></li>
-                <li>USO: <span class="text-decoration-underline"data-placeholder="32"></span></li>
-                <li>TIPO: <span class="text-decoration-underline"data-placeholder="29"></span></li>
-                <li>SERIAL DEL MOTOR: <span class="text-decoration-underline"data-placeholder="26"></span></li>
-                <li>SERIAL DE CARROCERÍA: <span class="text-decoration-underline"data-placeholder="27"></span></li>
-                <li>PLACA DEL VEHÍCULO: <span class="text-decoration-underline"data-placeholder="25"></span></li>
-            </ul>
-            <p class="lh-sm text-break">El referido vehículo me pertenece según se evidencia de Certificado de Registro de Vehículo No. <span class="text-decoration-underline"data-placeholder="7"></span>, número de forma <span class="text-decoration-underline"data-placeholder="8"></span> emanado del Instituto Nacional de Tránsito y Transporte Terrestre de fecha de emisión el <span class="text-decoration-underline"data-placeholder="9"></span>. Dicho vehículo se encuentra libre de gravámenes y nada debe por concepto de impuestos nacionales, ni municipales.</p>
-            <p class="lh-sm text-break">El precio de esta venta es por la cantidad de <span class="text-decoration-underline"data-placeholder="33"></span> <span class="text-decoration-underline"data-placeholder="34"></span>, los cuales recibo en este acto, de manos del comprador mediante instrumento <span class="text-decoration-underline"data-placeholder="35"></span> girado contra <span class="text-decoration-underline"data-placeholder="36"></span>.</p>
-            <p class="lh-sm text-break">Con el otorgamiento de este documento hago la tradición legal al comprador del bien vendido.</p>
-            <p class="lh-sm text-break">Yo, <span class="text-decoration-underline"data-placeholder="18"></span>, arriba identificada, declaro: Que acepto la venta que se me hace y en los términos anteriormente expuestos.</p>
-            <p class="lh-sm text-break">En la ciudad de <span class="text-decoration-underline"data-placeholder="37"></span>, en la fecha de su otorgamiento.</p>
-            <p class="lh-sm text-break"><span class="text-decoration-underline"data-placeholder="1"></span></p>
-            <p class="lh-sm text-break"><span class="text-decoration-underline"data-placeholder="18"></span></p>
-        </div>
-    </div>
-</div>
+{% extends "base.html" %} {% block title %} Questions {% endblock %} {% block content %}
 
 <script type="text/javascript" src="{{ url_for('static', filename='js/document-preview.js') }}"></script>
+
 <script src="{{ url_for('static', filename='js/dynamic_form.js') }}"></script>
+
 <script src="{{ url_for('static', filename='js/handleTheData.js') }}"></script>
 
+<link rel="stylesheet" href="{{ url_for('static', filename='css/dynamic_form.css') }}">
+
+
+<div class="form-and-preview-container">
+
+    <div id="multistepsform-container">
+
+        <form id="multistepsform" method="POST" name="multistepsform">
+
+            <ul id="progressbar">
+
+                <!-- Use Jinja2 to dynamically generate progress bar items based on categories -->
+                {% for category, questions in questions_by_category.items() %}
+
+                <li class="{% if loop.index == 1 %}active{% endif %}">{{ category }}</li>
+
+                {% endfor %}
+            </ul>
+
+            {% for category, questions in questions_by_category.items() %}
+
+            <fieldset>
+
+                <h2 class="fs-title">{{ category }}</h2>
+                <h3 class="fs-subtitle"></h3>
+
+                {% for question in questions %}
+
+                <!-- If i want the questions outside the box uncoment next line -->
+                <!--  <label for="{{ question.id }}">{{ question.text }}</label> -->
+                <input type="text" name="question_{{ question.id }}" placeholder="{{ question.text }}" id="question_{{ question.id }}" required/> {% endfor %}
+
+                <!-- Navigation buttons -->
+                {% if not loop.first %}
+
+                <input type="button" name="previous" class="previous action-button" value="Previous" /> {% endif %} {% if not loop.last %}
+                <input type="button" name="next" class="next action-button" value="Next" /> {% else %}
+                <input type="submit" name="submit" class="submit action-button" value="Submit" /> {% endif %}
+
+            </fieldset>
+            {% endfor %}
+        </form>
+    </div>
+
+    <div id="document-template" class="bg-light" style="font-size: smaller; color: black; user-select: none; margin-left: auto; margin-right: auto; min-height: auto; overflow-y: auto; text-align: center;">
+
+        <p><span data-placeholder="0">Compra Venta:</span></p>
+        <p>Yo, <span data-placeholder="1"></span>, de nacionalidad <span data-placeholder="2"></span>, mayor de edad, de estado civil <span data-placeholder="4"></span>, domiciliado en <span data-placeholder="5"></span>, y titular de la Cédula de Identidad No. <span data-placeholder="3"></span>, por medio del presente documento expresamente declaro:</p>
+        <p>Que doy en venta, pura y simple, perfecta e irrevocable a la ciudadana <span data-placeholder="18"></span>, de nacionalidad <span data-placeholder="19"></span>, mayor de edad, de estado civil <span data-placeholder="21"></span>, domiciliada en <span data-placeholder="22"></span>, titular de la Cédula de Identidad No. <span data-placeholder="20"></span>.</p>
+        <p>Un vehículo de mi exclusiva propiedad, de las siguientes características:</p>
+        <p>CLASE: <span data-placeholder="31"></span>; MODELO: <span data-placeholder="24"></span>; MARCA: <span data-placeholder="23"></span>; AÑO: <span data-placeholder="28"></span>; COLOR: <span data-placeholder="30"></span>; USO: <span data-placeholder="32"></span>; TIPO: <span data-placeholder="29"></span>; SERIAL DEL MOTOR: <span data-placeholder="26"></span>; SERIAL DE CARROCERÍA: <span data-placeholder="27"></span>; PLACA DEL VEHÍCULO: <span data-placeholder="25"></span>.</p>
+        <p>El referido vehículo me pertenece según se evidencia de Certificado de Registro de Vehículo No. <span data-placeholder="7"></span>, número de forma <span data-placeholder="8"></span> emanado del Instituto Nacional de Tránsito y Transporte Terrestre de fecha de emisión el <span data-placeholder="9"></span>. Dicho vehículo se encuentra libre de gravámenes y nada debe por concepto de impuestos nacionales, ni municipales.</p>
+        <p>El precio de esta venta es por la cantidad de <span data-placeholder="33"></span> <span data-placeholder="34"></span>, los cuales recibo en este acto, de manos del comprador mediante instrumento <span data-placeholder="35"></span> girado contra BANESCO Banco Universal.</p>
+        <p>Con el otorgamiento de este documento hago la tradición legal al comprador del bien vendido.</p>
+        <p>Yo, <span data-placeholder="18"></span>, arriba identificada, declaro: Que acepto la venta que se me hace y en los términos anteriormente expuestos.</p>
+        <p>En la ciudad de San Antonio de Los Altos, en la fecha de su otorgamiento.</p>
+        <p><span data-placeholder="1"></span></p>
+        <p><span data-placeholder="18"></span></p>
+
+    </div>
+
+</div>
 {% endblock %}

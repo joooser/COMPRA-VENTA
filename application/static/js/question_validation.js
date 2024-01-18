@@ -1,20 +1,4 @@
-$(document).ready(function() {
 
-    const maritalStatusField = $('#seller_marital_status');
-    const spouseFields = $('#spouse_fields');
-
-    function toggleSpouseFields() {
-        if (maritalStatusField.val() === 'casado(a)') {
-            spouseFields.show();
-        } else {
-            spouseFields.hide();
-        }
-    }
-
-    maritalStatusField.change(toggleSpouseFields);
-    toggleSpouseFields();
-
-    
     document.addEventListener('DOMContentLoaded', function() {
         document.querySelector('form').addEventListener('submit', function(e) {
             let isValid = true;
@@ -73,4 +57,3 @@ $(document).ready(function() {
             }
         });
     });
-});

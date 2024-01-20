@@ -10,9 +10,9 @@ rel="stylesheet"
 href="{{ url_for('static', filename='css/dynamic_form.css') }}"
 />
 
-<div class="container justify-content-center border">
+<div class="container justify-content-center">
     <div class="row justify-content-md-center" id="multistepsform-container">
-        <div class="col-md-auto border">
+        <div class="col-md-auto">
             <form class="" id="multistepsform" method="POST" name="multistepsform">
 
                 <ul id="progressbar">
@@ -144,7 +144,8 @@ href="{{ url_for('static', filename='css/dynamic_form.css') }}"
                     <input type="number" step="0.01" name="vehicle_33" placeholder="Cual es el precio del vehiculo?" required>
                     <input type="text" name="transaction_34" maxlength="20" placeholder="En que moneda se hizo el pago del vehiculo?" required>
                     <input type="text" name="payment_35" maxlength="50" placeholder="Con que instrumento se pago el vehiculo?" required>
-                    <input type="text" name="payment_36" maxlength="50" placeholder="En que banco?" required>
+                    <input type="text" name="bank_36" maxlength="50" placeholder="En que banco?" required>
+                    <input type="text" name="where_37" maxlength="50" placeholder="En que ciudad realiza la transacción?" required>
                     <input type="button" name="previous" class="previous action-button" value="Previous" />
                     <input type="submit" name="submit" class="submit action-button" value="Submit" />
                 </fieldset>
@@ -152,33 +153,33 @@ href="{{ url_for('static', filename='css/dynamic_form.css') }}"
         </div>
         <div id="document-template"
             class="col justify-content-center bg-light 
-                bg-gradient p-2 text-dark text-break text-center
-                text-md-start rounded-5 user-select-none overflow-auto">
-            
-            <div class="fw-normal fs-6 font-monospace border">
-                <p class="lh-sm">Yo, <span class="text-decoration-underline"data-placeholder="1"></span>, de nacionalidad <span class="text-decoration-underline"data-placeholder="2"></span>, mayor de edad, de estado civil <span class="text-decoration-underline"data-placeholder="4"></span>, domiciliado en <span class="text-decoration-underline"data-placeholder="5"></span>, y titular de la Cédula de Identidad No. <span class="text-decoration-underline"data-placeholder="3"></span>, por medio del presente documento expresamente declaro:</p>
-                <p class="lh-sm">Que doy en venta, pura y simple, perfecta e irrevocable a la ciudadana <span class="text-decoration-underline"data-placeholder="18"></span>, de nacionalidad <span class="text-decoration-underline"data-placeholder="19"></span>, mayor de edad, de estado civil <span class="text-decoration-underline"data-placeholder="21"></span>, domiciliada en <span class="text-decoration-underline"data-placeholder="22"></span>, titular de la Cédula de Identidad No. <span class="text-decoration-underline"data-placeholder="20"></span>.</p>
-                <p class="lh-sm">Un vehículo de mi exclusiva propiedad, de las siguientes características:</p>
-                <ul class="lh-sm fs-6 fw-normal text-break">
-                    <li>CLASE: <span class="text-decoration-underline"data-placeholder="31"></span></li>
-                    <li>MODELO: <span class="text-decoration-underline"data-placeholder="24"></span></li>
-                    <li>MARCA: <span class="text-decoration-underline"data-placeholder="23"></span></li>
-                    <li>AÑO: <span class="text-decoration-underline"data-placeholder="28"></span></li>
-                    <li>COLOR: <span class="text-decoration-underline"data-placeholder="30"></span></li>
-                    <li>USO: <span class="text-decoration-underline"data-placeholder="32"></span></li>
-                    <li>TIPO: <span class="text-decoration-underline"data-placeholder="29"></span></li>
-                    <li>SERIAL DEL MOTOR: <span class="text-decoration-underline"data-placeholder="26"></span></li>
-                    <li>SERIAL DE CARROCERÍA: <span class="text-decoration-underline"data-placeholder="27"></span></li>
-                    <li>PLACA DEL VEHÍCULO: <span class="text-decoration-underline"data-placeholder="25"></span></li>
-                </ul>
-                <p class="lh-sm">El referido vehículo me pertenece según se evidencia de Certificado de Registro de Vehículo No. <span class="text-decoration-underline"data-placeholder="7"></span>, número de forma <span class="text-decoration-underline"data-placeholder="8"></span> emanado del Instituto Nacional de Tránsito y Transporte Terrestre de fecha de emisión el <span class="text-decoration-underline"data-placeholder="9"></span>. Dicho vehículo se encuentra libre de gravámenes y nada debe por concepto de impuestos nacionales, ni municipales.</p>
-                <p class="lh-sm">El precio de esta venta es por la cantidad de <span class="text-decoration-underline"data-placeholder="33"></span> <span class="text-decoration-underline"data-placeholder="34"></span>, los cuales recibo en este acto, de manos del comprador mediante instrumento <span class="text-decoration-underline"data-placeholder="35"></span> girado contra <span class="text-decoration-underline"data-placeholder="36">BANESCO Banco Universal</span>.</p>
-                <p class="lh-sm">Con el otorgamiento de este documento hago la tradición legal al comprador del bien vendido.</p>
-                <p class="lh-sm">Yo, <span class="text-decoration-underline"data-placeholder="18"></span>, arriba identificada, declaro: Que acepto la venta que se me hace y en los términos anteriormente expuestos.</p>
-                <p class="lh-sm">En la ciudad de San Antonio de Los Altos, en la fecha de su otorgamiento.</p>
-                <p class="lh-sm"><span class="text-decoration-underline"data-placeholder="1"></span></p>
-                <p class="lh-sm"><span class="text-decoration-underline"data-placeholder="18"></span></p>
-            </div>
+                bg-gradient p-2 text-dark
+                text-md-start rounded-5 user-select-none overflow-auto
+                fw-normal fs-8 font-monospace
+                shadow p-3 mb-5 px-5">
+
+            <p class="lh-sm text-break">Yo, <span class="text-decoration-underline"data-placeholder="1"></span>, de nacionalidad <span class="text-decoration-underline"data-placeholder="2"></span>, mayor de edad, de estado civil <span class="text-decoration-underline"data-placeholder="4"></span>, domiciliado en <span class="text-decoration-underline"data-placeholder="5"></span>, y titular de la Cédula de Identidad No. <span class="text-decoration-underline"data-placeholder="3"></span>, por medio del presente documento expresamente declaro:</p>
+            <p class="lh-sm text-break">Que doy en venta, pura y simple, perfecta e irrevocable a la ciudadana <span class="text-decoration-underline"data-placeholder="18"></span>, de nacionalidad <span class="text-decoration-underline"data-placeholder="19"></span>, mayor de edad, de estado civil <span class="text-decoration-underline"data-placeholder="21"></span>, domiciliada en <span class="text-decoration-underline"data-placeholder="22"></span>, titular de la Cédula de Identidad No. <span class="text-decoration-underline"data-placeholder="20"></span>.</p>
+            <p class="lh-sm text-break">Un vehículo de mi exclusiva propiedad, de las siguientes características:</p>
+            <ul class="lh-sm fs-10 fw-normal text-break">
+                <li>CLASE: <span class="text-decoration-underline"data-placeholder="31"></span></li>
+                <li>MODELO: <span class="text-decoration-underline"data-placeholder="24"></span></li>
+                <li>MARCA: <span class="text-decoration-underline"data-placeholder="23"></span></li>
+                <li>AÑO: <span class="text-decoration-underline"data-placeholder="28"></span></li>
+                <li>COLOR: <span class="text-decoration-underline"data-placeholder="30"></span></li>
+                <li>USO: <span class="text-decoration-underline"data-placeholder="32"></span></li>
+                <li>TIPO: <span class="text-decoration-underline"data-placeholder="29"></span></li>
+                <li>SERIAL DEL MOTOR: <span class="text-decoration-underline"data-placeholder="26"></span></li>
+                <li>SERIAL DE CARROCERÍA: <span class="text-decoration-underline"data-placeholder="27"></span></li>
+                <li>PLACA DEL VEHÍCULO: <span class="text-decoration-underline"data-placeholder="25"></span></li>
+            </ul>
+            <p class="lh-sm text-break">El referido vehículo me pertenece según se evidencia de Certificado de Registro de Vehículo No. <span class="text-decoration-underline"data-placeholder="7"></span>, número de forma <span class="text-decoration-underline"data-placeholder="8"></span> emanado del Instituto Nacional de Tránsito y Transporte Terrestre de fecha de emisión el <span class="text-decoration-underline"data-placeholder="9"></span>. Dicho vehículo se encuentra libre de gravámenes y nada debe por concepto de impuestos nacionales, ni municipales.</p>
+            <p class="lh-sm text-break">El precio de esta venta es por la cantidad de <span class="text-decoration-underline"data-placeholder="33"></span> <span class="text-decoration-underline"data-placeholder="34"></span>, los cuales recibo en este acto, de manos del comprador mediante instrumento <span class="text-decoration-underline"data-placeholder="35"></span> girado contra <span class="text-decoration-underline"data-placeholder="36"></span>.</p>
+            <p class="lh-sm text-break">Con el otorgamiento de este documento hago la tradición legal al comprador del bien vendido.</p>
+            <p class="lh-sm text-break">Yo, <span class="text-decoration-underline"data-placeholder="18"></span>, arriba identificada, declaro: Que acepto la venta que se me hace y en los términos anteriormente expuestos.</p>
+            <p class="lh-sm text-break">En la ciudad de <span class="text-decoration-underline"data-placeholder="37"></span>, en la fecha de su otorgamiento.</p>
+            <p class="lh-sm text-break"><span class="text-decoration-underline"data-placeholder="1"></span></p>
+            <p class="lh-sm text-break"><span class="text-decoration-underline"data-placeholder="18"></span></p>
         </div>
     </div>
 </div>

@@ -63,6 +63,7 @@ class VehicleSaleForm(FlaskForm):
     transaction_currency = StringField('En que moneda se hizo el pago del vehiculo?', validators=[DataRequired(), Length(max=20)])
     payment_instrument = StringField('Con que instrumento se pago el vehiculo?', validators=[DataRequired(), Length(max=50)])
     bank = StringField('En que Banco?', validators=[DataRequired(), Length(max=50)])
+    city = StringField('En que ciudad realiza la transacción?', validators=[DataRequired(), Length(max=50)])
 
     #recaptcha = RecaptchaField()
     submit    = SubmitField(label='Crear')

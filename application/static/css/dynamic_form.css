@@ -169,3 +169,8 @@ body {
   background-color: #fff;
   font-size: 12px;
 }
+
+.independent-heights .col {
+  height: auto;  /* Reset any predefined height */
+  align-self: flex-start;  /* Align columns to the start of the cross axis */
+}

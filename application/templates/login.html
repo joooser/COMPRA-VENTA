@@ -10,6 +10,7 @@ href="{{ url_for('static', filename='css/login_form.css') }}"
 />
 
 <body class="text-center">
+    <!--
     <div class="container d-flex justify-content-center align-items-center">      
         <form method="POST" class="form-signin p-4 bg-white shadow rounded bg-body-tertiary border">
             {{ form.hidden_tag() }}
@@ -62,6 +63,7 @@ href="{{ url_for('static', filename='css/login_form.css') }}"
             <a href="#">Olvido su contraseña?</a> o <a href="#">Registrese</a>
         </div>
     </div>
+    -->
     <div class="wrapper">
         <div class="logo">
             <img src="https://www.freepnglogos.com/uploads/logo-chatgpt-png/chatgpt-png-9.png" alt="">
@@ -71,15 +73,15 @@ href="{{ url_for('static', filename='css/login_form.css') }}"
         </div>
         <form method="POST" class="p-3 mt-3">
             {{ form.hidden_tag() }}
-            <div class="form-field d-flex align-items-center shadow-sm mb-3">
+            <div class="form-field d-flex align-items-center">
                 <span class="far fa-user"></span>
                 {{ form.username(class="form-control", placeholder="Email", id="userName") }}
             </div>
-            <div class="form-field d-flex align-items-center shadow-sm mb-3">
+            <div class="form-field d-flex align-items-center">
                 <span class="fas fa-key"></span>
                 {{ form.password(class="form-control", placeholder="Contraseña", id="pwd") }}
             </div>
-            <button type="submit" class="btn btn-primary mt-3 shadow-sm">Login</button>
+            <button type="submit" class="btn mt-3">Login</button>
             <div class="text-center fs-6 mt-4">
                 <a href="#">Olvido su contraseña?</a> o <a href="{{ url_for('auth.register') }}">Registrese</a>
             </div>
@@ -99,6 +101,6 @@ href="{{ url_for('static', filename='css/login_form.css') }}"
                 <!-- Add more providers as needed -->
             </div>
         </form>
-    </div>    
+    </div>
 </body>
 {% endblock %}

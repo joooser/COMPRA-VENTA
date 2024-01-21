@@ -4,101 +4,30 @@
 {% endblock %}
 
 {% block content %}
-<link 
-rel="stylesheet"
-href="{{ url_for('static', filename='css/Login_form.css') }}"/>
-
 <body class="text-center">
-    <!--
-    <div class="container d-flex justify-content-center align-items-center">      
-        <form method="POST" class="form-signin p-4 bg-white shadow rounded bg-body-tertiary border">
+    <div class="container border border-danger">
+        
+        <form method="POST" class="form-signin">
             {{ form.hidden_tag() }}
-            <div class="logo">
-                <img src="https://www.freepnglogos.com/uploads/logo-chatgpt-png/chatgpt-png-9.png" alt="">
-            </div>
-            <h1 class="h5 mb-3 fw-bold">Bienvenido</h1>
+            <img class="col-4 mx-auto img-fluid rounded float-center shadow" src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExc21qN2lnNm83M3ExcDY4Z2VzMDhuZjUycWMybHg1cThvOGZ1c2NqbCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/yNMu1n4ci9uLOn1D6E/giphy.gif" alt="">
+            <h1 class="h5 mb-3 fw-bold col-4 mx-auto border border-danger">
+                Inicia sesión
+            </h1>
+            <div class="col-4 mx-auto border border-danger">
+                {{ form.username.label() }}
+                {{ form.username(class="form-control shadow", placeholder="Usuario o email") }}
 
-            <div class="mb-3 shadow-sm">
-                {{ form.username(class="form-control", placeholder="Email", id="email") }}
+                {{ form.password.label() }}
+                {{ form.password(class="form-control shadow", placeholder="Contraseña") }}
             </div>
+            <br>
+            <div class="d-grid gap-3 col-4 mx-auto border border-danger">
 
-            <div class="mb-3 shadow-sm">    
-
-                {{ form.password(class="mb-3 form-control", placeholder="Contraseña", id="Password") }}
-            </div>
+                {{ form.submit(class="btn btn-block btn-primary shadow") }}
             
-            <div class="mb-3 p-1">
+                <a class="btn btn-info shadow" href="{{ url_for('auth.register') }}">Registrarse</a>
+            </div>
 
-                {{ form.submit(class="btn btn-primary shadow-sm") }}
-            </div>
-            <div class="mb-3 p-1">
-                <p class="link"><small>¿No tiene una cuenta?
-                    <a href="{{ url_for('auth.register') }}" class="link link-opacity-75">Registrarse</a>
-                </small></p>
-                <hr class="border-2">
-                <span><i class="fab fa-google"></i></span>
-            </div>
-        </form>
-    </div>
-    <div class="wrapper">
-        <div class="logo">
-            <img src="https://www.freepnglogos.com/uploads/logo-chatgpt-png/chatgpt-png-9.png" alt="">
-        </div>
-        <div class="text-center mt-4 name">
-            Bienvenido
-        </div>
-        <form class="p-3 mt-3">
-            <div class="form-field d-flex align-items-center">
-                <span class="far fa-user"></span>
-                <input type="text" name="userName" id="userName" placeholder="Email">
-            </div>
-            <div class="form-field d-flex align-items-center">
-                <span class="fas fa-key"></span>
-                <input type="password" name="password" id="pwd" placeholder="Contraseña">
-            </div>
-            <button class="btn mt-3">Login</button>
-        </form>
-        <div class="text-center fs-6">
-            <a href="#">Olvido su contraseña?</a> o <a href="#">Registrese</a>
-        </div>
-    </div>
-    -->
-    <div class="wrapper">
-        <div class="logo">
-            <img src="https://www.freepnglogos.com/uploads/logo-chatgpt-png/chatgpt-png-9.png" alt="">
-        </div>
-        <div class="text-center mt-4 name">
-            Bienvenido
-        </div>
-        <form method="POST" class="p-3 mt-3">
-            {{ form.hidden_tag() }}
-            <div class="form-field d-flex align-items-center">
-                <span class="far fa-user"></span>
-                {{ form.username(class="form-control", placeholder="Email", id="userName") }}
-            </div>
-            <div class="form-field d-flex align-items-center">
-                <span class="fas fa-key"></span>
-                {{ form.password(class="form-control", placeholder="Contraseña", id="pwd") }}
-            </div>
-            <button type="submit" class="btn mt-3">Login</button>
-            <div class="text-center fs-6 mt-4">
-                <a href="#">Olvido su contraseña?</a> o <a href="{{ url_for('auth.register') }}">Registrese</a>
-            </div>
-            <hr class="border-2 mt-4">
-            <!-- Social Icons -->
-            <div class="social-icons text-center">
-                <!-- Here you will add the social icons and their links -->
-                <a href="#" class="d-block mb-3">
-                    <i class="fab fa-google"></i> Login with Google
-                </a>
-                <a href="#" class="d-block mb-3">
-                    <i class="fab fa-facebook"></i> Login with Facebook
-                </a>
-                <a href="#" class="d-block mb-3">
-                    <i class="fab fa-facebook"></i> Login with Microsoft
-                </a>
-                <!-- Add more providers as needed -->
-            </div>
         </form>
     </div>
 </body>

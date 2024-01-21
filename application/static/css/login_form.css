@@ -88,12 +88,12 @@ body {
 
 .wrapper a {
     text-decoration: none;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     color: #03A9F4;
 }
 
 .wrapper a:hover {
-    color: #fff;
+    color: #039BE5;
 }
 
 @media(max-width: 380px) {

@@ -33,5 +33,10 @@ class RegisterForm(FlaskForm):
     password1 = PasswordField(label='Contraseña:', validators=[Length(min=6), DataRequired()])
     password2 = PasswordField(label='Confirmar Contraseña:', validators=[EqualTo('password1'), DataRequired()])
     
-    recaptcha = RecaptchaField()
+    #recaptcha = RecaptchaField()
     submit    = SubmitField(label='Crear Cuenta')
+
+class LoginForm(FlaskForm):
+    username = StringField(label='Nombre de Usuario:', validators=[DataRequired()])
+    password = PasswordField(label='Contraseña:', validators=[DataRequired()])
+    submit = SubmitField(label='Iniciar Sesión')

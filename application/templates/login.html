@@ -5,29 +5,28 @@
 
 {% block content %}
 <body class="text-center">
-    <div class="container">
-        <form method="POST" class="form-signin" style="color:white">
+    <div class="container border border-danger">
+        
+        <form method="POST" class="form-signin">
             {{ form.hidden_tag() }}
-            <img class="mb-4" src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExc21qN2lnNm83M3ExcDY4Z2VzMDhuZjUycWMybHg1cThvOGZ1c2NqbCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/yNMu1n4ci9uLOn1D6E/giphy.gif" alt="">
-            <h1 class="h3 mb-3 font-weight-normal">
-                Please Login
+            <img class="col-4 mx-auto img-fluid rounded float-center shadow" src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExc21qN2lnNm83M3ExcDY4Z2VzMDhuZjUycWMybHg1cThvOGZ1c2NqbCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/yNMu1n4ci9uLOn1D6E/giphy.gif" alt="">
+            <h1 class="h5 mb-3 fw-bold col-4 mx-auto border border-danger">
+                Inicia sesión
             </h1>
-            <br>
-            {{ form.username.label() }}
-            {{ form.username(class="form-control", placeholder="User Name or email") }}
+            <div class="col-4 mx-auto border border-danger">
+                {{ form.username.label() }}
+                {{ form.username(class="form-control shadow", placeholder="Usuario o email") }}
 
-            {{ form.password.label() }}
-            {{ form.password(class="form-control", placeholder="Password") }}
-
-            <br>
-
-
-            <div class="checkbox mb-3">
-               <h6>Do not have an account?</h6>
-               <a class="btn btn-sm btn-secondary" href="{{ url_for('auth.register') }}">Register</a>
+                {{ form.password.label() }}
+                {{ form.password(class="form-control shadow", placeholder="Contraseña") }}
             </div>
+            <br>
+            <div class="d-grid gap-3 col-4 mx-auto border border-danger">
 
-            {{ form.submit(class="btn btn-lg btn-block btn-primary") }}
+                {{ form.submit(class="btn btn-block btn-primary shadow") }}
+            
+                <a class="btn btn-info shadow" href="{{ url_for('auth.register') }}">Registrarse</a>
+            </div>
 
         </form>
     </div>

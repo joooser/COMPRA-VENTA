@@ -1,0 +1,32 @@
+/* Importing fonts from Google */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+/* Reseting */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: #ecf0f3;
+    color: black;
+}
+
+.navbar {
+    background-color: #ecf0f3;
+}
+
+.navbar-brand {
+    font-weight: 500;
+    color: #555;
+}
+
+.navbar-nav .nav-link {
+    color: #555;
+}
+
+.navbar-nav .nav-link:hover {
+    color: black;
+}

@@ -7,13 +7,13 @@ Create Document
 {% block content %}
 <link 
 rel="stylesheet"
-href="{{ url_for('static', filename='css/dynamic_form.css') }}"
-/>
+href="{{ url_for('static', filename='css/dynamic_form.css') }}"/>
 
 <div class="container justify-content-center">
     <div class="row justify-content-md-center" id="multistepsform-container">
         <div class="col-md-auto">
-            <form class="" id="multistepsform" method="POST" name="multistepsform">
+            
+            <form id="multistepsform" method="POST" name="multistepsform">
                 {{ form.hidden_tag() }}
                 <ul id="progressbar">
                     {% set steps = ['Vendedor', 'El Vehiculo a Vender', 'Datos de Notaria', 'La que manda', 'Comprador', 'Coroto', 'Pago'] %}

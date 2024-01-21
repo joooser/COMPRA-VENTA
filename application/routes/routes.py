@@ -25,9 +25,9 @@ def home():
 @main_blueprint.route('/create-document', methods=['GET'])
 @login_required
 def create_document():
-
+    form = VehicleSaleForm()
     questions_by_category = get_questions_grouped_by_category()
-    return render_template('create_document.html', questions_by_category=questions_by_category)
+    return render_template('create_document.html', form=form, questions_by_category=questions_by_category)
 
 @main_blueprint.route('/test', methods=['GET', 'POST'])
 @login_required

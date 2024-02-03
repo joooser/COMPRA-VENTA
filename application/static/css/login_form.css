@@ -53,17 +53,17 @@ body {
     border: none;
     outline: none;
     background: none;
-    font-size: 1.2rem;
+    font-size: 1.0rem;
     color: #666;
     padding: 10px 15px 10px 10px;
-    /* border: 1px solid red; */
 }
 
 .wrapper .form-field {
-    padding-left: 10px;
+    padding-left: 0px;
     margin-bottom: 20px;
     border-radius: 20px;
     box-shadow: inset 8px 8px 8px #cbced1, inset -8px -8px 8px #fff;
+    position: relative;
 }
 
 .wrapper .form-field .fas {
@@ -93,7 +93,7 @@ body {
 }
 
 .wrapper a:hover {
-    color: #fff;
+    color: #555;
 }
 
 @media(max-width: 380px) {
@@ -101,4 +101,17 @@ body {
         margin: 30px 20px;
         padding: 40px 15px 15px 15px;
     }
+}
+
+.wrapper .form-field input {
+    border-radius: 20px;
+    transition: border-color 0.5s ease;
+    width: 100%; 
+    box-sizing: border-box;
+}
+
+.wrapper .form-field input:focus {
+    outline: 3px solid #03A9F4;
+    border-color: #039BE5;
+    box-sizing: border-box;
 }

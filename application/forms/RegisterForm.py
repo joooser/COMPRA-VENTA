@@ -26,9 +26,9 @@ class RegisterForm(FlaskForm):
         if email:
             raise ValidationError('Email already exists! Please try a different email address')
 
-    name      = StringField(label='Nombre:', validators=[DataRequired()])
-    lastname  = StringField(label='Apellido:', validators=[DataRequired()])
-    username  = StringField(label='Nombre de Usuario:', validators=[Length(min=3, max=30), DataRequired()])
+    #name      = StringField(label='Nombre:', validators=[DataRequired()])
+    #lastname  = StringField(label='Apellido:', validators=[DataRequired()])
+    #username  = StringField(label='Nombre de Usuario:', validators=[Length(min=3, max=30), DataRequired()])
     email     = StringField(label='Correo Electrónico:', validators=[Email(), DataRequired()])
     password1 = PasswordField(label='Contraseña:', validators=[Length(min=6), DataRequired()])
     password2 = PasswordField(label='Confirmar Contraseña:', validators=[EqualTo('password1'), DataRequired()])

@@ -30,3 +30,9 @@ body {
 .navbar-nav .nav-link:hover {
     color: black;
 }
+
+p {
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #555;
+}

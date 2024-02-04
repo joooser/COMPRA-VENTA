@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+{% block head %}
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- 
+    - favicon
+  -->
+  <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.svg') }}" type="image/svg+xml">
+
+  <!-- 
+    - custom css link
+  -->
+  <link 
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/landing.css') }}"/>
+
+  <!-- 
+    - google font link
+  -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Mulish:wght@600;700;900&family=Quicksand:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+{% endblock %}
+<title>{% block title %}{% endblock %}</title>
+</head>
+
+<body>
+
+  <!-- 
+    - HEADER
+  -->
+
+  <header class="header" data-header>
+    <div class="container">
+
+      <a href="#" class="logo">
+        <img src="./assets/images/logo.svg" alt="logo">
+      </a>
+
+      <button class="menu-toggle-btn" data-nav-toggle-btn>
+        <ion-icon name="menu-outline"></ion-icon>
+      </button>
+
+      <nav class="navbar">
+        <ul class="navbar-list">
+
+          <li>
+            <a href="#hero" class="navbar-link">Home</a>
+          </li>
+
+          <li>
+            <a href="#features" class="navbar-link">Beneficios</a>
+          </li>
+
+          <li>
+            <a href="#" class="navbar-link">Precio</a>
+          </li>
+
+          <li>
+            <a href="#blog" class="navbar-link">Blog</a>
+          </li>
+
+          <li>
+            <a href="#contact" class="navbar-link">Contacto</a>
+          </li>
+
+        </ul>
+
+        <div class="header-actions">
+          <a href="#" class="header-action-link">Inicio</a>
+
+          <a href="#" class="header-action-link">Registrarse</a>
+        </div>
+      </nav>
+
+    </div>
+  </header>
+
+
+
+
+
+  <main>
+    <article>
+
+      <!-- 
+        - HERO
+      -->
+
+      <section class="hero" id="hero">
+        <div class="container">
+
+          <div class="hero-content">
+            <h1 class="h1 hero-title">Documentos a un click</h1>
+
+            <p class="hero-text">
+              Una forma de crear documentos rapida y segura. A un click de distancia.
+            </p>
+
+            <p class="form-text">
+              <span>🥳</span> Mantente al tanto de nuestras noticias y nuevos productos.
+            </p>
+
+            <form action="" class="hero-form">
+              <input type="email" name="email" required placeholder="Email" class="email-field">
+
+              <button type="submit" class="btn btn-primary">Me apunto</button>
+            </form>
+          </div>
+
+          <figure class="hero-banner">
+            <img src="{{ url_for('static', filename='images/hero-banner.png') }}" alt="Hero image">
+          </figure>
+
+        </div>
+      </section>
+
+
+
+      <!-- 
+        - ABOUT
+      -->
+
+      <section class="about">
+        <div class="container">
+
+          <div class="about-content">
+
+            <div class="about-icon">
+              <ion-icon name="cube"></ion-icon>
+            </div>
+
+            <h2 class="h2 about-title">¿Porque elegirnos ?</h2>
+
+            <p class="about-text">
+              Trabajamos día y noche para traerte las mejores soluciones lo mas accesible posible.
+              Queremos facilitarte la vida y hacer que tu trabajo sea mas facil.
+            </p>
+
+            <button class="btn btn-outline">Saber más</button>
+
+          </div>
+
+          <ul class="about-list">
+
+            <li>
+              <div class="about-card">
+
+                <div class="card-icon">
+                  <ion-icon name="thumbs-up"></ion-icon>
+                </div>
+
+                <h3 class="h3 card-title">Facíl de usar</h3>
+
+                <p class="card-text">
+                  Rellena los datos y obten tu documento facilmente.
+                </p>
+
+              </div>
+            </li>
+
+            <li>
+              <div class="about-card">
+
+                <div class="card-icon">
+                  <ion-icon name="trending-up"></ion-icon>
+                </div>
+
+                <h3 class="h3 card-title">Haz crecer tus beneficios</h3>
+
+                <p class="card-text">
+                  Haz crecer tus beneficios reduciendo tus gastos.
+                </p>
+
+              </div>
+            </li>
+
+            <li>
+              <div class="about-card">
+
+                <div class="card-icon">
+                  <ion-icon name="shield-checkmark"></ion-icon>
+                </div>
+
+                <h3 class="h3 card-title">Seguro</h3>
+
+                <p class="card-text">
+                  Tus datos estan seguros en nuestras manos.
+                  Ya que tanto en transito como en descanso los datos estan encriptados
+                </p>
+
+              </div>
+            </li>
+
+            <li>
+              <div class="about-card">
+
+                <div class="card-icon">
+                  <ion-icon name="server"></ion-icon>
+                </div>
+
+                <h3 class="h3 card-title">Retencion de Datos</h3>
+
+                <p class="card-text">
+                  Solo retenemos una copia de tus documentos, durante el tiempo que dicta la ley.
+                </p>
+
+              </div>
+            </li>
+
+          </ul>
+
+        </div>
+      </section>
+
+
+
+
+
+      <!-- 
+        - FEATURES
+      -->
+
+      <section class="features" id="features">
+        <div class="container">
+
+          <h2 class="h2 section-title">Grandes Beneficios</h2>
+
+          <p class="section-text">
+            Subcribete con nosotros y automatiza la creacion de documentos legales medieante
+            nuestra tecnologia de IA podemos crear facilmente tus documentos.
+          </p>
+
+          <div class="features-wrapper">
+
+            <figure class="features-banner">
+              <img src="{{ url_for('static', filename='images/features-img-1.png') }}" alt="illustration art">
+            </figure>
+
+            <div class="features-content">
+
+              <p class="features-content-subtitle">
+                <ion-icon name="sparkles"></ion-icon>
+
+                <span>Beneficios</span>
+              </p>
+
+              <h3 class="features-content-title">
+                Crea <strong>documentos</strong> & <strong>automatiza</strong> con nuestra suite de <strong>herramientas
+                  de automatizacion e IA</strong>
+              </h3>
+
+              <p class="features-content-text">
+                Nuestra suite de herramientas de automatización e inteligencia artificial
+                te permite crear documentos de manera eficiente y automatizar tus procesos.
+                Con tecnologías avanzadas, mejora la productividad y simplifica tus tareas cotidianas.
+                Descubre cómo nuestra solución puede transformar tu manera de trabajar.
+              </p>
+
+              <ul class="features-list">
+
+                <li class="features-list-item">
+                  <ion-icon name="layers-outline"></ion-icon>
+
+                  <p>Transforma la creación y gestión de documentos.</p>
+                </li>
+
+                <li class="features-list-item">
+                  <ion-icon name="megaphone-outline"></ion-icon>
+
+                  <p>Automatización avanzada para una gestión documental más ágil.</p>
+                </li>
+
+              </ul>
+
+              <div class="btn-group">
+                <button class="btn btn-primary">Saber mas</button>
+
+                <button class="btn btn-secondary">Unirse</button>
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="features-wrapper">
+
+            <figure class="features-banner">
+              <img src="{{ url_for('static', filename='images/features-img-2.png') }}" alt="illustration art">
+            </figure>
+
+            <div class="features-content">
+
+              <p class="features-content-subtitle">
+                <ion-icon name="sparkles"></ion-icon>
+
+                <span>Proximamente</span>
+              </p>
+
+              <h3 class="features-content-title">
+                Nosotros hacemos el trabajo usted <strong>se concentra</strong> en <strong>sus clientes.</strong>
+              </h3>
+
+              <p class="features-content-text">
+                Nuestro equipo de I+D trabaja constantemente en nuevas soluciones para
+                hacerle la vida mas facil a nuestros clientes con soluciones innovadoras.
+              </p>
+
+              <ul class="features-list">
+
+                <li class="features-list-item">
+                  <ion-icon name="rocket-outline"></ion-icon>
+
+                  <p>Desarrollo con IA para la automatización de procesos.</p>
+                </li>
+
+                <li class="features-list-item">
+                  <ion-icon name="wifi-outline"></ion-icon>
+
+                  <p>Creación de todo tipo de documentos.</p>
+                </li>
+
+              </ul>
+
+              <div class="btn-group">
+                <button class="btn btn-primary">Saber mas</button>
+
+                <button class="btn btn-secondary">Unirse</button>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+
+
+
+
+      <!-- 
+        - BLOG
+      -->
+
+      <section class="blog" id="blog">
+        <div class="container">
+
+          <h2 class="h2 section-title">Noticias</h2>
+
+          <p class="section-text">
+            Aqui te encontraras las ultimas noticias de la empresa.
+          </p>
+
+          <ul class="blog-list">
+
+            <li>
+              <div class="blog-card">
+
+                <figure class="blog-banner">
+                  <img src="./assets/images/blog-banner-1.jpg" alt="Best Traveling Place">
+                </figure>
+
+                <div class="blog-meta">
+
+                  <span>
+                    <ion-icon name="calendar-outline"></ion-icon>
+
+                    <time datetime="2021-04-10">april 10 2021</time>
+                  </span>
+
+                  <span>
+                    <ion-icon name="person-outline"></ion-icon>
+
+                    <p>admin</p>
+                  </span>
+
+                </div>
+
+                <h3 class="blog-title">Best Traveling Place</h3>
+
+                <p class="blog-text">
+                  Integer ante arcu accumsan a consectetuer eget posuere mauris praesent adipiscing phasellus
+                  ullamcorper ipsum rutrum
+                  punc.
+                </p>
+
+                <a href="#" class="blog-link-btn">
+                  <span>Learn More</span>
+
+                  <ion-icon name="chevron-forward-outline"></ion-icon>
+                </a>
+
+              </div>
+            </li>
+
+            <li>
+              <div class="blog-card">
+
+                <figure class="blog-banner">
+                  <img src="./assets/images/blog-banner-2.jpg" alt="Private Meeting Room">
+                </figure>
+
+                <div class="blog-meta">
+
+                  <span>
+                    <ion-icon name="calendar-outline"></ion-icon>
+
+                    <time datetime="2021-04-10">april 10 2021</time>
+                  </span>
+
+                  <span>
+                    <ion-icon name="person-outline"></ion-icon>
+
+                    <p>admin</p>
+                  </span>
+
+                </div>
+
+                <h3 class="blog-title">Private Meeting Room</h3>
+
+                <p class="blog-text">
+                  Integer ante arcu accumsan a consectetuer eget posuere mauris praesent adipiscing phasellus
+                  ullamcorper ipsum rutrum
+                  punc.
+                </p>
+
+                <a href="#" class="blog-link-btn">
+                  <span>Learn More</span>
+
+                  <ion-icon name="chevron-forward-outline"></ion-icon>
+                </a>
+
+              </div>
+            </li>
+
+            <li>
+              <div class="blog-card">
+
+                <figure class="blog-banner">
+                  <img src="./assets/images/blog-banner-3.jpg" alt="The Best Business Ideas">
+                </figure>
+
+                <div class="blog-meta">
+
+                  <span>
+                    <ion-icon name="calendar-outline"></ion-icon>
+
+                    <time datetime="2021-04-10">april 10 2021</time>
+                  </span>
+
+                  <span>
+                    <ion-icon name="person-outline"></ion-icon>
+
+                    <p>admin</p>
+                  </span>
+
+                </div>
+
+                <h3 class="blog-title">The Best Business Ideas</h3>
+
+                <p class="blog-text">
+                  Integer ante arcu accumsan a consectetuer eget posuere mauris praesent adipiscing phasellus
+                  ullamcorper ipsum rutrum
+                  punc.
+                </p>
+
+                <a href="#" class="blog-link-btn">
+                  <span>Learn More</span>
+
+                  <ion-icon name="chevron-forward-outline"></ion-icon>
+                </a>
+
+              </div>
+            </li>
+
+          </ul>
+
+        </div>
+      </section>
+
+
+
+
+
+      <!-- 
+        - CONTACT
+      -->
+
+      <section class="contact" id="contact">
+        <div class="container">
+
+          <h2 class="h2 section-title">Contact Us</h2>
+
+          <p class="section-text">
+            Et harum quidem rerum facilis est et expedita distinctio nam libero tempore cum soluta nobis eligendi
+            cumque.
+          </p>
+
+          <div class="contact-wrapper">
+
+            <form action="" class="contact-form">
+
+              <div class="wrapper-flex">
+
+                <div class="input-wrapper">
+                  <label for="name">Name*</label>
+
+                  <input type="text" name="name" id="name" required placeholder="Enter Your Name" class="input-field">
+                </div>
+
+                <div class="input-wrapper">
+                  <label for="emai">Email*</label>
+
+                  <input type="text" name="email" id="email" required placeholder="Enter Your Email"
+                    class="input-field">
+                </div>
+
+              </div>
+
+              <label for="message">Message*</label>
+
+              <textarea name="message" id="message" required placeholder="Type Your Message"
+                class="input-field"></textarea>
+
+              <button type="submit" class="btn btn-primary">
+                <span>Send Message</span>
+
+                <ion-icon name="paper-plane-outline"></ion-icon>
+              </button>
+
+            </form>
+
+            <ul class="contact-list">
+
+              <li>
+                <a href="mailto:support@website.com" class="contact-link">
+                  <ion-icon name="mail-outline"></ion-icon>
+
+                  <span>: support@website.com</span>
+                </a>
+              </li>
+
+              <li>
+                <a href="#" class="contact-link">
+                  <ion-icon name="globe-outline"></ion-icon>
+
+                  <span>: www.website.com</span>
+                </a>
+              </li>
+
+              <li>
+                <a href="tel:+0011234567890" class="contact-link">
+                  <ion-icon name="call-outline"></ion-icon>
+
+                  <span>: (+001) 123 456 7890</span>
+                </a>
+              </li>
+
+              <li>
+                <div class="contact-link">
+                  <ion-icon name="time-outline"></ion-icon>
+
+                  <span>: 9:00 AM - 6:00 PM</span>
+                </div>
+              </li>
+
+              <li>
+                <a href="#" class="contact-link">
+                  <ion-icon name="location-outline"></ion-icon>
+
+                  <address>: 1644 Deer Ridge Drive Rochelle Park, NJ 07662</address>
+                </a>
+              </li>
+
+            </ul>
+
+          </div>
+
+        </div>
+      </section>
+
+    </article>
+  </main>
+
+
+
+
+
+  <!-- 
+    - FOOTER
+  -->
+
+  <footer>
+
+    <div class="footer-top">
+      <div class="container">
+
+        <div class="footer-brand">
+
+          <a href="#" class="logo">
+            <img src="./assets/images/logo-footer.svg" alt="Landio logo">
+          </a>
+
+          <p class="footer-text">
+            Cras ultricies mi eu turpis sit hendrerit fringilla vestibulum ante ipsum primis in faucibus ultrices
+            posuere cubilia.
+          </p>
+
+          <ul class="social-list">
+
+            <li>
+              <a href="#" class="social-link">
+                <ion-icon name="logo-facebook"></ion-icon>
+              </a>
+            </li>
+
+            <li>
+              <a href="#" class="social-link">
+                <ion-icon name="logo-twitter"></ion-icon>
+              </a>
+            </li>
+
+            <li>
+              <a href="#" class="social-link">
+                <ion-icon name="logo-instagram"></ion-icon>
+              </a>
+            </li>
+
+            <li>
+              <a href="#" class="social-link">
+                <ion-icon name="logo-linkedin"></ion-icon>
+              </a>
+            </li>
+
+          </ul>
+
+        </div>
+
+        <div class="footer-link-box">
+
+          <ul class="footer-list">
+
+            <li>
+              <p class="footer-item-title">ABOUT US</p>
+            </li>
+
+            <li>
+              <a href="#" class="footer-link">Works</a>
+            </li>
+
+            <li>
+              <a href="#" class="footer-link">Strategy</a>
+            </li>
+
+            <li>
+              <a href="#" class="footer-link">Releases</a>
+            </li>
+
+            <li>
+              <a href="#" class="footer-link">Press</a>
+            </li>
+
+            <li>
+              <a href="#" class="footer-link">Mission</a>
+            </li>
+
+          </ul>
+
+          <ul class="footer-list">
+
+            <li>
+              <p class="footer-item-title">CUSTOMERS</p>
+            </li>
+
+            <li>
+              <a href="#" class="footer-link">Tranding</a>
+            </li>
+
+            <li>
+              <a href="#" class="footer-link">Popular</a>
+            </li>
+
+            <li>
+              <a href="#" class="footer-link">Customers</a>
+            </li>
+
+            <li>
+              <a href="#" class="footer-link">Features</a>
+            </li>
+
+          </ul>
+
+          <ul class="footer-list">
+
+            <li>
+              <p class="footer-item-title">SUPPORT</p>
+            </li>
+
+            <li>
+              <a href="#" class="footer-link">Developers</a>
+            </li>
+
+            <li>
+              <a href="#" class="footer-link">Support</a>
+            </li>
+
+            <li>
+              <a href="#" class="footer-link">Customer Service</a>
+            </li>
+
+            <li>
+              <a href="#" class="footer-link">Get Started</a>
+            </li>
+
+            <li>
+              <a href="#" class="footer-link">Guide</a>
+            </li>
+
+          </ul>
+
+        </div>
+
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="container">
+        <p class="copyright">
+          &copy; 2022 <a href="">codewithsadee</a>. All Right Reserved
+        </p>
+      </div>
+    </div>
+
+  </footer>
+
+
+
+
+
+  <!-- 
+    - custom js link
+  -->
+  <script src="./assets/js/script.js"></script>
+
+  <!-- 
+    - ionicon link
+  -->
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+</body>
+
+</html>

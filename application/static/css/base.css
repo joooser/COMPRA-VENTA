@@ -1,7 +1,6 @@
 /* Importing fonts from Google */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
 
-/* Reseting */
 * {
     margin: 0;
     padding: 0;
@@ -35,4 +34,36 @@ p {
     font-size: 1rem;
     line-height: 1.5;
     color: #555;
+}
+
+.alert-container {
+    position: absolute;
+    top: 90px;
+    left: 50%;
+    width: auto;
+}
+
+.alert {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.alert .btn-close:focus {
+    position: absolute;
+    box-shadow: none;
+}
+
+@media (max-width: 576px) { 
+    .alert-container {
+        position: absolute;
+        left: 50%;
+        top: 70px;
+        width: auto;
+        max-width: 60%;
+    }
+
+    .alert-container .alert {
+        font-size: 0.75rem;
+        padding: 0.75rem 1.25rem;
+    }
 }

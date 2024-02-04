@@ -15,6 +15,9 @@ from application.forms import VehicleSaleForm
 main_blueprint = Blueprint('main', __name__)
 
 @main_blueprint.route('/', methods=['GET', 'POST'])
+def landing():
+    
+    return render_template('landing.html', title='Landing')
 
 @main_blueprint.route('/home', methods=['GET', 'POST'])
 @login_required

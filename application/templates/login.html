@@ -80,13 +80,10 @@ href="{{ url_for('static', filename='css/Login_form.css') }}"/>
                 <span class="fas fa-key"></span>
                 {{ form.password(class="form-control", placeholder="Contraseña", id="pwd") }}
             </div>
-            <button type="submit" class="btn mt-3">Login</button>
-            <div class="text-center fs-6 mt-4">
-                <a href="#">Olvido su contraseña?</a> o <a href="{{ url_for('auth.register') }}">Registrese</a>
-            </div>
-            <hr class="border-2 mt-4">
+            <button type="submit" class="btn mt-3">Iniciar Sesión</button>
+
             <!-- Social Icons -->
-            <div class="social-icons text-center">
+            <div class="social-icons text-center pt-4">
                 <div class="row">
                     <div class="col">
                         <a href="#" class="d-block mb-3">
@@ -111,6 +108,13 @@ href="{{ url_for('static', filename='css/Login_form.css') }}"/>
                     </div>
                 </div>
             </div>
+
+            <hr class="border-2">
+
+            <div class="text-center fs-6 mt-4">
+                <a href="#">Olvido su contraseña?</a> ~ <a href="{{ url_for('auth.register') }}">Registrese</a>
+            </div>
+           
         </form>
     </div>
 </body>

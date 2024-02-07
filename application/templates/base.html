@@ -3,10 +3,11 @@
 
 <head>
 {% block head %}
+
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <!-- 
     - favicon
@@ -26,6 +27,7 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
 
+  <!-- JQuery -->
   <script 
       src="https://code.jquery.com/jquery-3.7.1.min.js"
       integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
@@ -61,6 +63,7 @@
     rel="stylesheet">
     
 {% endblock %}
+
   <title>{% block title %}{% endblock %}</title>
 </head>
 
@@ -69,43 +72,50 @@
   <!-- New Header Structure -->
 <header class="header" data-header>
 
-  <div class="container text-center">
-
-    <nav class="navbar navbar-expand-lg">
+  <nav class="navbar navbar-expand-lg">
+  
+    <div class="container">
 
       <div>
         <a class="navbar-brand" href="{{ url_for('main.home') }}">
-          <i class="bi bi-pencil-square" style="font-size: 2rem; color: hsl(244, 17%, 61%);"></i>
+          <i class="bi bi-pencil-square" style="font-size: 2rem;"></i>
         </a>
       </div>
 
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <button class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation">
+
         <span class="navbar-toggler-icon"></span>
-      </button>  
+      </button>
       
+    <div class="collapse navbar-collapse" id="navbarNav">
     {% if current_user.is_authenticated %}
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    
+      <ul class="navbar-list navbar-nav me-auto mb-2 mb-lg-0">
 
-      <ul class="navbar-list navbar-nav">
-
         <li class="nav-item">
-            <a href="{{ url_for('main.home') }}" class="navbar-link">Home</a>
+          <a href="{{ url_for('main.home') }}" class="navbar-link">Home</a>
         </li>
       
         <li class="nav-item">
-            <a href="#features" class="navbar-link">Beneficios</a>
+          <a href="{{ url_for('main.create_document') }}" class="navbar-link">Crear</a>
         </li>
       
         <li class="nav-item">
-            <a href="#" class="navbar-link">Precio</a>
+          <a href="#" class="navbar-link">Herramientas</a>
         </li>
       
         <li class="nav-item">
-            <a href="#blog" class="navbar-link">Blog</a>
+          <a href="#blog" class="navbar-link">Blog</a>
         </li>
       
         <li class="nav-item">
-            <a href="#contact" class="navbar-link">Contacto</a>
+          <a href="#contact" class="navbar-link">Contacto</a>
         </li>
 
       </ul>
@@ -117,12 +127,10 @@
         <a href="{{ url_for('auth.logout') }}" class="header-action-link">Logout</a>
 
       </div>
-    </div>
 
     {% else %}
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
-      <ul class="navbar-list navbar-nav">
+      <ul class="navbar-list navbar-nav me-auto mb-2 mb-lg-0">
 
         <li class="nav-item">
           <a href="/" class="navbar-link">Home</a>
@@ -153,13 +161,13 @@
         <a href="{{ url_for('auth.register') }}" class="header-action-link">Registrarse</a>
 
       </div>
-    </div>
+
 
     {% endif %}
+    </div>
 
-    </nav>
-
-  </div>
+    </div>
+  </nav>
 </header>
 
 
@@ -185,7 +193,7 @@
     - CONTENT
   -->
 
-<div class="container mt-5">
+<div class="container-fluid pt-4">
 
     {% block content %}{% endblock %}
 
@@ -197,9 +205,9 @@
     - FOOTER
   -->
   
-<footer class="bd-footer py-4 py-md-5 mt-5 footer-top">
+<footer class="footer mt-auto py-3 footer-top">
 
-  <div class="container py-4 py-md-5 px-4 px-md-3 text-body-secondary">
+  <div class="container mt-3">
 
     <div class="row">
 
@@ -346,7 +354,7 @@
   </div>
 </footer>
 
-<footer class="footer mt-auto py-3 footer-bottom">
+<footer class="footer footer-bottom">
   <div class="container">
     <p class="copyright">
     <span>&copy; 2024 <a href="">Black Sheep</a>. All Right Reserved</span>

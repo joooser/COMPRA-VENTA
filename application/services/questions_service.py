@@ -7,7 +7,7 @@ from application.extensions.extensions import db
 from application.utils.Logger import Logger
 
 # Models
-from application.models import Question
+from application.models import Questions
 
 
 def get_questions_grouped_by_category():

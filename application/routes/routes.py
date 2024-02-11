@@ -7,7 +7,7 @@ from application import db
 
 from application.services.questions_service import get_questions_grouped_by_category
 from application.services.pdf_service import create_new_pdf
-from application.models import Resulting_Document
+from application.models import Resulting_Document, DocumentType
 from application.forms import VehicleSaleForm
 
 
@@ -35,6 +35,8 @@ def create_document():
 @main_blueprint.route('/test', methods=['GET', 'POST'])
 @login_required
 def test():
+
+    document_types = DocumentType.query.all()
 
     try:
         form = VehicleSaleForm()
@@ -73,7 +75,7 @@ def test():
         print(f"Error processing request: {e}")
         return jsonify(success=False, error=str(e)), 500
     
-    return render_template('test.html', form=form)
+    return render_template('test.html', form=form, document_types=document_types)
 
 
 @main_blueprint.route('/_handle_data', methods=['POST'])

@@ -1,0 +1,5 @@
+.text-decoration-underline {
+    display: inline-block; /* Prevents breaking across lines */
+    min-width: 100px; /* Adjust based on your needs */
+    white-space: nowrap; /* Keeps the content on a single line */
+}

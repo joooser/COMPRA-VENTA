@@ -6,13 +6,11 @@ def load_user(user_id):
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer(), primary_key=True)
-    username = db.Column(db.String(length=30), nullable=False, unique=True)
     email = db.Column(db.String(length=50), nullable=False, unique=True)
     signup_date = db.Column(db.DateTime(), nullable=False, default=datetime.utcnow)
-    name = db.Column(db.String(length=30), nullable=False)
-    lastname = db.Column(db.String(length=30), nullable=False)
     password_hash = db.Column(db.String(length=60), nullable=False)
-    role_id = db.Column(db.Integer(), db.ForeignKey('role.id'))
+    role_id = db.Column(db.Integer(), db.ForeignKey('role.id'), default=1)
+    subscription_id = db.Column(db.Integer, db.ForeignKey('subscription.id'), default=1)
     
     @property
     def password(self):
@@ -26,4 +24,4 @@ class User(db.Model, UserMixin):
         return bcrypt.check_password_hash(self.password_hash, attempted_password)
 
     def __repr__(self):
-        return f'User {self.username}'
+        return f'User {self.email}'

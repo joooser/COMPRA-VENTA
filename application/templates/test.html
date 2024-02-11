@@ -1,157 +1,41 @@
 {% extends "base.html" %}
 
 {% block title %}
-Questions
+Test
 {% endblock %}
 
 {% block content %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/dynamic_form.css') }}">
 
-<div id="multistepsform-container">
+<div class="container mt-auto text-center">
 
-    <form id="multistepsform" method="POST" name="multistepsform">
+    <div class="row justify-content-center">
 
-        <ul id="progressbar">
-            {% set steps = ['Vendedor', 'El Vehiculo a Vender', 'Datos de Notaria', 'La que manda', 'Comprador', 'Coroto', 'Pago'] %}
-            {% for step in steps %}
-                <li class="{{ 'active' if loop.index == 1 }}">{{ step }}</li>
-            {% endfor %}
-        </ul>
+        <div class="col-md-4 mt-5">
 
-        <!-- fieldsets -->
-        <fieldset>
-            <h2 class="fs-title">Vendedor</h2>
-            <h3 class="fs-subtitle">Are you sure you want to sell?</h3>
+            <div class="card shadow-lg p-3 mb-5 bg-white rounded" style="margin-top: 20px; min-height: 500px;">
 
-            <input type="text" name="seller_name" required minlength="2" maxlength="40" placeholder="Cual es el nombre del vendedor?">
-            <input type="text" name="seller_nationality" required maxlength="50" placeholder="Cual es la nacionalidad del vendedor?">
-            <input type="text" name="seller_id" required minlength="2" maxlength="10" placeholder="Cual es la cedula del vendedor?">
-
-            <select name="seller_marital_status" class="form-control-choice" required>
-                <option value="">Select Marital Status</option>
-                <option value="soltero(a)">Soltero(a)</option>
-                <option value="casado(a)">Casado(a)</option>
-                <option value="viudo(a)">Viudo(a)</option>
-            </select>
-
-            <input type="text" name="seller_address" required maxlength="100" placeholder="Cual es el domicilio del vendedor?">
-
-            <select name="vehicle_document_type" class="form-control-choice" required>
-                <option value="">Select Document Type</option>
-                <option value="titulo_inttt">Titulo INTTT</option>
-                <option value="documento_notariado">Documento Notariado</option>
-            </select>
-
-            <input type="button" name="next" class="next action-button" value="Next" />
-        </fieldset>
-
-        <fieldset>
-            <h2 class="fs-title">El Vehiculo a Vender</h2>
-            <h3 class="fs-subtitle">A nice ride</h3>
-
-            <!-- Fields for 'titulo inttt' -->
-            <input type="text" name="vehicle_title_number" maxlength="20" placeholder="Cual es el numero del titulo del vehiculo?">
-            <input type="text" name="vehicle_form_number" maxlength="20" placeholder="Cual es el numero de forma titulo del vehiculo?">
-            <input type="date" name="vehicle_title_date" placeholder="De que fecha es el titulo?">
-
-            <input type="button" name="previous" class="previous action-button" value="Previous" />
-            <input type="button" name="next" class="next action-button" value="Next" />
-        </fieldset>
-        
-        <fieldset>
-            <h2 class="fs-title">Datos de Notaria</h2>
-            <h3 class="fs-subtitle">The Bureaucrats</h3>
-
-            <!-- Fields for 'documento notariado' -->
-            <input type="text" name="notary_name" maxlength="50" placeholder="Que notaria autentico el documento?">
-            <input type="number" name="document_authentication_number" placeholder="Bajo que numero quedo autenticado el documento?">
-
-            <select name="document_authentication_volume" class="form-control-choice" required>
-                <option value="">Select Volume</option>
-                <option value="1ro">Primero</option>
-                <option value="2do">Segundo</option>
-                <option value="3ro">Tercero</option>
-            </select>
-
-            <input type="date" name="document_authentication_date" placeholder="En que fecha fue autenticado el documento?">
-
-            <input type="button" name="previous" class="previous action-button" value="Previous" />
-            <input type="button" name="next" class="next action-button" value="Next" />
-        </fieldset>
-        
-        <fieldset>
-            <h2 class="fs-title">La que manda</h2>
-            <h3 class="fs-subtitle">Que no se entere</h3>
-
-            <!-- Fields for questions_seller_c -->
-            <input type="text" name="seller_spouse_name" maxlength="40" placeholder="Cual es el nombre del conyuge del vendedor?">
-            <input type="text" name="seller_spouse_nationality" maxlength="50" placeholder="Cual es la nacionalidad del conyuge del vendedor?">
-            <input type="text" name="seller_spouse_id" maxlength="10" placeholder="Cual es la cedula del conyuge del vendedor?">
-            <input type="text" name="seller_spouse_address" maxlength="100" placeholder="Cual es el domicilio conyuge del vendedor?">
-
-            <input type="button" name="previous" class="previous action-button" value="Previous" />
-            <input type="button" name="next" class="next action-button" value="Next" />
-        </fieldset>
-
-        <fieldset>
-            <h2 class="fs-title">Comprador</h2>
-            <h3 class="fs-subtitle">El que se lleva el coroto</h3>
-
-            <!-- Fields for questions_buyer -->
-            <input type="text" name="buyer_name" maxlength="40" placeholder="Cual es el nombre del comprador?" required>
-            <input type="text" name="buyer_nationality" maxlength="50" placeholder="Cual es la nacionalidad del comprador?" required>
-            <input type="text" name="buyer_id" maxlength="10" placeholder="Cual es la cedula del comprador?" required>
-
-            <select name="buyer_marital_status" class="form-control-choice"required>
-                <option value="">Select Marital Status</option>
-                <option value="soltero">Soltero</option>
-                <option value="casado">Casado</option>
-                <option value="viudo">Viudo</option>
-            </select>
-
-            <input type="text" name="buyer_address" maxlength="100" placeholder="Cual es el domicilio del comprador?" required>
-
-            <input type="button" name="previous" class="previous action-button" value="Previous" />
-            <input type="button" name="next" class="next action-button" value="Next" />
-        </fieldset>
-
-        <fieldset>
-            <h2 class="fs-title">Coroto</h2>
-            <h3 class="fs-subtitle">Para que se usa el corotico?</h3>
-
-            <!-- Fields for questions_car -->
-            <input type="text" name="car_brand" maxlength="50" placeholder="Cual es la marca del vehiculo?" required>
-            <input type="text" name="car_model" maxlength="50" placeholder="Cual es el modelo del vehiculo?" required>
-            <input type="text" name="car_plate" maxlength="10" placeholder="Cual es la placa del vehiculo?" required>
-            <input type="text" name="car_engine_serial" maxlength="20" placeholder="Cual es el serial motor del vehiculo?" required>
-            <input type="text" name="car_chassis_serial" maxlength="20" placeholder="Cual es el serial de caroceria del vehiculo?" required>
-            <input type="number" name="car_year" placeholder="Cual es el año del vehiculo?" required>
-            <input type="text" name="car_type" maxlength="50" placeholder="Cual es el tipo del vehiculo?" required>
-            <input type="text" name="car_color" maxlength="20" placeholder="Cual es el color del vehiculo?" required>
-            <input type="text" name="car_class" maxlength="50" placeholder="Cual es la clase del vehiculo?" required>
-            <input type="text" name="car_use" maxlength="50" placeholder="Cual es el uso del vehiculo?" required>
-
-            <input type="button" name="previous" class="previous action-button" value="Previous" />
-            <input type="button" name="next" class="next action-button" value="Next" />
-        </fieldset>
-        
-        <fieldset>
-            <h2 class="fs-title">Pago</h2>
-            <h3 class="fs-subtitle">Cuanto hay pa eso?</h3>
-
-            <!-- Fields for questions_transaction -->
-            <input type="number" step="0.01" name="vehicle_price" placeholder="Cual es el precio del vehiculo?" required>
-            <input type="text" name="transaction_currency" maxlength="20" placeholder="En que moneda se hizo el pago del vehiculo?" required>
-            <input type="text" name="payment_instrument" maxlength="50" placeholder="Con que instrumento se pago el vehiculo?" required>
-            
-            <input type="button" name="previous" class="previous action-button" value="Previous" />
-            <input type="submit" name="submit" class="submit action-button" value="Submit" />
-        </fieldset>
-    </form>
+                <form action="/document_type" method="POST">
+                    
+                    {{ form.hidden_tag() }}
+                
+                    <i class="bi bi-pencil-square" style="font-size: 2rem;"></i>
+                
+                    <h2 class="h3 mb-3 fw-normal">Elige tipo de Documento:</h2>
+                
+                    <div class="mb-3">
+                        <select class="form-control" id="documentType" name="documentType">
+                            {% for document_type in document_types %}
+                            <option value="{{ document_type.id }}">{{ document_type.label }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                
+                    <button class="btn btn-primary w-100 py-2" type="submit">Inicio</button>
+                
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
-
-<script type="text/javascript" src="{{ url_for('static', filename='js/test.js') }}"></script>
-<script src="{{ url_for('static', filename='js/dynamic_form.js') }}"></script>
-<script src="{{ url_for('static', filename='js/handleTheData.js') }}"></script>
 
 {% endblock %}

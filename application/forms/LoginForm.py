@@ -2,6 +2,6 @@ from .base import FlaskForm, StringField, PasswordField, SubmitField, DataRequir
 
 
 class LoginForm(FlaskForm):
-    username = StringField(label='Nombre de Usuario:', validators=[DataRequired()])
+    email = StringField(label='Email:', validators=[DataRequired()])
     password = PasswordField(label='Contraseña:', validators=[DataRequired()])
     submit = SubmitField(label='Iniciar Sesión')

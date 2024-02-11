@@ -14,26 +14,44 @@ Test
 
             <div class="card shadow-lg p-3 mb-5 bg-white rounded" style="margin-top: 20px; min-height: 500px;">
 
-                <form action="/document_type" method="POST">
-                    
-                    {{ form.hidden_tag() }}
+                <form id="documentForm" hx-post="{{ url_for('main.submit_document') }}" hx-target="#templateDisplay" hx-swap="outerHTML">
                 
                     <i class="bi bi-pencil-square" style="font-size: 2rem;"></i>
                 
                     <h2 class="h3 mb-3 fw-normal">Elige tipo de Documento:</h2>
                 
                     <div class="mb-3">
-                        <select class="form-control" id="documentType" name="documentType">
+                        <select class="form-control" 
+                            id="documentType"
+                            name="documentType"
+                            hx-get="/get_sub_document_types"
+                            hx-target="#subDocumentTypeDiv"
+                            hx-trigger="change">
+                            
+                            <option value="" selected disabled>Tipo de Documento...</option>
                             {% for document_type in document_types %}
                             <option value="{{ document_type.id }}">{{ document_type.label }}</option>
                             {% endfor %}
+
                         </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <div id="subDocumentTypeDiv" hx-get="/get_payment_types" hx-target="#paymentTypeDiv" hx-trigger="change">
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <div id="paymentTypeDiv">
+                        </div>
                     </div>
                 
                     <button class="btn btn-primary w-100 py-2" type="submit">Inicio</button>
                 
                 </form>
             </div>
+            
+            <div id="templateDisplay"></div>
         </div>
     </div>
 </div>

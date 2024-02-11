@@ -23,7 +23,7 @@ transferencia = """los cuales recibe la PARTE VENDEDORA en este acto, mediante l
 cheque = """los cuales recibe LA PARTE VENDEDORA en este acto, de manos la PARTE COMPRADORA mediante instrumento <span data-placeholder="35">[Instrumento de Pago]</span> de la cuenta <span data-placeholder="42">[Cuenta que paga]</span> girado contra <span data-placeholder="36">[Banco]</span>."""
 
 final_clause = """Con el otorgamiento de este documento hago la tradición legal al comprador del bien vendido. La PARTE COMPRADORA, arriba identificada, declara: Que acepta la venta que se le hace y en los términos anteriormente expuestos. En la ciudad de su presentación, a la fecha de su otorgamiento.
-<span data-placeholder="1">[Firma del Vendedor]</span>
+<span data-placeholder="2">[Firma del Vendedor]</span>
 <span data-placeholder="18">[Firma del Comprador]</span>"""
 
 # Assemble the templates

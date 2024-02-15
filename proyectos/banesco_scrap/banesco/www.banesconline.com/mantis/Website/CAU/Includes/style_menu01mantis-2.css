@@ -1,0 +1,85 @@
+P
+{
+	TEXT-ALIGN: justify;
+        border-bottom: solid 0.1px #FFFFFF;
+}
+H1
+{
+	FONT-SIZE: 130%;
+	FONT-FAMILY: arial
+}
+PRE
+{
+	BORDER-RIGHT: #f0f0f0 1px solid;
+	PADDING-RIGHT: 10px;
+	BORDER-TOP: #f0f0f0 1px solid;
+	PADDING-LEFT: 10px;
+	FONT-SIZE: 9pt;
+	PADDING-BOTTOM: 10px;
+	BORDER-LEFT: #f0f0f0 1px solid;
+	PADDING-TOP: 10px;
+	BORDER-BOTTOM: #f0f0f0 1px solid;
+	BACKGROUND-COLOR: #f8f8f8
+}
+.clsCM3On
+{
+	PADDING-RIGHT: 4px;
+	PADDING-LEFT: 4px;
+	FONT-WEIGHT: bold;
+	FONT-SIZE: 10px;
+	PADDING-BOTTOM: 2px;
+	COLOR: white;
+	PADDING-TOP: 2px;
+	TEXT-DECORATION: none
+}
+.clsCM3Over
+{
+	PADDING-RIGHT: 4px;
+	PADDING-LEFT: 4px;
+	FONT-WEIGHT: bold;
+	FONT-SIZE: 10px;
+	PADDING-BOTTOM: 2px;
+	COLOR: white;
+	PADDING-TOP: 2px;
+	TEXT-DECORATION: none
+}
+.clsCM4On
+{
+	PADDING-RIGHT: 4px;
+	PADDING-LEFT: 4px;
+	FONT-WEIGHT: bold;
+	FONT-SIZE: 10px;
+	PADDING-BOTTOM: 2px;
+	COLOR: #007f61;
+	PADDING-TOP: 2px;
+	TEXT-DECORATION: none
+}
+.clsCM4Over
+{
+	PADDING-RIGHT: 4px;
+	PADDING-LEFT: 4px;
+	FONT-WEIGHT: bold;
+	FONT-SIZE: 10px;
+	PADDING-BOTTOM: 2px;
+	COLOR: #007f61;
+	PADDING-TOP: 2px;
+	TEXT-DECORATION: none
+}
+DIV
+{
+	FONT-FAMILY: Tahoma
+}
+.clsCM5On
+{
+	FONT-WEIGHT: bold;
+	FONT-SIZE: 10px;
+	COLOR: black;
+	TEXT-DECORATION: none
+}
+.clsCM5Over
+{
+	FONT-WEIGHT: bold;
+	FONT-SIZE: 10px;
+	COLOR: #305881;
+	TEXT-DECORATION: none
+}

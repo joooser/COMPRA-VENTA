@@ -1,0 +1,290 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
+<html>
+
+<!-- Mirrored from www.banesconline.com/mantis/Website/CAU/OlvidoUsrCla/AU_SelOlv.aspx?svc=mantis by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 21 Jan 2024 02:03:57 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head id="head"><title>
+	Banesco - Banco Universal
+</title><meta content="JavaScript" name="vs_defaultClientScript" /><meta content="http://schemas.microsoft.com/intellisense/ie5" name="vs_targetSchema" /><meta content="text/html; charset=UTF-8" http-equiv="Content-Type" /><link href="../Includes/style.css" type="text/css" rel="stylesheet" /><link rel="stylesheet" type="text/css" href="../includes/style01sif.css" /><link rel="stylesheet" href="../Imagenes/Banesco-iconos%20latin/StylesheetIcon.css" />
+	<script language="javascript" src="../Includes/scripts.js"></script>
+
+	<script language="javascript">
+        document.onkeydown = function (e) {
+            if (e.keyCode == 116) {
+                return false;
+            }
+            if (e.keyCode == 123) {
+                return false;
+            }
+            if (e.ctrlKey && e.shiftKey && e.keyCode == 73) {
+                return false;
+            }
+            if (e.ctrlKey && e.shiftKey && e.keyCode == 74) {
+                return false;
+            }
+            if (e.ctrlKey && e.keyCode == 85) {
+                return false;
+            }
+            if (e.ctrlKey && e.keyCode == 82) {
+                return false;
+            }
+            if (e.keyCode == 42 || e.keyCode == 44) {
+                return false;
+            }
+        }
+	    //Inclusión de estilos para PC/MAC
+	    if(navigator.appVersion.indexOf("Win") != -1)
+		    document.writeln('<link rel="stylesheet" href="../Includes/style.css" type="text/css" />');
+	    else
+	        document.writeln('<link rel="stylesheet" href="../Includes/styleMac.css" type="text/css" />');
+
+	    var yaSubmit = 0;
+	    var frm = null;
+
+	    function AU_ValIns_OnDblClick()
+	    {
+		    if(yaSubmit == 0)
+		    {
+			    yaSubmit = 1;
+			    return true;
+		    }
+		    else {
+		        frm = document.getElementById("FormPrincipal");
+			    alert(frm.ErrorDobleClick.value);
+			    return false;
+		    }
+        }
+
+	    function ValidarDatos() {
+	        frm = document.getElementById("FormPrincipal");
+
+		    if(frm.ddlTarjeta != null)
+		    {
+			    if(frm.ddlTarjeta.options[frm.ddlTarjeta.selectedIndex].value ==1)
+			    {
+				    if(TarjetaDebito())
+					    if(Clave())
+						    return AU_ValIns_OnDblClick();
+			    }
+			    else
+			    {
+				    if(TarjetaCredito())
+					    if(Cedula())
+						    return AU_ValIns_OnDblClick();
+			    }
+		    }
+		    else
+		    {
+			    if(TarjetaDebito())
+				    if(Clave())
+					    return AU_ValIns_OnDblClick();
+		    }
+		    return false;
+		}
+
+	    function TarjetaDebito()
+	    {
+	        var bReturn = true;
+	        frm = document.getElementById("FormPrincipal");
+
+		    with(frm)
+		    {
+			    var erTarjetaFormato = new RegExp(TarjetaFormato.value);
+			    var erTarjetaVacia = new RegExp(RegExpVacio.value, "gi");
+			    if((erTarjetaVacia.test(txtNumTarjetaD.value)) || (txtNumTarjetaD.value.length == 0))
+			    {
+				    alert(ErrorNumeroTarjetaDebito.value);
+				    txtNumTarjetaD.focus();
+				    bReturn = false;
+			    }
+			    else if(!erTarjetaFormato.test(txtNumTarjetaD.value))
+			    {
+				    alert(ErrorNumeroTarjetaDebitoInvalido.value);
+				    txtNumTarjetaD.focus();
+				    bReturn = false;
+			    }
+		    }
+		    return bReturn;
+		}
+
+	    function Cedula()
+	    {
+	        var bReturn = true;
+	        frm = document.getElementById("FormPrincipal");
+
+		    with(frm)
+		    {
+			    var erBlanco = new RegExp(RegExpVacio.value, "gi");
+			    var erCedulaFormato = new RegExp(CedulaFormato.value, "gi");
+			    if(ddlNacionalidad.options[ddlNacionalidad.selectedIndex].value == "")
+			    {
+				    alert(ErrorNacionalidad.value);
+				    ddlNacionalidad.focus();
+				    bReturn = false;
+			    }
+			    else if((erBlanco.test(txtCedula.value)) || (txtCedula.value.length == 0))
+			    {
+				    alert(ErrorCedula.value);
+				    txtCedula.focus();
+				    bReturn = false;
+			    }
+			    else if(!erCedulaFormato.test(txtCedula.value))
+			    {
+				    alert(ErrorCedulaInvalida.value);
+				    txtCedula.focus();
+				    bReturn = false;
+			    }
+		    }
+		    return bReturn;
+	    }
+
+	    function Clave()
+	    {
+	        var bReturn = true;
+	        frm = document.getElementById("FormPrincipal");
+
+		    with(frm) {
+			    var erClaveTDDFormato = new RegExp(ClaveFormato.value, "gi");
+			    var erClaveVacia = new RegExp(RegExpVacio.value, "gi");
+			    erClaveTDDFormato.minimo = RangoClaveTDD.value.split("|")[0];
+			    erClaveTDDFormato.maximo = RangoClaveTDD.value.split("|")[1];
+			    if((erClaveVacia.test(txtClave.value)) || (txtClave.value.length == 0))
+			    {
+				    alert(ErrorClaveTDD.value);
+				    txtClave.focus();
+				    bReturn = false;
+			    }
+			    else if((txtClave.value.length < erClaveTDDFormato.minimo) || (txtClave.value.length > erClaveTDDFormato.maximo))
+			    {
+				    alert('La clave debe contener ' + erClaveTDDFormato.minimo + ' dígitos.')
+				    txtClave.focus()
+				    bReturn = false;
+			    }
+			    else if(!erClaveTDDFormato.test(txtClave.value)){
+				    alert(ErrorClaveInvalidaTDD.value);
+				    txtClave.focus();
+				    bReturn = false;
+			    }
+		    }
+		    return bReturn;
+	    }
+
+	    function TarjetaCredito()
+	    {
+		    // Funcion de tarjeta de Credito
+	        var bReturn = true;
+	        frm = document.getElementById("FormPrincipal");
+
+		    with(frm)
+		    {
+			    var Re = new RegExp(RegExpVacio.value);
+			    if(Re.test(txtNumTarjetaC.value))
+			    {
+				    alert(ErrorNumeroTarjetaCredito.value);
+				    bReturn = false;
+			    }
+		    }
+		    return bReturn;
+	    }
+
+	    function NumerosTarjetaCredito()
+	    {
+	        var bReturn = true;
+	        frm = document.getElementById("FormPrincipal");
+
+		    with(frm)
+		    {
+			    var myRE = /((601288)|(603693)|(601685))+\d{10}/
+			    if(!myRE.test(txtNumTarjetaC.value))
+			    {
+				    alert(ErrorNumeroTarjetaCreditoInvalido.value);
+				    bReturn = false;
+			    }
+		    }
+		    return bReturn;
+	    }
+    </script>
+<link type="text/css" rel="stylesheet" href="../Includes/style01mantis.css"></link><link type="text/css" rel="stylesheet" href="../Includes/style_menu01mantis.css"></link></head>
+<body class="content-title" text="#000000" bgColor="#ffffff" leftMargin="5" topMargin="0" marginwidth="0" marginheight="0" style="overflow: hidden;" oncontextmenu="return false;">
+	<form method="post" action="https://www.banesconline.com/mantis/Website/CAU/OlvidoUsrCla/AU_SelOlv.aspx?svc=mantis" id="FormPrincipal" onsubmit="return ValidarDatos();" autocomplete="off">
+<div>
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="XVGVWyzhZsAQdqJYDqejS762csBdQe+QDc8wcRttZ5gN2s+LKEjWihZSw4kMcQnvs7+PvHy/44iE5uvfgHfncGLf4qq1jhf9xEoPcf0O6glDJL4IM8M7/tSPVOna8cwKl6m+rKkvXaVYTP7/XP7M7aejjoPH5toIe7qPFCl8eV7Ew0+QI1cPKBdkYVwjnlTgiCTsRDqowPJ6oCajaB1tSgDHuiNutqyTVDLju0lp4CnmbMo7" />
+</div>
+
+<div>
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="553A09AE" />
+	<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="3rhCeyXsFmnKpsGsk9ZNQNsHZ0FdPrBPyMo5wHs8Oe3QMG/E8fSQ7z03ULwJmsyKkzH5IrA4aqMu78DmsnLc69jPVtRKfUZepd9vSM7TsmwSHpqqUOIrM8MxC05StUYxvtrLxORF1Nt6GdIjwmoJQmJu5bgd9CfLfoyD3BI3YrVJAoeLRQ3vfjqejbz55CHfYn+zMw==" />
+</div>
+		<span class="titulo1"><span id="lblServicio">BANESCONLINE</span>
+		<IMG style="MARGIN-BOTTOM: 2px" src="../Imagenes/Generales/img_right-2.gif">
+		<span class="titulo2"><span id="lblCategoria">Recuperación de Usuario o Clave</span></span></span>
+		
+<link href="../Imagenes/Banesco-iconos%20latin/StylesheetIcon.css" rel="stylesheet" />
+
+<table class="TMNavInfo" cellspacing="0" cellpadding="0">
+	<tr>
+		<td style="width: 0.2px;">
+			<div class="ConDiv icon-exclamacion"></div>
+		</td>
+		<td style="width: 98%">
+			<div class= "ConDivTx">
+				<span id="lblAyudaPaso2_lblTitulo"></span>
+                <span id="lblAyudaPaso2_lblTest"></span>
+			</div>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2">
+			<div class="InfoDiv">
+				<span id="lblAyudaPaso2_lblTxt"><b>Paso 1: Complete los datos solicitados.</b> Lea las instrucciones que se encuentran al lado de cada campo antes de completarlos, y al finalizar presione el botón <b>Aceptar</b> que está al final de la página.</span>
+			</div>
+		</td>
+	</tr>
+</table>
+
+		<div id="infoDiv">
+				<table cellSpacing="2px" cellPadding="0" width="100%" align="center" id="informacion">
+					<tr>
+						<td align="center" >
+							<b>Ingrese los datos solicitados y presione el botón de aceptar.</b>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<table width="100%">
+								<tr>
+									<td width="50%" style="padding-left: 40.0%; text-align: right; padding-right: 10px;">Olvido su:</td>
+									<td width="50%" align="left" style="padding-left: 10px;" >
+										<select name="ddlOlvido" id="ddlOlvido" style="height:29px;">
+	<option value="2">Clave</option>
+	<option value="1">Usuario</option>
+
+</select>
+									</td>
+								</tr>
+								<tr>
+									<td align="center" colspan="2">
+										Seleccione la Información que desea recuperar.
+									</td>
+									
+								</tr>
+							</table>
+						</td>
+					</tr>
+				</table>
+		</div>
+		<table class="TM" style="height: 50px;">
+			<tr>
+					<td align="center">
+						<a href="../inicio/LoginDNAbe24.html?svc=mantis" id="bRegresa" class="linkBttn">Regresar</a><span style="margin-right: 80px;"></span>
+						<input type="submit" name="bAceptar" value="Aceptar" id="bAceptar" tabindex="7" class="linkBttn" />
+					</td>
+				</tr>
+		</table>
+	</form>
+</body>
+
+<!-- Mirrored from www.banesconline.com/mantis/Website/CAU/OlvidoUsrCla/AU_SelOlv.aspx?svc=mantis by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 21 Jan 2024 02:03:58 GMT -->
+</html>

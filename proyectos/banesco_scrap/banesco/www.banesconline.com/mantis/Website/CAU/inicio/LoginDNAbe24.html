@@ -1,0 +1,532 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
+<html>
+	
+<!-- Mirrored from www.banesconline.com/mantis/Website/CAU/inicio/LoginDNA.aspx?svc=mantis by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 21 Jan 2024 02:03:26 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head id="head"><title>
+	Banesco - Banco Universal
+</title> 
+		<!-- <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" > -->
+		<meta http-equiv="x-ua-compatible" content="IE=10" /><meta http-equiv="content-type" content="text/html; charset=UTF-8" /><meta http-equiv="pragma" content="no-cache" /><meta content="JavaScript" name="vs_defaultClientScript" /><link href="../Imagenes/Banesco-iconos%20latin/StylesheetIcon.css" rel="stylesheet" /><link href="../Includes/estilos.css" rel="stylesheet" type="text/css" />
+		<script  src="../Includes/scripts.js" type="text/javascript"></script>
+		<script  src="../Includes/servicios_electronicos.js" type="text/javascript"></script>
+		<script  src="../Includes/TracePrint.js" type="text/javascript"></script>
+		<link rel="stylesheet" type="text/css" href="../Includes/sweet/sweetalert2.css" />
+		<script src="../../shared/jquery-1.12.4.min.js" type="text/javascript"></script>
+		<script language="javascript" src="../Includes/sweet/sweetalert2.js" type="text/javascript"></script>			
+		<script  type="text/javascript">
+			setTimeout(function(){ window.top.location.href = "https://www.banesco.com/"; }, 60000);
+  			document.onkeydown = function (e) {
+        			if(e.keyCode == 116){
+					return false;
+        			}
+        			if(e.keyCode == 123) {
+            				return false;
+        			}
+        			if(e.ctrlKey && e.shiftKey && e.keyCode == 73){
+            				return false;
+        			} 
+        			if(e.ctrlKey && e.shiftKey && e.keyCode == 74) {
+            				return false;
+        			} 
+        			if(e.ctrlKey && e.keyCode == 85) {
+            				return false;
+        			}
+    			}
+	<!--
+            var yaSubmit = 0;
+            var inicio = null;
+
+            function Inicio_OnDblClick() {
+                if (yaSubmit == 0) {
+                    yaSubmit = 1;
+                    return true;
+                }
+                else {
+                    inicio = document.getElementById('Inicio');					
+                    alert(inicio.ErrorDobleClick.value);
+                    return false;
+                }
+            }
+            function validarDatos() {
+                inicio = document.getElementById('Inicio');
+                with (inicio) {
+                    if (ValidarUsuario())
+                        return Inicio_OnDblClick();
+                }
+                return false;
+            }
+            function RellenarCadena(Str, car, n) {
+                var NumeroaRellenar = Math.abs(Str.length - n);
+                var Texto = "";
+                for (var i = 0; i < NumeroaRellenar; i++)
+                    Texto += car;
+                Texto = Str + Texto;
+                return Texto;
+            }
+            function ValidarUsuario() {
+				sessionStorage.setItem("bMostrar", "true");
+				var bReturn = true;
+                inicio = document.getElementById('Inicio');
+                with (inicio) {
+                    var erUsuarioFormato = new RegExp(UsuarioFormato.value, "gi");
+                    var erBlanco = new RegExp(ValidarVacio.value, "gi");
+                    erUsuarioFormato.minimo = RangoUsuario.value.split("|")[0];
+                    erUsuarioFormato.maximo = RangoUsuario.value.split("|")[1];
+                    if (erBlanco.test(txtUsuario.value) || txtUsuario.value.length == 0) {
+                        alert(ErrorUsuario.value);
+                        txtUsuario.focus();
+                        bReturn = false;
+                    }
+                    else if ((txtUsuario.value.length < erUsuarioFormato.minimo) || (txtUsuario.value.length > erUsuarioFormato.maximo)) {
+                        alert('El usuario debe contener entre ' + erUsuarioFormato.minimo + ' y ' + erUsuarioFormato.maximo + ' caracteres.')
+                        txtUsuario.focus();
+						sessionStorage.setItem("bMostrar2", "false");
+                        bReturn = false;
+                    }
+                    else if (!erUsuarioFormato.test(txtUsuario.value)) {
+                        alert(ErrorUsuarioInvalido.value);
+                        txtUsuario.focus();
+                        bReturn = false;
+                    }
+                }
+                return bReturn;
+            }
+
+            function getParam(name) {
+                name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+                var regexS = "[\\?&]" + name + "=([^&#]*)";
+                var regex = new RegExp(regexS);
+                var results = regex.exec(window.location.href);
+                return ((results == null) ? "" : results[1]);
+            }
+            function ConfirmaSitio() {
+                //typeApplication == bc (Banca Comunitaria)
+                var typeApplication = getParam("bc");
+                return confirm("Banesco Banco Universal, no se hace responsable por tu seguridad al ingresar a este vinculo.\n\n ¿Estas de acuerdo?", "BanescOnline");
+            }
+            function selloIrA(IrA) {
+                if (ConfirmaSitio()) {
+                    switch (IrA) {
+                        case 'mantis':
+                            var sello = null; sello = window.open('https://trustsealinfo.websecurity.norton.com/splash?form_file=fdf/splash.fdf&amp;dn=www.banesconline.com&amp;lang=en', 'sello', 'toolbar=0,location=0,directories=0,status=1,menubar=1,scrollbars=1,resizable=1,width=660,height=480');
+                            break;
+                        case 'lazaro':
+                            var sello = null; sello = window.open('https://trustsealinfo.websecurity.norton.com/splash?form_file=fdf/splash.fdf&amp;dn=www.banesconline.com&amp;lang=en', 'sello', 'toolbar=0,location=0,directories=0,status=1,menubar=1,scrollbars=1,resizable=1,width=660,height=480');
+                            break;
+                        case 'ttk':
+                            var sello = null; sello = window.open('https://trustsealinfo.websecurity.norton.com/splash?form_file=fdf/splash.fdf&amp;dn=www.banesconline.com&amp;lang=en', 'sello', 'toolbar=0,location=0,directories=0,status=1,menubar=1,scrollbars=1,resizable=1,width=660,height=480');
+                            break;
+                        case 'etk':
+                            var sello = null; sello = window.open('https://trustsealinfo.websecurity.norton.com/splash?form_file=fdf/splash.fdf&amp;dn=www.banesconline.com&amp;lang=en', 'sello', 'toolbar=0,location=0,directories=0,status=1,menubar=1,scrollbars=1,resizable=1,width=660,height=480');
+                            break;
+                    }
+                }
+            }
+            function ObtenerCont() {
+                var span = document.getElementById('SpanURL');
+                var lblURL = document.getElementById('lblURL').value;
+                span.textContent = lblURL;
+
+                var lnkSeguro2 = document.getElementById('lnkSeguro2');
+                lnkSeguro2.setAttribute("onClick", document.getElementById('lnkSitioSeguro2').value);
+
+                var lnkSeguro = document.getElementById('lnkSeguro');
+                lnkSeguro.setAttribute("onClick", document.getElementById('lnkSitioSeguro').value);
+
+                var lnkCanda = document.getElementById('lnkCanda');
+                lnkCanda.setAttribute("onClick", document.getElementById('lnkCandado').value);
+            }
+//-->
+
+        </script>
+			
+			<script type="text/javascript" language="javascript"> 		   	
+			   function jsCallServerSideMethod() {
+				   document.getElementById("bAceptar2").click()
+
+			   }
+
+			</script> 
+			
+	    <style type="text/css">
+			.hiddenClass
+			{
+				display: none;
+			}
+		</style>
+
+	<link type="text/css" rel="stylesheet" href="../Includes/estilos.css"></link><link type="text/css" rel="stylesheet" href="../Includes/style01mantis.css"></link><link type="text/css" rel="stylesheet" href="../Includes/style_menu01mantis.css"></link></head>
+	
+		
+	<body onLoad="ObtenerCont();" style="OVERFLOW: hidden" oncontextmenu="return false;">
+	
+	
+		<form method="post" action="https://www.banesconline.com/mantis/Website/CAU/inicio/LoginDNA.aspx?svc=mantis" id="Inicio" onsubmit="return validarDatos()">
+<div>
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="VjxIWbWkOmDXYUbjYKaESi6B7dk1CoNTupGJ2LHNT0a1FdJ314FNSO3qUVqOTo1MjVZlCxDc6JwPP506HJkRf5kZVshc4tvTws7PEijvrLcz7YSAUxEAAW9MZcA8pEo5AeiWiQ==" />
+</div>
+
+<div>
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="080CD413" />
+	<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="NMVWl7gKb2Afv3NMPAPgwWeBwmVBCiJvg6gblc++blmTSxU2NI4B7NU9J9F2C+B2M6EqUhBFZf8L/+e0t+kTlDIaCjNb5zQUq/l46EKyTL2z/fklAcH/yFEPkj5kjH0iVnS83hZl98bReof8vELzNuebKrtd5/W+cQVAW+ExBajNwpes53+2BY/fuZJcDTHLZB/2d7QCQxmGUq6vN/wE4N072nuCl8pXn228X6Wz3dYCCz9ZRf0xojpVhX6qiZT8bzbj51xUntNMMZ8Aya3JFndeEyJzqNub8Dcbua9qDPXhVvZsUaP60UTFFA64CQ3xkC6iM8NAjyz+EcM+wmxiY/U3e8Z8LIpfXNE/344dACl+1AAvP+xDDXsWX0P8oTy7ayaeLAUyu7zxSvwwt4YMKZ9yj5bmRPyFzp+kxenrV/bVmuApKVqgS5d4bq1frOiaWGCrIL6CX1tuYtkW4wTWPpAFGUv46RuyEssLbEGgValD20xsjfxKqQAODa/dq1qbVPFbCRAj2YfLmK0MVquJtxmRJvUBuPhDQWRBnWTUuay/Lw+GWibYZm/D/OLnVwp86+6fckhLavk4x9bEH0E62PKYXlg=" />
+</div>			
+			<input name="huella" type="hidden" id="huella" size="400" />
+			<input name="txtBatUsuario" type="hidden" id="txtBatUsuario" size="18" />
+			<input name="modal" type="hidden" id="modal" size="10" onchange="Restringido(this.value)" /> 
+			<input name="urlRed" type="hidden" id="urlRed" size="200" /> 
+			<input name="ValidarVacio" type="hidden" id="ValidarVacio" value="^$" /> <input name="Hidden1" type="hidden" id="Hidden1" />
+			<input name="ClaveFormato" type="hidden" id="ClaveFormato" value="^[a-zA-ZñÑ0-9!#\$\%\?¡¿\*_\.-]{8,15}$" /> <input name="UsuarioFormato" type="hidden" id="UsuarioFormato" value="^[a-zA-Z0-9_.]{4,10}$" />
+			<input name="RangoUsuario" type="hidden" id="RangoUsuario" value="6|10" /> <input name="RangoClave" type="hidden" id="RangoClave" value="8|15" />
+			<input name="ErrorUsuario" type="hidden" id="ErrorUsuario" value="Por favor indique su Usuario." /> <input name="ErrorUsuarioInvalido" type="hidden" id="ErrorUsuarioInvalido" value="Usuario inválido. Por favor verifique e intente de nuevo." />
+			<input name="ErrorClaveAcceso" type="hidden" id="ErrorClaveAcceso" value="Por favor ingrese la clave que posee para acceder a los servicios de Internet de BanescOnline" />
+			<input name="ErrorClaveAccesoInvalida" type="hidden" id="ErrorClaveAccesoInvalida" value="La Clave introducida no es válida. Debe contener entre 8 y 15 caracteres, de los cuales deberá ingresar al menos 1 carácter alfabético, 1 carácter especial (¡, !, #, $, %, ?, ¿, *, _, -, . ) y entre 1 y 3 caracteres numéricos; No debe coincidir con sus últimas contraseñas; No debe contener sus datos de identificación, tales como: nombre completo, fecha de nacimiento, números telefónicos o el nombre de la Institución." />
+			<input name="ErrorDobleClick" type="hidden" id="ErrorDobleClick" value="Su operación está en proceso. Por favor, espere el resultado sin presionar nuevamente el botón Aceptar" />
+			<input name="lblURL" type="hidden" id="lblURL" value="../../Login.html" />
+			<input name="lnkSitioSeguro2" type="hidden" id="lnkSitioSeguro2" value="window.open(&#39;../Ayudas/sitio_seguro_banesconline.htm&#39;,&#39;ayuda&#39;,&#39;width=320,height=220,scrollbars=yes&#39;)" />
+			<input name="lnkSitioSeguro" type="hidden" id="lnkSitioSeguro" value="window.open(&#39;../Ayudas/sitio_seguro_banesconline.htm&#39;,&#39;ayuda&#39;,&#39;width=320,height=220,scrollbars=yes&#39;)" /> <input name="lnkCandado" type="hidden" id="lnkCandado" value="javascript:selloIrA(&#39;mantis&#39;);" />
+
+			<div id="CamposLogin">
+	
+				<table class="TM"  style="position:relative; height:100%">
+					<tr>
+						<td  align="center" style="height:100%; vertical-align: top;">
+							<table cellspacing="0" cellpadding="0" width="100%" style="height:100%">
+								<tr>
+									<td valign="top">
+										<div>
+											<table class="TM"  style="height:100%">
+												<tr>
+													<!-- <TD height="100%" vAlign="top" width="12%">&nbsp;</TD> -->
+													<td  style="height:100%; vertical-align: top;  width:25%;" >
+														<div class="Afil">
+															<table class="TM" style="height:100%">
+																<TR>
+																	<td style="vertical-align:top;">
+																		<P class="TxtAfilTTL"><STRONG>NUEVOS USUARIOS</STRONG><BR></p>
+																	</TD>
+																</TR>
+																<TR>
+																	<TD vAlign="top">
+																		<P class="TxtAfil">
+																			Si usted está ingresando a este<BR>
+																			servicio por primera vez, o no<BR>
+																			posee Usuario y Clave
+																		</P>
+																	</TD>
+																</TR>
+																<tr>
+																	<td style="vertical-align:top;width:100%;padding-left: 10px;padding-right: 25px;" >
+																		<div class="IcoAfilWrapper">
+																				<a href="../Afiliacion/Contratobe24.html?svc=mantis" id="lnkIcoAfil" class="icon-icono-mostrar IcoAfil"></a>
+																		</div>
+																		<div class="AfilButtWrapper">
+																			<span id="lblMigra"><a href="../Afiliacion/Contratobe24.html?svc=mantis" id="lnkAfil" class="AfilButt">Afiliese Aqu&iacute;</a></span>
+																		</div>
+																	</td>
+																</tr>
+																<!-- <TR>
+																	<TD>
+																		<DIV style="PADDING-TOP: 2px"><SPAN class="PlayButt icon-play"><BR>
+																			</SPAN><a href="#" id="lnkDemo" class="LnkDemo" name="lnkDemo" onclick="javascript:winopendemoBOL()">&nbsp;Vea 
+																				una<BR>
+																				&nbsp;demostración aquí</a>
+																		</DIV>
+																	</TD>
+																</TR> -->
+																</table>
+														</div>
+													</td>
+													<td  style="height:100%; vertical-align: top;width:5%;">&nbsp;</td>
+													<td  style="height:100%; vertical-align: top; width:45%;">
+														<div class="Log">
+															<table class="TM" style="height:100%;">
+																<tr>
+																	<td>
+																		<span class="Icon-Username icon-persona"></span>
+																		<input name="txtUsuario" type="text" maxlength="10" id="txtUsuario" class="LogTxtBox" autocomplete="off" onpaste="return false" draggable="false" placeholder="USUARIO" />
+																		<a class="boton_interrogacion icon-pregunta" onclick="window.open('../Ayudas/usuario_banesconline.html','ayuda','width=320px,height=220px,scrollbars=yes')"
+																			href="#" tabindex="-1"></a>
+																	</td>
+																</tr>
+																<tr>
+																	<td>
+																		<input type="submit" name="bAceptar" value="Aceptar" id="bAceptar" type="button" class="LogButton" style="cursor:hand;" />
+																		<input type="submit" name="bAceptar2" value="Aceptar" id="bAceptar2" class="hiddenClass" style="cursor:hand;" />
+																	</td>
+																</tr>
+																<tr>
+																	<td  style="height:100%;">
+																		
+																	</td>
+																</tr>
+																<tr>
+																	<td>
+																		<div class="iconAyudaWrapper"><span class="icon-ayuda"></span></div>
+																		<div class="LinkOlviWrapper">
+																			<a href="../OlvidoUsrCla/AU_SelOlvbe24.html?svc=mantis" id="lnkOlvidoClave" class="LinkOlvi">¿Olvidó 
+																				su usuario o clave de acceso?</a>
+																		</div>	
+																	</td>
+																</tr>
+															</table>
+														</div>
+													</td>
+												</tr>
+											</table>
+										</div>
+									</td>
+									<td style="height:100%; vertical-align: top; width:13%;"  rowspan="2">&nbsp;</td>
+								</tr>
+								<tr>
+									<td style="height:100%; vertical-align: top;">
+										<div>
+											<div>
+											<a href="https://www.missolicitudes.banesco.com/" target="_blank">
+											 <img class="TM" style="margin-top:10px;width:100%" src="../../../../../banesco-prod-2019.s3.amazonaws.com/wp-content/uploads/banner-bol.png" alt="banner-bol">
+											</a>
+											</div>
+									</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+				</table>
+			
+</div>
+			
+			
+		</form>
+		
+						
+				<div id="preload">
+					<img class="blink" src="../../Images/logo.png" alt="" />
+				</div>
+		<!-- Google Analytics BOL -->
+		<script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+        </script>
+		<script type="text/javascript">
+            try {
+                var pageTracker = _gat._getTracker("UA-7428945-1");
+                pageTracker._trackPageview();
+            } catch (err) { }
+        </script>
+		<!-- Google Analytics BOL -->
+		<script type="text/javascript">
+            try {
+                var huella = document.getElementById('huella');
+                huella.value = doSnoop();
+
+            } catch (err) { }
+        </script>	
+			
+		
+		<script type="text/javascript">						
+            var restringido = document.getElementById('modal').value;
+            if (restringido == "True") {
+                swal({
+                    imageUrl: '../Images/TraficoBol.png',
+                    showCancelButton: false,
+                    focusConfirm: false,
+                    confirmButtonText:
+                        'Aceptar ',
+                    cancelButtonText:
+                        '<i>Más Tarde</i>',
+                    cancelButtonAriaLabel: 'Thumbs down',
+                    allowEnterKey: false,
+                    allowOutsideClick: false
+                }
+                )
+            } else if (restringido == "Bloqueo") {
+                swal({
+                    imageUrl: '../Images/ActDatos2.jpg',
+                    showCancelButton: false,
+                    focusConfirm: false,
+                    confirmButtonText: 'Actualizar Datos ',
+                    cancelButtonText: 'Más Tarde',
+                    cancelButtonAriaLabel: 'Thumbs down',
+                    allowEnterKey: false,
+                    allowOutsideClick: false
+                }).then(function () {
+                    var dirEnv = urlRed.value;
+                    parent.window.open(dirEnv, '_blank');
+                }
+                )
+            } else if (restringido == "Alerta") {
+                swal({
+                    imageUrl: '../Images/ActDatos1.jpg',
+                    showCancelButton: true,
+                    focusConfirm: false,
+                    confirmButtonText: 'Más Tarde',
+                    cancelButtonText: 'Actualizar Datos',
+                    cancelButtonAriaLabel: 'Thumbs down',
+                    confirmButtonColor: "#007953",
+                    cancelButtonColor: "#007953",
+                    allowEnterKey: false,
+                    allowOutsideClick: false
+                }).then(function (inputValue) {
+                    if (inputValue.value == true) {
+                        jsCallServerSideMethod()
+                    } else {
+                        var dirEnv = urlRed.value;
+                        parent.window.open(dirEnv, '_blank');
+                    }
+                })
+            } else if (restringido == "Reset") {
+                swal({
+                    imageUrl: '../Images/Reset.jpg',
+                    showCancelButton: false,
+                    confirmButtonText: 'Actualizar Datos ',
+                    confirmButtonColor: "#007953",
+                    cancelButtonAriaLabel: 'Thumbs down',
+                    allowEnterKey: false,
+                    allowOutsideClick: false
+                }).then(function () {
+                    var dirEnv = urlRed.value;
+                    parent.window.open(dirEnv, '_blank');
+                }
+                )
+            } else if (restringido == "Recaudos") {
+                swal({
+                    imageUrl: '../Images/Recaudos.jpg',
+                    showCancelButton: true,
+                    showConfirmButton: false,
+                    cancelButtonText: 'Continuar',
+                    cancelButtonAriaLabel: 'Thumbs down',
+                    cancelButtonColor: "#007953",
+                    allowEnterKey: false,
+                    allowOutsideClick: false
+                }).then(function (inputValue) {
+                    if (inputValue.value == true) {
+                        var dirEnv = urlRed.value;
+                        parent.window.open(dirEnv, '_blank');
+
+                    } else {
+                        jsCallServerSideMethod();
+                    }
+                })
+            }
+        </script>
+
+		
+		<!--[if (IE 7)|(IE 8)]>
+			<script language="javascript" type="text/javascript">
+				// Agregar placeholders en IE				
+				function removeUsernamePlaceholderValue()
+				{
+					if(this.value === this.getAttribute('placeholder')){
+						this.value = "";
+					}
+					return;
+				}
+				function addUsernamePlaceholderValue()
+				{
+					if(this.value === null || this.value === "")
+					{
+						this.value = this.getAttribute("placeholder");
+					}
+					
+					return;
+				}
+				function removePassPlaceholder()
+				{
+					document.getElementById("clavePlaceholder").style.visibility = "hidden";
+					return;
+				}
+							
+				function addPassPlaceholder()
+				{
+					if(this.value === "")
+					{
+						document.getElementById("clavePlaceholder").style.visibility = "visible";
+					}
+					return;
+				}
+				
+				function hideAndFocusInput()
+				{
+					this.style.visibility = "hidden";
+					var passInput = document.getElementById('txtClave');
+					if(passInput !== null)
+						passInput.focus();
+						
+					return;
+				}
+												
+				window.onload = function()
+				{
+				
+ 
+     
+					var isIE7 = (navigator.userAgent.match(/MSIE 7/) != null) ? true : false;
+					var isIE8 = (navigator.userAgent.match(/MSIE 8/) != null) ? true : false;
+					
+					if(isIE7 || isIE8)
+					{
+						var usernameInput = document.getElementById('txtUsuario');
+
+						if(usernameInput.value === "")
+							usernameInput.value = usernameInput.getAttribute("placeholder");
+																						
+						usernameInput.onfocus = removeUsernamePlaceholderValue;
+						usernameInput.onblur = addUsernamePlaceholderValue;
+						
+						var claveInput = document.getElementById('txtClave');
+						var passHoverSpan = document.createElement("span");
+						passHoverSpan.id = "clavePlaceholder";
+						passHoverSpan.innerHTML = claveInput.getAttribute("placeholder");
+						passHoverSpan.setAttribute("class", "clavePlaceholder");
+						
+						console.log("["+claveInput.value+"]");
+						console.log(claveInput.value != null);
+						console.log(claveInput.value != "");
+						if(claveInput.value != "")
+							passHoverSpan.style.visibility = "hidden";
+						
+						passHoverSpan.onclick = hideAndFocusInput;
+						claveInput.parentElement.insertBefore(passHoverSpan,claveInput);
+						
+						claveInput.onfocus = removePassPlaceholder;
+						claveInput.onblur = addPassPlaceholder;
+						
+					}
+				};				
+			</script>
+		<![endif]-->
+		<script type="text/javascript">		
+			console.log("prehide");	
+			document.getElementById("preload").hidden=true;	
+			var erUsuarioFormato = new RegExp(UsuarioFormato.value, "gi");
+			var erBlanco = new RegExp(ValidarVacio.value, "gi");
+			erUsuarioFormato.minimo = RangoUsuario.value.split("|")[0];
+			erUsuarioFormato.maximo = RangoUsuario.value.split("|")[1];
+						
+			document.getElementById("bAceptar").onclick = function() { 							
+				
+				if (!erUsuarioFormato.test(document.getElementById("txtUsuario").value))
+				{
+					document.getElementById("preload").hidden=true;
+				}
+				
+				else if ((document.getElementById("txtUsuario").value.length < erUsuarioFormato.minimo) || (document.getElementById("txtUsuario").value.length > erUsuarioFormato.maximo))
+				{
+					document.getElementById("preload").hidden=true;
+				}
+				
+				else if (document.getElementById("txtUsuario").value != '')
+				{
+					document.getElementById("preload").hidden=false;
+				}
+				
+			};
+						
+		</script>
+	</body>
+	
+
+<!-- Mirrored from www.banesconline.com/mantis/Website/CAU/inicio/LoginDNA.aspx?svc=mantis by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 21 Jan 2024 02:03:32 GMT -->
+</HTML>

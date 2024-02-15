@@ -1,0 +1,541 @@
+
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 TRANSITIONAL//EN" >
+<html>
+
+<!-- Mirrored from www.banesconline.com/Mantis/WebSite/CAU/Afiliacion/AU_ValIns.aspx?con=1 by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 21 Jan 2024 02:04:23 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head id="head"><meta http-equiv="X-UA-Compatible" content="IE=EMULATE9" /><title>
+	Banesco - Banco Universal
+</title><meta content="JavaScript" name="vs_defaultClientScript" /><meta content="http://schemas.microsoft.com/intellisense/ie5" name="vs_targetSchema" /><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><link rel="stylesheet" href="../Imagenes/Banesco-iconos%20latin/StylesheetIcon-3.css" />
+    <script language="javascript" src="../Includes/scripts-2.js" type="text/javascript"></script>
+
+    <script language="javascript" type="text/javascript">
+        var yaSubmit = 0;
+
+        /* LOGICA PARA LOS COMBOS QUE CAUSAN SUBMIT EN CAU */
+        var listChange = false;
+        function ListChanged() {
+            listChange = true;
+        }
+        /* LOGICA PARA LOS COMBOS QUE CAUSAN SUBMIT EN CAU */
+        function AU_ValIns_OnDblClick() {
+            if (yaSubmit == 0) {
+                yaSubmit = 1;
+                return true;
+            }
+            else {
+                alert(FormPrincipal.ErrorDobleClick.value);
+                return false;
+            }
+        }
+        function ValidarDatos() {
+            var bReturn = false;
+
+            /* LOGICA PARA LOS COMBOS QUE CAUSAN SUBMIT EN CAU */
+            if (listChange == true) {
+                listChange = false;
+                return true;
+            }
+            /* LOGICA PARA LOS COMBOS QUE CAUSAN SUBMIT EN CAU */
+
+            if (FormPrincipal.ddlTarjeta != null) {
+                if (FormPrincipal.ddlTarjeta.options[FormPrincipal.ddlTarjeta.selectedIndex].value == 1) {
+                    if (TarjetaDebito() && Clave())
+                        return AU_ValIns_OnDblClick();
+                }
+                else {
+                    if (FormPrincipal.ddlTarjeta.options[FormPrincipal.ddlTarjeta.selectedIndex].value == 4) {
+                        if (TarjetaDebito() && Clave() && Cedula() && CVC2())
+                            return AU_ValIns_OnDblClick();
+                    }
+                    else {
+                        if (TarjetaCredito())
+                            if (Cedula())
+                                return AU_ValIns_OnDblClick();
+                    }
+                }
+            }
+            else {
+                if (FormPrincipal.TipoUsuario.value == "") {
+                    if (FormPrincipal.txtNumSolicitud != null) {
+                        if (ValidarSolicitud())
+                            if (Cedula())
+                                if (ValidarImagen())
+                                    return AU_ValIns_OnDblClick();
+                    }
+                    else {
+                        if (FormPrincipal.txtEmail) {
+                            if (Cedula())
+                                if (ValidarCorreo())
+                                    return AU_ValIns_OnDblClick();
+                        }
+                        else
+                            if (TarjetaDebito())
+                                if (Clave())
+                                    return AU_ValIns_OnDblClick();
+                    }
+                }
+                else {
+                    if ((FormPrincipal.TipoUsuario.value == "E") || (FormPrincipal.TipoUsuario.value == "B")) {
+                        if (Tarjeta())
+                            if (Cedula())
+                                return AU_ValIns_OnDblClick();
+                    }
+                    else {
+                        if (Comercio())
+                            if (Cedula())
+                                return AU_ValIns_OnDblClick();
+                    }
+                }
+            }
+            return bReturn;
+        }
+
+        function TarjetaDebito() {
+            var bReturn = true;
+            with (FormPrincipal) {
+                var erTarjetaFormato = new RegExp(TarjetaFormato.value);
+                var erTarjetaVacia = new RegExp(RegExpVacio.value, "gi");
+                if ((erTarjetaVacia.test(txtNumTarjetaD.value)) || (txtNumTarjetaD.value.length == 0)) {
+                    alert(ErrorNumeroTarjetaDebito.value);
+                    txtNumTarjetaD.focus();
+                    bReturn = false;
+                }
+                else if (!erTarjetaFormato.test(txtNumTarjetaD.value)) {
+                    alert(ErrorNumeroTarjetaDebitoInvalido.value);
+                    txtNumTarjetaD.focus();
+                    bReturn = false;
+                }
+            }
+            return bReturn;
+        }
+        function Cedula() {
+            var bReturn = true;
+            with (FormPrincipal) {
+                var erBlanco = new RegExp(RegExpVacio.value, "gi");
+                var erCedulaFormato = new RegExp(CedulaFormato.value, "gi");
+                if ((ddlNacionalidad.options[ddlNacionalidad.selectedIndex].value == "") || (ddlNacionalidad.options[ddlNacionalidad.selectedIndex].value == "-")) {
+                    alert(ErrorNacionalidad.value);
+                    ddlNacionalidad.focus();
+                    bReturn = false;
+                }
+                else if ((erBlanco.test(txtCedula.value)) || (txtCedula.value.length == 0)) {
+                    alert(ErrorCedula.value);
+                    txtCedula.focus();
+                    bReturn = false;
+                }
+                else if (!erCedulaFormato.test(txtCedula.value)) {
+                    alert(ErrorCedulaInvalida.value);
+                    txtCedula.focus();
+                    bReturn = false;
+                }
+                else if (parseInt(txtCedula.value) <= 0) {
+                    alert(ErrorCedulaInvalida.value);
+                    txtCedula.focus();
+                    bReturn = false;
+                }
+            }
+            return bReturn;
+        }
+        function Clave() {
+            var bReturn = true;
+            with (FormPrincipal) {
+                var erClaveTDDFormato = new RegExp(ClaveFormato.value, "gi");
+                var erClaveVacia = new RegExp(RegExpVacio.value, "gi");
+                erClaveTDDFormato.minimo = RangoClaveTDD.value.split("|")[0];
+                erClaveTDDFormato.maximo = RangoClaveTDD.value.split("|")[1];
+                if ((erClaveVacia.test(txtClave.value)) || (txtClave.value.length == 0)) {
+                    alert(ErrorClaveTDD.value);
+                    txtClave.focus();
+                    bReturn = false;
+                }
+                else if ((txtClave.value.length < erClaveTDDFormato.minimo) || (txtClave.value.length > erClaveTDDFormato.maximo)) {
+                    alert('La clave debe contener ' + erClaveTDDFormato.minimo + ' dígitos.');
+                    txtClave.focus()
+                    bReturn = false;
+                }
+                else if (!erClaveTDDFormato.test(txtClave.value)) {
+                    alert(ErrorClaveInvalidaTDD.value);
+                    txtClave.focus();
+                    bReturn = false;
+                }
+            }
+            return bReturn;
+        }
+        function TarjetaCredito() {
+            var bReturn = true;
+            with (FormPrincipal) {
+                var Re = new RegExp(RegExpVacio.value);
+                if (Re.test(txtNumTarjetaC.value)) {
+                    alert(ErrorNumeroTarjetaCredito.value);
+                    txtNumTarjetaC.focus();
+                    bReturn = false;
+                }
+            }
+            return bReturn;
+        }
+        function Tarjeta() {
+            var bReturn = true;
+            with (FormPrincipal) {
+                var Re = new RegExp(RegExpVacio.value);
+                var ReErr = new RegExp(TarjetaFormato.value);
+                if ((Re.test(txtNumTarjeta.value)) || (txtNumTarjeta.value.length == 0)) {
+                    alert(ErrorT.value);
+                    txtNumTarjeta.focus();
+                    bReturn = false;
+                }
+                else if (!ReErr.test(txtNumTarjeta.value)) {
+                    alert(ErrorTI.value);
+                    txtNumTarjeta.focus();
+                    bReturn = false;
+                }
+            }
+            return bReturn;
+        }
+        function CVC2() {
+            var bReturn = true;
+            with (FormPrincipal) {
+                var Re = new RegExp(RegExpVacio.value);
+                var ReErr = new RegExp(CVC2Formato.value);
+                if ((Re.test(txtCVC2.value)) || (txtCVC2.value.length == 0)) {
+                    alert(ErrorCVC2.value);
+                    txtCVC2.focus();
+                    bReturn = false;
+                }
+                else if (!ReErr.test(txtCVC2.value)) {
+                    alert(ErrorCVC2.value);
+                    txtCVC2.focus();
+                    bReturn = false;
+                }
+            }
+            return bReturn;
+        }
+
+        function Comercio() {
+            var bReturn = true;
+            with (FormPrincipal) {
+                var Re = new RegExp(RegExpVacio.value);
+                var ReErr = new RegExp(NumAfiliadoFormato.value);
+                if (Re.test(txtNumAfiliado.value)) {
+                    alert(ErrorNumAfiliado.value);
+                    txtNumAfiliado.focus();
+                    bReturn = false;
+                }
+                else {
+                    if (!ReErr.test(txtNumAfiliado.value)) {
+                        alert(ErrorNumAfiliadoInvalida.value);
+                        txtNumAfiliado.focus();
+                        bReturn = false;
+                    }
+                }
+            }
+            return bReturn;
+        }
+        function NumerosTarjetaCredito() {
+            var bReturn = true;
+            with (FormPrincipal) {
+                var myRE = /((601288)|(603693)|(601685))+\d{10}/
+                if (!myRE.test(txtNumTarjetaC.value)) {
+                    alert(ErrorNumeroTarjetaCreditoInvalido.value);
+                    bReturn = false;
+                }
+            }
+            return bReturn;
+        }
+        function ValidarSolicitud() {
+            with (FormPrincipal) {
+                if (txtNumSolicitud.value.length == 0) {
+                    alert(ErrorNumSolicitudInvalida.value);
+                    txtNumSolicitud.focus();
+                    return false;
+                }
+                if (txtNumSolicitud.value.length < 11) {
+                    alert(ErrorFormatoNumSolicitudInvalida.value);
+                    txtNumSolicitud.focus();
+                    return false;
+                }
+            }
+            return true;
+        }
+        function ValidarCorreo() {
+            with (FormPrincipal) {
+                var erBlanco = new RegExp(RegExpVacio.value, "gi");
+                if (erBlanco.test(txtEmail.value) || txtEmail.value.length == 0) {
+                    alert(ErrorCorreo.value);
+                    txtEmail.focus();
+                    return false;
+                }
+                var erCorreoFormato = new RegExp(CorreoFormato.value, "gi");
+                if (!erCorreoFormato.test(txtEmail.value)) {
+                    alert(ErrorCorreoInvalido.value);
+                    txtEmail.focus();
+                    return false;
+                }
+            }
+            return true;
+        }
+        function ValidarImagen() {
+            with (FormPrincipal) {
+                if (CodeNumberTextBox.value.length == 0) {
+                    alert(ErrorNumeroRandom.value);
+                    CodeNumberTextBox.focus();
+                    return false;
+                }
+            }
+            return true;
+        }
+        function onlyAlpha(e, value) {
+            var key, isCtrl;
+            if (window.event) { key = window.event.keyCode; isCtrl = window.event.ctrlKey }
+            else if (e) { if (e.which) { key = e.which; isCtrl = e.ctrlKey; } }
+            if (key == 8) return true;
+            if (isNaN(key)) return true;
+            return (key == 45 || key >= 48 && key <= 57 || key >= 65 && key <= 90 || key >= 97 && key <= 122);
+        }
+        function onlyDigit(e, value) {
+            var key, isCtrl;
+            if (window.event) { key = window.event.keyCode; isCtrl = window.event.ctrlKey }
+            else if (e) { if (e.which) { key = e.which; isCtrl = e.ctrlKey; } }
+            if (key == 8) return true;
+            if (isNaN(key)) return true;
+            return (key >= 48 && key <= 57);
+        }
+    </script>
+
+    <style type="text/css">
+        BODY {
+            MARGIN: 0px 0px 0px 5px
+        }
+    </style>
+<link type="text/css" rel="stylesheet" href="../Includes/style01mantis-2.css"></link><link type="text/css" rel="stylesheet" href="../Includes/style_menu01mantis-2.css"></link></head>
+<body text="#000000" bgcolor="#ffffff">
+    <form method="post" action="https://www.banesconline.com/Mantis/WebSite/CAU/Afiliacion/AU_ValIns.aspx?con=1" id="FormPrincipal" autocomplete="off" onsubmit="return ValidarDatos();">
+<div>
+<input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="" />
+<input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="" />
+<input type="hidden" name="__LASTFOCUS" id="__LASTFOCUS" value="" />
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="sEdS/NptoNvtT5HLRhRnBIjOsoztusTGStlo63FMiMu8YzR8ZLnVcO5nu2UHl1e1xyN7GLQPwjnUNwZWNZrgmzqFKfcIqnkssTnE8oAWNZN3iI7MMD58pvCm2qdy3/86iVfylRDsvKvR/uxS0utEg1bjHcpWWssUbdyHYPXtFHbacsavX/LsOso6ZAT0rppVV/FqlAtfV0UfWKLTbqZoixpoADcYczxta0eRxdtzN8sp5JlY7DmjEdTB1i/ei0MsioG4rH96W6iDIiJnPj9nM2/sybPu7/RlPdWTj+m8dtiaSLj/5SFU73R4zPYw3uUuU9D8wJ+gX2+x6kYliZQIra7mb+SjGIF+XVjyrJk6nF75I4r0F4xDtLcKQdOEJSMnqEbjfODnKwe9/DgXK0Vc/YitpuFQFn4X2IqryEbGG82Jmxd3Q73VFbTzTQZrK5RH3T/FPpWt8Xl/LtDeQfPw5R4TmShG88MuCSkopc5G69CPoQTcbHx6pLgqKVYkjTgWVqD8h5QLPe72AQXCs+nqB0I7CzvhWiqwSUKTWLeXI7uAR1o+C07FPrWzMm3p/QPOVki/Psh26cF2/1qljuFOyVnjVCC/rZBD8k908kSxHgGUC60oocpSE7y0pDGDpImeDRlXzBsTekjCmbf9WLIX2zqmrFssRLsNwYV01KJKUf69M398zZ0djuXE55hZLG30KWmfT/xsZ+YSr+Zz1xAbeKlfo55EFZFfac5Bl77ysOAzlFHYzjsSqoBTVMmeSKUxF+NETg0cMflBapLcLUuEtfoTI+C8SxqUsmvD/V8G9wzyHwsszYlPIzDeUyEM9OqBoLm784iPqs3WmPGxPlbjgrL/13L2LbShtlbDgQGavZ46NhshHsVwafczg+pE2kywFpx1ABMsyiX2jxTs87kBdNZLi58MEQ1gyqEJRa4FB3FpVbuaFZr6j4Lc2dkoD1V5s1UWjinBoPCD7f5LRpcNt4KKKGlh78KgUULxGV0lyAkLR8HOdnjkVQIZ1ZvZv8ovvpSR6EkxBMtSYKCQtr0CVbJDh3d2OpXUVflYYSAeK+qzWGyCOJNhRw4GjPPe1F7dV44J5x0+Jr3jWbbv4faUCka1DLmG1UWKzMRfOhC5MmBpwovb2iyi59JSGxI3Pck9gjmEMiFyExAIzDbK3rOF+cf7qVSQJXw0eaKbYoAQzJGGdjOmxYJQ7bz0FAbC7KXVH4ZqnsKw1eurjWVnHz7XkFKvkkN950bTzMgIPtEi+sZ8pZBLutcTWPFRZiMwkcdH6UQcL+Q5QWfQ9GzhyDHEcR0gQum6zG29PGCUY+hCkJ1PJ46Xobx0r5Jjzvbrs1CJsy7xlq5Pj86RxrBoy/T1sF34pyfdRhpaFsgsR4vRD9Vpr35Rvrs9UKA0O9EMezKGuaj09JF0UFaR8nO1ct2asl50oxqPfqFoHLhrmxUB02QjAYaiTBMN6hwDp0yNz2AWMFHb4smY5iSs8Q2fgZNo3amssV6oS8hiYhuQOS2OFzoNzizam02eC5X91M7yY0FEaQc3sDp80Fx9S1fSEiUF/Fh10YgdXAk2X9WzK0UMaoJ8EOoH3JYFxxsK8CxDa2aDY3U5ykjeuG0xkZxdFsIjt1PHL6psJ9HDpYQ/r/F5MUUf28GV" />
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+var theForm = document.forms['FormPrincipal'];
+if (!theForm) {
+    theForm = document.FormPrincipal;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+//]]>
+</script>
+
+
+<div>
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="6C47457F" />
+	<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="UDuAGMaPSb1j4hqz9fUCIgn0RElW/d6v7Ub/iKYetlv2uMkNRdsBiVBH8iqffDTRM/q2UMf7RkqRNwk6j0VLeaPdMiVvp8xO/7hxc56sfEwHP/QPS1jXTxBvNdK0MbB80TgZJz+qQ+WRsbIolHD1ksovjXWUt3eNPPHpi7rlsFGbEocW7FV14EUivRZ/xfVqtlb3BIwl1nnsFjI6nTmIWm6ZFn6m0vWCazyN4v7CYbRT98mE233RDvSrzvFBkj16tvJMP5sBeOzKxrsznx3NnIHVJSwk14MtaA/CSP+F6ia6fgJH0akCWywrK+Rv5mbGa9GTQlIMZfMHDmPL36vkRCrxw7igaBr3slK8lyUmCeTIwY0AAMEw2XlL5XgbNOjYkEqCbwS40GKXflrLAyuo5FCw9tz9W6HQBUWeDeAGztvRmIiFuGqKKgyZCbMSCIRqfzzMJlOOOKOYB1EFs47ujRJE8fZBcEKI2rBRGED6QA2CBkHcbotdxRTN+nSwys4go6MpihIhHxlXozSd/f3b4slHanxyFhpD75UI8IJ0TBq5vpIr5YP0R6zBrHNGcJALudw/+gmvOCf0FXpemXVqH5WWPcSbsLzkqiWCtguXhF5hjFmqTYmhSt+87ePZFWb5SlmvgGv+5C2KdzsMXPLb7RN6wQ4rNmcumzeHcydHY/FL8E/KArRnHWDlWvBJARsYeKfvb8Lo6YYojKwBMtisyqWS6hyS6NUUi5B8sR3BtuDI8xO8hsiG3wnAQghOGNPXNtVeqKBE4qmForzWqSMCIdP8Kd/Byz4Tn4XOOTba0u2CXnXUb90igV4rOQWCwVueEzGjnQlMFRw/6tqfeSouVtMFvo+o2Zs4YCD/E6dKSXnvqXtVPWUFGRLkquC6S8rlyH6HZAVkBk3h6fjro3ocmk0uMOuMlf4Rtw4YolzEhu4j4kw9szK0Gu4zVcppEy0T+j6CaX54FWVUIAsUBc9Auunyq8SNE7gqUpUmPDN2CMAIqozLVdIvJmHp2BEEZplqLpVoPM84zdtlVn0Id2nI2V768/QsvZJXDUyL/AN1eEK63/5r" />
+</div>
+        <input name="CedulaFormato" type="hidden" id="CedulaFormato" value="^[0-9]{1,9}$" />
+        <input name="ClaveFormato" type="hidden" id="ClaveFormato" value="^[0-9]{4}$" />
+        <input name="CorreoFormato" type="hidden" id="CorreoFormato" value="^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$" />
+        <input name="CVC2Formato" type="hidden" id="CVC2Formato" value="^[0-9]{3}$" />
+        <input name="NumAfiliadoFormato" type="hidden" id="NumAfiliadoFormato" value="^[0-9]{1,9}$" />
+        <input name="TarjetaFormato" type="hidden" id="TarjetaFormato" value="^(60)((1288)|(3693)|(1685))([0-9]{10})$" />
+        <input name="RangoClaveTDD" type="hidden" id="RangoClaveTDD" value="4|4" />
+        <input name="ErrorClaveTDD" type="hidden" id="ErrorClaveTDD" value="Si Ud. es Persona Natural, por favor indique su Clave de Cajeros Automáticos. Si es Persona Jurídica, indique su clave de Banca Telefónica." />
+        <input name="ErrorClaveInvalidaTDD" type="hidden" id="ErrorClaveInvalidaTDD" value="Clave inválida. Por favor verifique e intente de nuevo." />
+        <input name="ErrorNumeroTarjetaDebito" type="hidden" id="ErrorNumeroTarjetaDebito" value="Por favor indique los datos de su Tarjeta de Débito" />
+        <input name="ErrorCVC2" type="hidden" id="ErrorCVC2" value="Código de Seguridad inválido. Por favor verifique e intente de nuevo." />
+        <input name="ErrorNumeroTarjetaDebitoInvalido" type="hidden" id="ErrorNumeroTarjetaDebitoInvalido" value="Número de Tarjeta inválido. Por favor verifique e intente de nuevo." />
+        <input name="ErrorT" type="hidden" id="ErrorT" value="Por favor indique los datos de su Tarjeta." />
+        <input name="ErrorNumeroTarjetaCredito" type="hidden" id="ErrorNumeroTarjetaCredito" value="Por favor indique los datos de su Tarjeta de Crédito Banesco." />
+        <input name="ErrorNumeroTarjetaCreditoInvalido" type="hidden" id="ErrorNumeroTarjetaCreditoInvalido" size="17" value="Clave inválida. Por favor verifique e intente de nuevo." />
+        <input name="ErrorNacionalidad" type="hidden" id="ErrorNacionalidad" value="Por favor indique su Nacionalidad." />
+        <input name="ErrorTI" type="hidden" id="ErrorTI" value="Número de Tarjeta inválido. Por favor verifique e intente de nuevo." />
+        <input name="ErrorCedula" type="hidden" id="ErrorCedula" value="Por favor indique su Cédula de Identidad o Rif." />
+        <input name="ErrorCedulaInvalida" type="hidden" id="ErrorCedulaInvalida" value="Cédula de Identidad inválida. Por favor verifique e intente de nuevo." />
+        <input name="ErrorDobleClick" type="hidden" id="ErrorDobleClick" value="Su operación está en proceso. Por favor, espere el resultado sin presionar nuevamente el botón Aceptar" />
+        <input name="RegExpVacio" type="hidden" id="RegExpVacio" value="^$" />
+        <input name="ErrorNumAfiliado" type="hidden" id="ErrorNumAfiliado" value="Por favor indique los datos de su Numero de Afiliado." />
+        <input name="ErrorNumAfiliadoInvalida" type="hidden" id="ErrorNumAfiliadoInvalida" value="Numero de Afiliado inválido. Por favor verifique e intente de nuevo." />
+        <input name="ErrorNumSolicitudInvalida" type="hidden" id="ErrorNumSolicitudInvalida" value="Por favor indique el número de la solicitud." />
+        <input name="ErrorFormatoNumSolicitudInvalida" type="hidden" id="ErrorFormatoNumSolicitudInvalida" value="La longitud del número de solicitud no puede ser menor a 11 caracteres." />
+        <input name="ErrorNumeroRandom" type="hidden" id="ErrorNumeroRandom" value="Ingrese el Código Gatched." />
+        <input name="ErrorCorreo" type="hidden" id="ErrorCorreo" value="Por favor indique su dirección de Correo Electrónico." />
+        <input name="ErrorCorreoInvalido" type="hidden" id="ErrorCorreoInvalido" value="Dirección de Correo Electrónico inválido. Por favor verifique e intente de nuevo." />
+        <input name="TipoUsuario" type="hidden" id="TipoUsuario" />
+        <span class="titulo1" />
+
+        <span id="lblServicio">BANESCONLINE</span>
+        <img style="margin-bottom: 2px" src="../Imagenes/Generales/img_right-4.gif">
+        <span class="titulo2">
+            <span id="lblCategoria">Afiliaci&oacute;n</span>
+        </span></span>
+        <table id="Table1" class="TMNavInfo" cellspacing="0" cellpadding="0">
+	<tr>
+		<td style="width: 0.2px;">
+                        <div class="ConDiv icon-exclamacion"></div>
+                    </td>
+		<td style="width: 98%">
+                        <div class="ConDivTx">
+                            <b></b>
+                        </div>
+                    </td>
+	</tr>
+	<tr>
+		<td colspan="2">
+                        <div class="InfoDiv">
+                            <span id="lblAyudaPaso2"><b>Paso 2: Complete los datos solicitados.</b> Lea las instrucciones que se encuentran al lado de cada campo antes de completarlos, y al finalizar presione el botón <b>Aceptar</b> que está al final de la página.</span>
+                        </div>
+                    </td>
+	</tr>
+</table>
+
+        <div id="infoDiv" style="position: relative;">
+            <table cellspacing="2px" cellpadding="0" width="100%" align="center" id="informacion">
+                <tr>
+                    <td align="center">
+                        <b>
+                            <span id="lblTit">Ingrese los datos solicitados y presione el botón de aceptar.</span></b>
+                    </td>
+                </tr>
+                <tr id="FilaTipoTarjeta" name="FilaTipoTarjeta">
+	<td>
+                        <table width="100%">
+                            <tr>
+                                <td>Tarjeta:</td>
+                                <td align="right">
+                                    <select name="ddlTarjeta" onchange="ListChanged();setTimeout(&#39;__doPostBack(\&#39;ddlTarjeta\&#39;,\&#39;\&#39;)&#39;, 0)" id="ddlTarjeta" style="width: 230px;">
+		<option selected="selected" value="4">Tarjeta de D&#233;bito</option>
+		<option value="1">Tarjeta de D&#233;bito S&#243;lo Consulta</option>
+		<option value="2">Tarjeta de Cr&#233;dito</option>
+
+	</select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <span id="lblAyudaComboTarjeta">Este campo corresponde a la tarjeta que utilizará para afiliarse a Internet.</span>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+</tr>
+
+                <div id="pnlTDebito">
+	
+                <tr>
+                    <td>
+                        <table width="100%">
+                            <tr>
+                                <td>Número de Tarjeta:</td>
+                                <td align="right">
+                                    <input name="txtNumTarjetaD" type="password" maxlength="16" id="txtNumTarjetaD" tabindex="1" onkeypress="return onlyDigit(event, this.value);" autocomplete="off" size="17" style="width: 230px;" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span id="lblAyudaTarjetaD">Escriba el número de su Tarjeta Banesco Maestro. <b>Ejemplo:</b> 0000000000000000</span>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <table width="100%">
+                            <tr>
+                                <td>Clave:</td>
+                                <td align="right">
+                                    <input name="txtClave" type="password" maxlength="4" id="txtClave" tabindex="2" onkeypress="return onlyDigit(event, this.value);" autocomplete="off" size="5" style="width: 230px;" /></td>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <span id="lblAyudaClave">Si es <b>Persona Natural</b>, escriba la Clave que utiliza en los Cajeros Automáticos, si es <b>Persona Jurídica</b>, escriba la Clave que utiliza para Banca Telefónica.</span>
+                    </td>
+                </tr>
+            </table>
+            </td> </tr> 
+</div>
+            
+            
+            
+            
+            <div id="pnlCedRif">
+	
+                <tr>
+                    <td>
+                        <table width="100%">
+                            <tr>
+                                <td width="50%">
+                                    <span id="lblTipoClave">N&uacute;mero de Identificaci&oacute;n</span>:</td>
+                                <td align="right" width="50%">
+                                    <select name="ddlNacionalidad" id="ddlNacionalidad" tabindex="2" style="width:55px;">
+		<option selected="selected" value="">-</option>
+		<option value="V">V</option>
+		<option value="E">E</option>
+		<option value="J">J</option>
+		<option value="I">I</option>
+		<option value="G">G</option>
+
+	</select>
+                                    <input name="txtCedula" type="text" maxlength="9" id="txtCedula" tabindex="3" onkeypress="return onlyDigit(event, this.value);" onpaste="return false" autocomplete="off" size="8" style="width:170px;" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <span id="lblAyudaTipoClave">Seleccione su nacionalidad (venezolano o extranjero), e ingrese su Cédula de Identidad, sin incluir puntos, comas o guiones. <b>Ejemplo:</b> 10333546</span>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            
+</div>
+            <div id="pnlCVC2">
+	
+                <tr>
+                    <td>
+                        <table width="100%">
+                            <tr>
+                                <td>Código de Validación:</td>
+                                <td align="right">
+                                    <input name="txtCVC2" type="password" maxlength="3" id="txtCVC2" tabindex="4" onkeypress="return onlyDigit(event, this.value);" onpaste="return false" autocomplete="off" size="5" style="width:230px;" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span id="lblAyudaCVC2">Ingrese los tres &uacute;ltimos n&uacute;meros ubicados en la parte de atras de su Tarjeta de D&eacute;bito/Maestro Banesco.</span>
+                                </td>
+                                <td align="center">
+                                    <img src="../imagenes/CVC_TDD-2.gif" border="0"></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            
+</div>
+            
+            
+            </table> </td> </tr> </table>
+            
+        </div>
+        <table class="TM" style="height: 30px">
+            <tr>
+                <td align="center">
+                    <a href="Contratobe24-2.html?svc=mantis" id="bRegresa" class="linkBttn" Style="margin-right: 80px;">Regresar</a>&nbsp;
+                    <input type="submit" name="bAceptar" value="Aceptar" id="bAceptar" tabindex="7" class="linkBttn" />
+                </td>
+            </tr>
+        </table>
+    </form>
+</body>
+
+<!-- Mirrored from www.banesconline.com/Mantis/WebSite/CAU/Afiliacion/AU_ValIns.aspx?con=1 by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 21 Jan 2024 02:04:24 GMT -->
+</html>

@@ -1,0 +1,9 @@
+apellido
+cedula
+edocivil
+expedicion
+nacimiento
+nacionalidad
+nombre
+vencimiento
+edo_civil

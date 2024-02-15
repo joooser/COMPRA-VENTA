@@ -1,0 +1,45 @@
+{
+  "categories": [
+    {
+      "id": 0,
+      "name": "apellido"
+    },
+    {
+      "id": 1,
+      "name": "cedula"
+    },
+    {
+      "id": 2,
+      "name": "edocivil"
+    },
+    {
+      "id": 3,
+      "name": "expedicion"
+    },
+    {
+      "id": 4,
+      "name": "nacimiento"
+    },
+    {
+      "id": 5,
+      "name": "nacionalidad"
+    },
+    {
+      "id": 6,
+      "name": "nombre"
+    },
+    {
+      "id": 7,
+      "name": "vencimiento"
+    },
+    {
+      "id": 8,
+      "name": "edo_civil"
+    }
+  ],
+  "info": {
+    "year": 2024,
+    "version": "1.0",
+    "contributor": "Label Studio"
+  }
+}

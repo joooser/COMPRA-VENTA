@@ -1,0 +1,41 @@
+HTTrack3.49-2+htsswf+htsjava launched on Sat, 20 Jan 2024 22:03:04 at https://www.banesconline.com/mantis/Website/Login.aspx +*.png +*.gif +*.jpg +*.jpeg +*.css +*.js -ad.doubleclick.net/* -mime:application/foobar
+(winhttrack -qwC2%Ps2u1%s%uN0%I0p3DaK0H0%kf2A25000%f#f -F "Mozilla/4.5 (compatible; HTTrack 3.0x; Windows 98)" -%F "<!-- Mirrored from %s%s by HTTrack Website Copier/3.x [XR&CO'2014], %s -->" -%l "en, *" https://www.banesconline.com/mantis/Website/Login.aspx -O1 "C:\proyectos\banesco_scrap\banesco" +*.png +*.gif +*.jpg +*.jpeg +*.css +*.js -ad.doubleclick.net/* -mime:application/foobar )
+
+Information, Warnings and Errors reported for this mirror:
+note:	the hts-log.txt file, and hts-cache folder, may contain sensitive information,
+	such as username/password authentication for websites mirrored in this project
+	do not share these files/folders if you want these information to remain private
+
+22:03:25	Error: 	"Not Found" (404) at link https://www.banesconline.com/mantis/Website/GESTION-DE-CLAVES4.png (from https://www.banesconline.com/mantis/Website/Login.aspx)
+22:03:26	Error: 	"Not Found" (404) at link https://www.banesconline.com/mantis/Website/Sitio_Seguro.png (from https://www.banesconline.com/mantis/Website/Login.aspx)
+22:03:32	Error: 	"Not Found" (404) at link https://www.banesconline.com/mantis/Website/App_Themes/TemaBanesco/Images/bottom.gif (from https://www.banesconline.com/mantis/Website/App_Themes/TemaBanesco/TemaBanesco.css)
+22:03:38	Error: 	"Not Found" (404) at link https://www.banesconline.com/Mantis/WebSite/GESTION-DE-CLAVES4.png (from https://www.banesconline.com/Mantis/WebSite/login.aspx)
+22:03:39	Error: 	"Not Found" (404) at link https://www.banesconline.com/Mantis/WebSite/Sitio_Seguro.png (from https://www.banesconline.com/Mantis/WebSite/login.aspx)
+22:03:58	Error: 	"Not Found" (404) at link https://www.banesconline.com/Mantis/WebSite/App_Themes/TemaBanesco/Images/bottom.gif (from https://www.banesconline.com/Mantis/WebSite/App_Themes/TemaBanesco/TemaBanesco.css)
+22:04:14	Error: 	"Not Found" (404) at link https://www.banesconline.com/mantis/Website/CAU/imagen/general/backg_tit_verde.gif (from https://www.banesconline.com/mantis/Website/CAU/Includes/eestilos.css)
+22:04:14	Error: 	"Not Found" (404) at link https://www.banesconline.com/mantis/Website/CAU/imagen/general/backg_tit_amarillo.gif (from https://www.banesconline.com/mantis/Website/CAU/Includes/eestilos.css)
+22:04:14	Error: 	"Not Found" (404) at link https://www.banesconline.com/mantis/Website/CAU/imagen/general/backg_tit_violeta.gif (from https://www.banesconline.com/mantis/Website/CAU/Includes/eestilos.css)
+22:04:14	Error: 	"Not Found" (404) at link https://www.banesconline.com/mantis/Website/CAU/imagen/general/flecha_amarilla.gif (from https://www.banesconline.com/mantis/Website/CAU/Includes/eestilos.css)
+22:04:14	Error: 	"Not Found" (404) at link https://www.banesconline.com/mantis/Website/CAU/imagen/general/vineta_amarilla.gif (from https://www.banesconline.com/mantis/Website/CAU/Includes/eestilos.css)
+22:04:14	Error: 	"Not Found" (404) at link https://www.banesconline.com/mantis/Website/CAU/imagen/general/backg_tit_azul.gif (from https://www.banesconline.com/mantis/Website/CAU/Includes/eestilos.css)
+22:04:14	Error: 	"Not Found" (404) at link https://www.banesconline.com/mantis/Website/CAU/imagen/general/curva_violeta.gif (from https://www.banesconline.com/mantis/Website/CAU/Includes/eestilos.css)
+22:04:14	Error: 	"Not Found" (404) at link https://www.banesconline.com/mantis/Website/CAU/imagen/general/bullet_banca_privada.gif (from https://www.banesconline.com/mantis/Website/CAU/Includes/eestilos.css)
+22:04:16	Error: 	"Not Found" (404) at link https://www.banesconline.com/Mantis/Website/CAU/imagen/general/backg_tit_verde.gif (from https://www.banesconline.com/Mantis/Website/CAU/Includes/eestilos.css)
+22:04:16	Error: 	"Not Found" (404) at link https://www.banesconline.com/Mantis/Website/CAU/imagen/general/backg_tit_amarillo.gif (from https://www.banesconline.com/Mantis/Website/CAU/Includes/eestilos.css)
+22:04:16	Error: 	"Not Found" (404) at link https://www.banesconline.com/Mantis/Website/CAU/imagen/general/backg_tit_violeta.gif (from https://www.banesconline.com/Mantis/Website/CAU/Includes/eestilos.css)
+22:04:16	Error: 	"Not Found" (404) at link https://www.banesconline.com/Mantis/Website/CAU/imagen/general/flecha_amarilla.gif (from https://www.banesconline.com/Mantis/Website/CAU/Includes/eestilos.css)
+22:04:16	Error: 	"Not Found" (404) at link https://www.banesconline.com/Mantis/Website/CAU/imagen/general/vineta_amarilla.gif (from https://www.banesconline.com/Mantis/Website/CAU/Includes/eestilos.css)
+22:04:16	Error: 	"Not Found" (404) at link https://www.banesconline.com/Mantis/Website/CAU/imagen/general/backg_tit_azul.gif (from https://www.banesconline.com/Mantis/Website/CAU/Includes/eestilos.css)
+22:04:16	Error: 	"Not Found" (404) at link https://www.banesconline.com/Mantis/Website/CAU/imagen/general/curva_violeta.gif (from https://www.banesconline.com/Mantis/Website/CAU/Includes/eestilos.css)
+22:04:16	Error: 	"Not Found" (404) at link https://www.banesconline.com/Mantis/Website/CAU/imagen/general/bullet_banca_privada.gif (from https://www.banesconline.com/Mantis/Website/CAU/Includes/eestilos.css)
+22:04:24	Error: 	"Not Found" (404) at link https://www.banesconline.com/Mantis/WebSite/CAU/imagen/general/backg_tit_verde.gif (from https://www.banesconline.com/Mantis/WebSite/CAU/Includes/eestilos.css)
+22:04:24	Error: 	"Not Found" (404) at link https://www.banesconline.com/Mantis/WebSite/CAU/imagen/general/backg_tit_amarillo.gif (from https://www.banesconline.com/Mantis/WebSite/CAU/Includes/eestilos.css)
+22:04:24	Error: 	"Not Found" (404) at link https://www.banesconline.com/Mantis/WebSite/CAU/imagen/general/backg_tit_violeta.gif (from https://www.banesconline.com/Mantis/WebSite/CAU/Includes/eestilos.css)
+22:04:24	Error: 	"Not Found" (404) at link https://www.banesconline.com/Mantis/WebSite/CAU/imagen/general/flecha_amarilla.gif (from https://www.banesconline.com/Mantis/WebSite/CAU/Includes/eestilos.css)
+22:04:24	Error: 	"Not Found" (404) at link https://www.banesconline.com/Mantis/WebSite/CAU/imagen/general/vineta_amarilla.gif (from https://www.banesconline.com/Mantis/WebSite/CAU/Includes/eestilos.css)
+22:04:24	Error: 	"Not Found" (404) at link https://www.banesconline.com/Mantis/WebSite/CAU/imagen/general/backg_tit_azul.gif (from https://www.banesconline.com/Mantis/WebSite/CAU/Includes/eestilos.css)
+22:04:24	Error: 	"Not Found" (404) at link https://www.banesconline.com/Mantis/WebSite/CAU/imagen/general/curva_violeta.gif (from https://www.banesconline.com/Mantis/WebSite/CAU/Includes/eestilos.css)
+22:04:24	Error: 	"Not Found" (404) at link https://www.banesconline.com/Mantis/WebSite/CAU/imagen/general/bullet_banca_privada.gif (from https://www.banesconline.com/Mantis/WebSite/CAU/Includes/eestilos.css)
+
+HTTrack Website Copier/3.49-2 mirror complete in 1 minutes 20 seconds : 180 links scanned, 149 files written (2082327 bytes overall) [1414178 bytes received at 17677 bytes/sec], 1025794 bytes transferred using HTTP compression in 28 files, ratio 22%
+(30 errors, 0 warnings, 0 messages)

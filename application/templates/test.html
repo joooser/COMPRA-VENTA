@@ -6,15 +6,15 @@ Test
 
 {% block content %}
 
-<div class="container mt-auto text-center">
+<div class="container mt-5 mb-5">
 
-    <div class="row justify-content-center">
+    <div class="row">
 
         <div class="col-md-4 mt-5">
 
-            <div class="card shadow-lg p-3 mb-5 bg-white rounded" style="margin-top: 20px; min-height: 500px;">
-
-                <form id="documentForm" hx-post="{{ url_for('main.submit_document') }}" hx-target="#templateDisplay" hx-swap="outerHTML">
+            <div id="formAndQuestions">
+                
+                <form id="documentForm" hx-post="{{ url_for('main.submit_document') }}" hx-target="#formAndQuestions" hx-swap="outerHTML">
                 
                     <i class="bi bi-pencil-square" style="font-size: 2rem;"></i>
                 
@@ -37,21 +37,28 @@ Test
                     </div>
 
                     <div class="mb-3">
-                        <div id="subDocumentTypeDiv" hx-get="/get_payment_types" hx-target="#paymentTypeDiv" hx-trigger="change">
-                        </div>
+                        <div id="subDocumentTypeDiv" hx-get="/get_payment_types" hx-target="#paymentTypeDiv" hx-trigger="change"></div>
                     </div>
-                    
+
                     <div class="mb-3">
-                        <div id="paymentTypeDiv">
-                        </div>
+                        <div id="paymentTypeDiv"></div>
                     </div>
                 
-                    <button class="btn btn-primary w-100 py-2" type="submit">Inicio</button>
+                    <button class="btn btn-primary w-100 py-2" type="submit">Submit</button>
                 
                 </form>
+
+                <form id="questionsForm">
+                    {% for question in questions %}
+                    <div class="question"></div>
+                    {% endfor %}
+                </form>
+                
             </div>
-            
-            <div id="templateDisplay"></div>
+        </div>
+
+        <div class="col-md-8 mt-5 shadow-lg p-3 bg-white rounded">
+            <div id="templateDisplay" class="template-display"></div>
         </div>
     </div>
 </div>

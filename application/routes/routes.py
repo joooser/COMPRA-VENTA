@@ -1,4 +1,6 @@
-from flask import Blueprint, render_template, request, jsonify, current_app as app
+import re
+
+from flask import Blueprint, render_template, request, jsonify, current_app as app, render_template_string
 from flask_login import login_required
 from sqlalchemy.exc import SQLAlchemyError
 from markupsafe import escape
@@ -6,7 +8,7 @@ from markupsafe import escape
 from application.services.questions_service import get_questions_grouped_by_category
 from application.forms import VehicleSaleForm
 from application.services.document_template_service import get_document_template
-from application.services.questions_for_template_service import fetch_questions_for_placeholders
+from application.services.questions_for_template_service import fetch_questions_by_ids
 from application.models import DocumentType, SubDocumentType, PaymentTypeDocument
 
 # Create a Blueprint for the main routes
@@ -95,15 +97,34 @@ def submit_document():
         sub_document_type_id = request.form.get('subDocumentType')
         payment_type_id = request.form.get('paymentType')
 
+        # Fetch the template text
         template_text = get_document_template(document_type_id, sub_document_type_id, payment_type_id)
         if not template_text:
             raise ValueError("No template found for the given criteria.")
 
-        questions = fetch_questions_for_placeholders(template_text)
-        if not questions:
-            raise ValueError("No questions found for the given template.")
+        # Extract placeholder IDs from the template
+        placeholder_ids = re.findall(r'data-placeholder="(\d+)"', template_text)
 
-        return render_template('partials/document_and_questions.html', template_text=template_text, questions=questions)
+        # Convert IDs to integers and remove duplicates
+        placeholder_ids = list(set([int(id_) for id_ in placeholder_ids]))
+
+        # Fetch questions based on extracted IDs
+        questions = fetch_questions_by_ids(placeholder_ids)
+
+        template_text_html = f'<div id="templateDisplay" hx-swap-oob="true">{template_text}</div>'
+        questions_html = '<div id="questionsContainer">'
+        for question in questions:
+            questions_html += f'''
+                <div class="question" data-question-id="{question.id}">
+                    <p>{question.text}</p>
+                    <input type="text" name="answer_{question.id}" data-question-id="{question.id}" class="form-control mb-3">
+                </div>
+            '''
+        questions_html += '</div>'
+        
+        # Combine both parts and return as HTML
+        full_response_html = template_text_html + questions_html
+        return render_template_string(full_response_html)
     except Exception as e:
         app.logger.error(f"Error submitting document: {e}")
-        return render_template('partials/error.html', error_message=str(e)), 500
+        return jsonify({'error': str(e)}), 500

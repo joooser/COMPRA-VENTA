@@ -42,65 +42,31 @@ virtualenv env
 pip install -r requirements.txt
 ```
 
-5. Finally start the web server:
+5. Set Flaskapp env:
 
 ```
-python run.py
+$env:FLASK_APP = "application:init_app"
+or
+export FLASK_APP = "application:init_app"
 ```
 
-### SQL Lite cmds
- 
-###### DB Creation
-Identation is important
-
-from application import app, db
-from application.models import *
-
-with app.app_context():
-    db.create_all()
-    guest_role = Role(name='guest')
-    member_role = Role(name='member')
-    admin_role = Role(name='admin')
-    super_admin_role = Role(name='super-admin')
-    db.session.add_all([guest_role, member_role, admin_role, super_admin_role])
-    db.session.commit()
-
-with app.app_context():
-    db.create_all()
-    roles = [
-        {"name": "guest"},
-        {"name": "member"},
-        {"name": "admin"},
-        {"name": "super-admin"}
-    ]
-    for role_data in roles:
-        role = Role.query.filter_by(name=role_data["name"]).first()
-        if not role:
-            new_role = Role(name=role_data["name"])
-            db.session.add(new_role)
-
-        db.session.commit()
-
-###### DB drop.
-
-```
-db.drop_all()
-```
-
-###### DB Migration, upgrade or change.
-
-```
-set FLASK_APP=run.py
-flask db init
-```
-Si estás utilizando PowerShell, el comando sería:
-```
-$env:FLASK_APP = "run.py"
-flask db init
-```
+6. Initiate DB:
 
 ```
 flask db init
 flask db migrate -m "some message"
 flask db upgrade
+```
+
+6. Seed the DB:
+
+```
+python -m scripts.seed_db
+python -m scripts.seed_db_templates
+```
+
+7. Start App:
+
+```
+python run.py
 ```

@@ -18,7 +18,7 @@ Test
             <div id="formAndQuestions">
                 
                 <form id="documentForm" hx-post="{{ url_for('main.submit_document') }}" hx-target="#formAndQuestions" hx-swap="outerHTML">
-                
+                    
                     <i class="bi bi-pencil-square" style="font-size: 2rem;"></i>
                 
                     <h2 class="h3 mb-3 fw-normal">Elige tipo de Documento:</h2>
@@ -49,14 +49,7 @@ Test
                 
                     <button class="btn btn-primary w-100 py-2" type="submit">Submit</button>
                 
-                </form>
-
-                <form id="questionsForm">
-                    {% for question in questions %}
-                    <div class="question"></div>
-                    {% endfor %}
-                </form>
-                
+                </form>         
             </div>
         </div>
 

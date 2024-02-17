@@ -1,19 +1,17 @@
 import traceback
 
-# Extensions
+
 from application.extensions.extensions import db
 
-# Logger
 from application.utils.Logger import Logger
 
-# Models
 from application.models import Questions
 
 
 def get_questions_grouped_by_category():
     try:
 
-        questions = db.session.query(Question).all()
+        questions = db.session.query(Questions).all()
         questions_by_category = {}
         for question in questions:
             category = question.category

@@ -1,4 +1,3 @@
-# seed_db_templates.py
 from application import init_app, db
 from application.models import DocumentTemplate, DocumentType, SubDocumentType, PaymentTypeDocument
 from .assemble_templates import get_assembled_templates

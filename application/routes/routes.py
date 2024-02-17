@@ -11,7 +11,7 @@ from application.services.document_template_service import get_document_template
 from application.services.questions_for_template_service import fetch_questions_by_ids
 from application.models import DocumentType, SubDocumentType, PaymentTypeDocument
 
-# Create a Blueprint for the main routes
+
 main_blueprint = Blueprint('main', __name__)
 
 @main_blueprint.errorhandler(SQLAlchemyError)
@@ -97,18 +97,14 @@ def submit_document():
         sub_document_type_id = request.form.get('subDocumentType')
         payment_type_id = request.form.get('paymentType')
 
-        # Fetch the template text
         template_text = get_document_template(document_type_id, sub_document_type_id, payment_type_id)
         if not template_text:
             raise ValueError("No template found for the given criteria.")
 
-        # Extract placeholder IDs from the template
-        placeholder_ids = re.findall(r'data-placeholder="(\d+)"', template_text)
+        placeholder_ids = re.findall(r"data-placeholder=['\"](\d+)['\"]", template_text)
 
-        # Convert IDs to integers and remove duplicates
         placeholder_ids = list(set([int(id_) for id_ in placeholder_ids]))
 
-        # Fetch questions based on extracted IDs
         questions = fetch_questions_by_ids(placeholder_ids)
 
         template_text_html = f'<div id="templateDisplay" class="template-display" hx-swap-oob="true">{template_text}</div>'
@@ -122,7 +118,6 @@ def submit_document():
             '''
         questions_html += '</div>'
         
-        # Combine both parts and return as HTML
         full_response_html = template_text_html + questions_html
         return render_template_string(full_response_html)
     except Exception as e:

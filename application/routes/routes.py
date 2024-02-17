@@ -111,7 +111,7 @@ def submit_document():
         # Fetch questions based on extracted IDs
         questions = fetch_questions_by_ids(placeholder_ids)
 
-        template_text_html = f'<div id="templateDisplay" hx-swap-oob="true">{template_text}</div>'
+        template_text_html = f'<div id="templateDisplay" class="template-display" hx-swap-oob="true">{template_text}</div>'
         questions_html = '<div id="questionsContainer">'
         for question in questions:
             questions_html += f'''

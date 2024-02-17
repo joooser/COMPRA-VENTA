@@ -1,24 +1,18 @@
-.templatedisplay {
+.template-display {
   /* Basic reset */
   margin: 0;
   padding: 20px;
   box-sizing: border-box;
+  text-align: justify;
 
   /* Typography */
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  font-size: 16px;
+  font-size: 13px;
   line-height: 1.5;
   color: #333;
 
-  /* Border and background */
-  border: 2px solid #ddd; /* subtle border */
-  background-color: #f9f9f9; /* light grey background */
-
   /* Spacing */
   margin-top: 20px;
-
-  /* Shadow for depth */
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 
   /* Making it look official */
   max-width: 800px; /* max width for readability */
@@ -26,15 +20,28 @@
   margin-right: auto; /* centering */
 }
 
-/* If you're using dynamic content insertion, you might want to style specific elements within your templateDisplay */
-.templatedisplay h1, .templatedisplay h2, .templatedisplay h3 {
-  color: #000; /* darker color for headings */
+.template-display h1, .template-display h2, .template-display h3 {
+  color: #000;
 }
 
-.templatedisplay p {
+.template-display p {
+  margin-bottom: 1em;
+  text-indent: 1.5em;
+}
+
+.template-display ul, .template-display ol {
+  padding-left: 20px;
   margin-bottom: 1em;
 }
 
-.templatedisplay ul, .templatedisplay ol {
-  padding-left: 20px;
+.template-display li {
+  margin-bottom: 0.5em;
+}
+
+.template-display span[data-placeholder] {
+  display: inline;
+  margin-right: 4px;
+  font-style: italic;
+  text-transform: uppercase;
+  font-weight: bold;
 }

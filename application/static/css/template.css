@@ -45,3 +45,25 @@
   text-transform: uppercase;
   font-weight: bold;
 }
+
+#questionsContainer {
+  display: flex;
+  flex-direction: column; 
+  justify-content: center; 
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+}
+
+#questionsContainer .question {
+  display: none;
+  width: 100%;
+  transition: opacity 0.5s ease-in-out;
+}
+
+#questionsContainer .question.active {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 1;
+}

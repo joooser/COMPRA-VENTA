@@ -9,9 +9,7 @@ def get_document_template(document_type_id, sub_document_type_id, payment_type_i
             payment_type_document_id=payment_type_id
         ).first()
 
-        if template:
-            return template.template_text
-        return "Template not found."
+        return template
     except Exception as e:
         app.logger.error(f"Error retrieving template: {e}")
         raise

@@ -1,15 +1,18 @@
 import re
 
-from flask import Blueprint, render_template, request, jsonify, current_app as app, render_template_string
-from flask_login import login_required
+from flask import Blueprint, render_template, request, jsonify, current_app as app, render_template_string, redirect, url_for
+from flask_login import login_required, current_user
 from sqlalchemy.exc import SQLAlchemyError
 from markupsafe import escape
 
-from application.services.questions_service import get_questions_grouped_by_category
+from application import db
 from application.forms import VehicleSaleForm
-from application.services.document_template_service import get_document_template
-from application.services.questions_for_template_service import fetch_questions_by_ids
-from application.models import DocumentType, SubDocumentType, PaymentTypeDocument
+from application.models import DocumentType, SubDocumentType, PaymentTypeDocument, Resulting_Document
+
+from application.services.get_document_template_service import get_document_template
+from application.services.get_questions_for_template_service import fetch_questions_by_ids
+#from application.services.create_pdf_service import generate_pdf
+#from application.services.store_pdf_service import store_pdf
 
 
 main_blueprint = Blueprint('main', __name__)
@@ -97,17 +100,26 @@ def submit_document():
         sub_document_type_id = request.form.get('subDocumentType')
         payment_type_id = request.form.get('paymentType')
 
-        template_text = get_document_template(document_type_id, sub_document_type_id, payment_type_id)
-        if not template_text:
+        template = get_document_template(document_type_id, sub_document_type_id, payment_type_id)
+
+        if not template:
             raise ValueError("No template found for the given criteria.")
+        
+        document_template_id = template.id
+        document_template_id = template.id
+        template_text = template.template_text
 
         placeholder_ids = re.findall(r"data-placeholder=['\"](\d+)['\"]", template_text)
-
         placeholder_ids = list(set([int(id_) for id_ in placeholder_ids]))
 
         questions = fetch_questions_by_ids(placeholder_ids)
 
-        template_text_html = f'<div id="templateDisplay" class="template-display" hx-swap-oob="true">{template_text}</div>'
+        template_text_html = f'''<div id="templateDisplay" 
+            data-template-id="{document_template_id}" 
+            data-type-id="{document_type_id}" 
+            class="template-display" 
+            hx-swap-oob="true">{template_text}</div>'''
+
         questions_html = '<div id="questionsContainer">'
         for question in questions:
             questions_html += f'''
@@ -123,3 +135,67 @@ def submit_document():
     except Exception as e:
         app.logger.error(f"Error submitting document: {e}")
         return jsonify({'error': str(e)}), 500
+
+@main_blueprint.route('/submit_answers', methods=['POST'])
+@login_required
+def submit_answers():
+    app.logger.info('submit_answers endpoint called')
+    try:
+        answers_json = request.form.get('answers_json')
+        plain_text = request.form.get('plain_text')
+        document_template_id = request.form.get('document_template_id')
+        document_type_id = request.form.get('document_type_id')
+
+        if answers_json and plain_text and document_template_id and document_type_id:
+            # All required data is present, proceed to save
+            new_resulting_document = Resulting_Document(
+                answers_json=answers_json,
+                plain_text=plain_text,
+                user_id=current_user.id,
+                document_type_id=document_type_id,
+                document_template_id=document_template_id
+            )
+            db.session.add(new_resulting_document)
+            db.session.commit()
+
+        # Redirect based on subscription status
+        if current_user.subscription_id == 1:
+            # User is subscribed, generate PDF
+            pdf_relative_path = generate_pdf_and_store(plain_text, new_resulting_document.id)
+            download_url = url_for('serve_pdf', filename=pdf_relative_path)
+            message = "Document saved successfully. Your download will begin shortly."
+
+            return jsonify({
+                'success': True,
+                'message': message,
+                'redirect_url': url_for('home'),
+                'pdf_download_url': url_for('serve_pdf', filename=pdf_relative_path)
+            })
+        
+        else:
+
+            message = "Document saved successfully. Please subscribe to download as a PDF."
+
+            return jsonify({
+                'success': True,
+                'message': message,
+                'redirect_url': url_for('paywall'),
+
+            })
+
+    except Exception as e:
+        db.session.rollback()
+        app.logger.error(f"Error submitting answers: {e}")
+        return jsonify(success=False, error=str(e)), 500
+
+#@main_blueprint.route('/paywall')
+#@login_required
+#def paywall():
+#    # Your paywall page logic here...
+#    return render_template('paywall.html')
+#
+#@main_blueprint.route('/serve_pdf/<path:filename>')
+#@login_required
+#def serve_pdf(filename):
+#    # Logic to serve the PDF file...
+#    # Same as the existing serve_pdf route from previous suggestions

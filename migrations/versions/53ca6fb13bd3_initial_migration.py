@@ -1,8 +1,8 @@
 """Initial Migration
 
-Revision ID: 5862698d4c0e
+Revision ID: 53ca6fb13bd3
 Revises: 
-Create Date: 2024-02-17 15:21:38.615046
+Create Date: 2024-02-24 14:59:38.114320
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '5862698d4c0e'
+revision = '53ca6fb13bd3'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -80,8 +80,10 @@ def upgrade():
     op.create_table('resulting__document',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('creation_date', sa.DateTime(), nullable=False),
-    sa.Column('answers_json', sa.Text(), nullable=True),
-    sa.Column('user_id', sa.Integer(), nullable=True),
+    sa.Column('updated_at', sa.DateTime(), nullable=True),
+    sa.Column('answers_json', sa.Text(), nullable=False),
+    sa.Column('plain_text', sa.Text(), nullable=False),
+    sa.Column('user_id', sa.Integer(), nullable=False),
     sa.Column('document_type_id', sa.Integer(), nullable=False),
     sa.Column('document_template_id', sa.Integer(), nullable=False),
     sa.ForeignKeyConstraint(['document_template_id'], ['document_template.id'], name='fk_document_template_id'),

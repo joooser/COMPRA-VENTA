@@ -17,8 +17,10 @@ Test
 
             <div id="formAndQuestions">
                 
-                <form id="documentForm" hx-post="{{ url_for('main.submit_document') }}" hx-target="#formAndQuestions" hx-swap="outerHTML">
-                    
+                <form id="documentForm" hx-post="{{ url_for('main.submit_document') }}" hx-target="#swapArea" hx-swap="outerHTML">
+                
+                <div id="swapArea">
+
                     <i class="bi bi-pencil-square" style="font-size: 2rem;"></i>
                 
                     <h2 class="h3 mb-3 fw-normal">Elige tipo de Documento:</h2>
@@ -46,10 +48,11 @@ Test
                     <div class="mb-3">
                         <div id="paymentTypeDiv"></div>
                     </div>
-                
+
                     <button class="btn btn-primary w-100 py-2" type="submit">Submit</button>
                 
-                </form>         
+                </div>
+                </form>
             </div>
         </div>
 
@@ -60,4 +63,6 @@ Test
 </div>
 
 <script src="{{ url_for('static', filename='js/dynamic_form.js') }}"></script>
+<script src="{{ url_for('static', filename='js/live_update.js') }}"></script>
+<script src="{{ url_for('static', filename='js/answers_submission.js') }}"></script>
 {% endblock %}

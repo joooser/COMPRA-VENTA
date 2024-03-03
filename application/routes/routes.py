@@ -31,6 +31,10 @@ def landing():
 def home():
     return render_template('home.html', title='Home')
 
+@main_blueprint.route('/prices', methods=['GET', 'POST'])
+def prices():
+    return render_template('prices.html', title='prices')
+
 @main_blueprint.route('/create-document', methods=['GET'])
 @login_required
 def create_document():
@@ -117,18 +121,18 @@ def submit_document():
         template_text_html = f'''<div id="templateDisplay" 
             data-template-id="{document_template_id}" 
             data-type-id="{document_type_id}" 
-            class="template-display" 
+            class="template-display shadow-lg rounded" 
             hx-swap-oob="true">{template_text}</div>'''
 
-        questions_html = '<div id="questionsContainer">'
+        questions_html = '<form id="questionsContainer" class="justify-content-start mt-5">'
         for question in questions:
             questions_html += f'''
-                <div class="question" data-question-id="{question.id}">
+                <div class="question form-group" data-question-id="{question.id}">
                     <p>{question.text}</p>
                     <input type="text" name="answer_{question.id}" data-question-id="{question.id}" class="form-control mb-3">
                 </div>
             '''
-        questions_html += '</div>'
+        questions_html += '</form>'
         
         full_response_html = template_text_html + questions_html
         return render_template_string(full_response_html)
@@ -140,6 +144,10 @@ def submit_document():
 @login_required
 def submit_answers():
     app.logger.info('submit_answers endpoint called')
+
+    if not request.form.get('answers_json'):
+        return jsonify({'success': False, 'message': 'Answers data is required.'}), 400
+
     try:
         answers_json = request.form.get('answers_json')
         plain_text = request.form.get('plain_text')

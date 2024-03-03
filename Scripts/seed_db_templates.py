@@ -22,7 +22,7 @@ def seed_templates():
             template_text=template_text,
             document_type_id=document_type.id, 
             sub_document_type_id=sub_document_type.id, 
-            payment_type_document_id=payment_type_document.id  # Corrected field name
+            payment_type_document_id=payment_type_document.id
         )
         db.session.add(template)
 

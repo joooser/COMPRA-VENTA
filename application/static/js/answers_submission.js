@@ -1,8 +1,10 @@
 document.addEventListener('DOMContentLoaded', initializeFormLogic);
 
 document.body.addEventListener('htmx:afterSwap', function(event) {
+
   // Check if the swapped content includes the form or relevant components
-  if (event.detail.target.id === 'formAndQuestions' || event.detail.target.contains(document.getElementById('documentForm'))) {
+  if (event.detail.target.id === 'formAndQuestions' ||
+      event.detail.target.contains(document.getElementById('documentForm'))) {
     initializeFormLogic();
   }
 });
@@ -12,7 +14,7 @@ function initializeFormLogic() {
   
   if (!form) {
     console.error('Form not found');
-    return; // Exit if the form isn't found
+    return;
   }
 
   form.removeEventListener('submit', handleFormSubmit); // Remove existing listener to prevent duplicates
@@ -22,13 +24,12 @@ function initializeFormLogic() {
 function handleFormSubmit(event) {
   event.preventDefault(); // Prevent the form from submitting traditionally
   
-  const form = event.currentTarget;
-  const formData = new FormData();
+  const formData = new FormData(event.currentTarget);
 
   // Collect question answers in an object
   const answers = {};
   document.querySelectorAll('[data-question-id]').forEach(input => {
-    answers[input.getAttribute('data-question-id')] = input.value;
+    formData.append(`answer_${input.getAttribute('data-question-id')}`, input.value);
   });
 
   // Serialize answers object into JSON and add to formData
@@ -56,22 +57,36 @@ function handleFormSubmit(event) {
   fetch('/submit_answers', {
     method: 'POST',
     body: formData,
-    // Additional options like headers, credentials, etc., might be needed depending on your setup
+    headers: {
+      // If your server expects JSON, you'll need to handle this differently.
+      // 'Content-Type': 'application/json',
+      // 'Accept': 'application/json',
+    },
   })
-  .then(response => response.json())
+  .then(response => {
+    if (!response.ok) {
+      // If the server response was not ok, throw an error to be caught in the catch block
+      throw new Error(`Server responded with ${response.status}: ${response.statusText}`);
+    }
+    return response.json();
+  })
   .then(data => {
     console.log(data.message);
     if (data.success) {
+      // Handle success, such as redirecting or opening a download link
       window.location.href = data.redirect_url;
       // If there's a URL for PDF download and the user is subscribed, initiate the download
       if (data.pdf_download_url) {
         window.open(data.pdf_download_url, '_blank');
       }
     } else {
-      alert(data.message);
+      // Handle failure based on server's response message
+      alert(data.message || 'An error occurred while submitting your answers.');
     }
   })
   .catch(error => {
+    // Handle any errors that occurred during fetch
     console.error('Submission failed', error);
+    alert(`Failed to submit: ${error.message}`);
   });
 }

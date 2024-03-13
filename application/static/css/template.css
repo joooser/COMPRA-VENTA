@@ -1,0 +1,44 @@
+.template-display {
+  /* Basic reset */
+  margin: 0;
+  padding: 20px;
+  box-sizing: border-box;
+  text-align: justify;
+
+  /* Typography */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #333;
+
+  /* Making it look official */
+  max-width: 800px; /* max width for readability */
+  margin-left: auto;
+  margin-right: auto; /* centering */
+}
+
+.template-display h1, .template-display h2, .template-display h3 {
+  color: #000;
+}
+
+.template-display p {
+  margin-bottom: 1em;
+  text-indent: 1.5em;
+}
+
+.template-display ul, .template-display ol {
+  padding-left: 20px;
+  margin-bottom: 1em;
+}
+
+.template-display li {
+  margin-bottom: 0.5em;
+}
+
+.template-display span[data-placeholder] {
+  display: inline;
+  margin-right: 4px;
+  font-style: italic;
+  text-transform: uppercase;
+  font-weight: bold;
+}

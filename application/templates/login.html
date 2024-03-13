@@ -1,105 +1,87 @@
 {% extends 'base.html' %}
 {% block title %}
-    Register Page
+Registrar
 {% endblock %}
 
 {% block content %}
-<link 
-rel="stylesheet"
-href="{{ url_for('static', filename='css/Login_form.css') }}"/>
 
-<body class="text-center">
-    <!--
-    <div class="container d-flex justify-content-center align-items-center">      
-        <form method="POST" class="form-signin p-4 bg-white shadow rounded bg-body-tertiary border">
-            {{ form.hidden_tag() }}
-            <div class="logo">
-                <img src="https://www.freepnglogos.com/uploads/logo-chatgpt-png/chatgpt-png-9.png" alt="">
-            </div>
-            <h1 class="h5 mb-3 fw-bold">Bienvenido</h1>
+<div class="container mt-auto text-center">
 
-            <div class="mb-3 shadow-sm">
-                {{ form.username(class="form-control", placeholder="Email", id="email") }}
-            </div>
+    <div class="row justify-content-center">
 
-            <div class="mb-3 shadow-sm">    
+        <div class="col-md-4 mt-5">
 
-                {{ form.password(class="mb-3 form-control", placeholder="Contraseña", id="Password") }}
-            </div>
-            
-            <div class="mb-3 p-1">
+            <div class="card shadow-lg p-3 mb-5 bg-white rounded" style="margin-top: 20px; min-height: 500px;">
 
-                {{ form.submit(class="btn btn-primary shadow-sm") }}
+                <form method="POST">
+                    
+                    {{ form.hidden_tag() }}
+                
+                    <i class="bi bi-pencil-square" style="font-size: 2rem;"></i>
+                
+                    <h1 class="h3 mb-3 fw-normal">Bienvenido</h1>
+                
+                    <div class="form-floating mb-3">
+                        {{ form.email(class="form-control", placeholder="Email", id="email") }}
+                      <label for="floatingInput">Email</label>
+                    </div>
+                
+                    <div class="form-floating mb-3">
+                        {{ form.password(class="form-control", placeholder="Contraseña", id="pwd") }}
+                      <label for="floatingPassword">Contraseña</label>
+                    </div>
+                
+                    <div class="form-check text-start my-3">
+                    
+                      <input class="form-check-input" type="checkbox" value="remember-me" id="flexCheckDefault">
+                      <label class="form-check-label" for="flexCheckDefault">
+                        Recordarme
+                      </label>
+
+                    </div>
+                
+                    <button class="btn btn-primary w-100 py-2" type="submit">Inicio</button>
+                
+                    <div class="text-center pt-4">
+                    
+                        <!-- Social Icons -->
+                        <div class="row">
+                        
+                            <div class="col">
+                                <a href="#" class="d-block mb-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-google" viewBox="0 0 16 16">
+                                        <path d="M15.545 6.558a9.4 9.4 0 0 1 .139 1.626c0 2.434-.87 4.492-2.384 5.885h.002C11.978 15.292 10.158 16 8 16A8 8 0 1 1 8 0a7.7 7.7 0 0 1 5.352 2.082l-2.284 2.284A4.35 4.35 0 0 0 8 3.166c-2.087 0-3.86 1.408-4.492 3.304a4.8 4.8 0 0 0 0 3.063h.003c.635 1.893 2.405 3.301 4.492 3.301 1.078 0 2.004-.276 2.722-.764h-.003a3.7 3.7 0 0 0 1.599-2.431H8v-3.08z"/>
+                                    </svg>
+                                </a>
+                            </div>
+                        
+                            <div class="col">
+                                <a href="#" class="d-block mb-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-facebook" viewBox="0 0 16 16">
+                                        <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951"/>
+                                    </svg>
+                                </a>
+                            </div>
+                        
+                            <div class="col">
+                                <a href="#" class="d-block mb-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-microsoft" viewBox="0 0 16 16">
+                                        <path d="M7.462 0H0v7.19h7.462zM16 0H8.538v7.19H16zM7.462 8.211H0V16h7.462zm8.538 0H8.538V16H16z"/>
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    
+                        <hr class="border-2">
+                    
+                        <div class="text-center fs-6 mt-4">
+                            <a href="#">Olvido su contraseña?</a> ~ <a href="{{ url_for('auth.register') }}">Registrese</a>
+                        </div>
+                    
+                    </div>
+                </form>
             </div>
-            <div class="mb-3 p-1">
-                <p class="link"><small>¿No tiene una cuenta?
-                    <a href="{{ url_for('auth.register') }}" class="link link-opacity-75">Registrarse</a>
-                </small></p>
-                <hr class="border-2">
-                <span><i class="fab fa-google"></i></span>
-            </div>
-        </form>
+        </div>
     </div>
-    <div class="wrapper">
-        <div class="logo">
-            <img src="https://www.freepnglogos.com/uploads/logo-chatgpt-png/chatgpt-png-9.png" alt="">
-        </div>
-        <div class="text-center mt-4 name">
-            Bienvenido
-        </div>
-        <form class="p-3 mt-3">
-            <div class="form-field d-flex align-items-center">
-                <span class="far fa-user"></span>
-                <input type="text" name="userName" id="userName" placeholder="Email">
-            </div>
-            <div class="form-field d-flex align-items-center">
-                <span class="fas fa-key"></span>
-                <input type="password" name="password" id="pwd" placeholder="Contraseña">
-            </div>
-            <button class="btn mt-3">Login</button>
-        </form>
-        <div class="text-center fs-6">
-            <a href="#">Olvido su contraseña?</a> o <a href="#">Registrese</a>
-        </div>
-    </div>
-    -->
-    <div class="wrapper">
-        <div class="logo">
-            <img src="https://www.freepnglogos.com/uploads/logo-chatgpt-png/chatgpt-png-9.png" alt="">
-        </div>
-        <div class="text-center mt-4 name">
-            Bienvenido
-        </div>
-        <form method="POST" class="p-3 mt-3">
-            {{ form.hidden_tag() }}
-            <div class="form-field d-flex align-items-center">
-                <span class="far fa-user"></span>
-                {{ form.username(class="form-control", placeholder="Email", id="userName") }}
-            </div>
-            <div class="form-field d-flex align-items-center">
-                <span class="fas fa-key"></span>
-                {{ form.password(class="form-control", placeholder="Contraseña", id="pwd") }}
-            </div>
-            <button type="submit" class="btn mt-3">Login</button>
-            <div class="text-center fs-6 mt-4">
-                <a href="#">Olvido su contraseña?</a> o <a href="{{ url_for('auth.register') }}">Registrese</a>
-            </div>
-            <hr class="border-2 mt-4">
-            <!-- Social Icons -->
-            <div class="social-icons text-center">
-                <!-- Here you will add the social icons and their links -->
-                <a href="#" class="d-block mb-3">
-                    <i class="fab fa-google"></i> Login with Google
-                </a>
-                <a href="#" class="d-block mb-3">
-                    <i class="fab fa-facebook"></i> Login with Facebook
-                </a>
-                <a href="#" class="d-block mb-3">
-                    <i class="fab fa-facebook"></i> Login with Microsoft
-                </a>
-                <!-- Add more providers as needed -->
-            </div>
-        </form>
-    </div>
-</body>
+</div>
 {% endblock %}

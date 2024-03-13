@@ -2,157 +2,202 @@
 <html lang="en">
 
 <head>
-    {% block head %}
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+{% block head %}
 
-    <!-- Bootstrap CSS -->
-    <link
-        rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
-        crossorigin="anonymous"/>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
 
-    <link
-        rel="icon"
-        href="{{ url_for('static', filename='images/favicon.ico') }}"
-        type="image/x-icon"/>
+  <!-- 
+    - favicon
+  -->
+  <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.svg') }}" type="image/svg+xml">
 
-    <script 
-        src="https://code.jquery.com/jquery-3.7.1.min.js"
-        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
-        crossorigin="anonymous">
-    </script>
 
-    <script
-        src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"
-        integrity="sha256-lSjKY0/srUM9BE3dPm+c4fBo1dky2v27Gdjm2uoZaL0="
-        crossorigin="anonymous">
-    </script>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
-    <script
-        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-        crossorigin="anonymous">
-    </script>
+  <!-- Bootstrap Icons -->
+  <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+
+  <!-- HTMX -->
+  <script src="https://unpkg.com/htmx.org" defer></script>
+
+  <!-- 
+    - google font link
+  -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Mulish:wght@600;700;900&family=Quicksand:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
     
-    {% endblock %}
+{% endblock %}
 
-    <title>{% block title %}{% endblock %}</title>
+  <title>{% block title %}{% endblock %}</title>
 </head>
 
-<body>
-    <div class="container rounded shadow-sm border">
-        <nav class="navbar sticky-top navbar-expand-lg">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="{{ url_for('main.home') }}">
-                    <img src="/docs/5.3/assets/brand/bootstrap-logo.svg" alt="Logo" width="15" height="12" class="d-inline-block align-text-top">
-                    Documentos
-                </a>
+<body class="d-flex flex-column min-vh-100">
 
-                {% if current_user.is_authenticated %}
-                <button
-                    class="navbar-toggler"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent"
-                    aria-expanded="false"
-                    aria-label="Toggle navigation"
-                >
-                <span class="navbar-toggler-icon"></span>
-                </button>
+  <!-- New Header Structure -->
+<header class="header mb-auto" data-header>
+  <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark" aria-label="Ninth navbar example">
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link rounded-5 border-start" href="{{ url_for('main.home') }}">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ url_for('main.create_document') }}">Crear Documento</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ url_for('main.test') }}">Test Page</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ url_for('main.test') }}">Precios</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle rounded-5 border-end"
-                                href="#"
-                                id="navbarDropdown"
-                                role="button"
-                                data-bs-toggle="dropdown"
-                                aria-expanded="false">
-                              Dropdown
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                              <li><a class="dropdown-item" href="#">Action</a></li>
-                              <li><a class="dropdown-item" href="#">Another action</a></li>
-                              <li><hr class="dropdown-divider"></li>
-                              <li><a class="dropdown-item" href="#">Something else here</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-             
-                    <div class="d-flex">
-                        <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <em><a class="nav-link">Welcome, {{ current_user.username }}.</a></em>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link btn btn-outline-danger opacity-60 rounded-5 border-start"
-                                    href="{{ url_for('auth.logout') }}">
-                                    Logout
-                                </a>
-                            </li>
-                        </ul>
+    <div class="container">
 
-                        {% else %}
+      <button class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarsExample07XL"
+        aria-controls="navbarsExample07XL"
+        aria-expanded="false"
+        aria-label="Toggle navigation">
 
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      
+      <div class="collapse navbar-collapse d-lg-flex" id="navbarsExample07XL">
 
-                        <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <a class="nav-link btn btn-outline-info rounded-5 border-start"
-                                    href="{{ url_for('auth.register') }}"
-                                    style="color: #555; border-color: #03A9F4;"
-                                    onmouseover="this.style.color='#fff';" 
-                                    onmouseout="this.style.color='#555';">Register</a>
-                            </li>
-                        </ul>
-                    </div>
-                    {% endif %}
-                </div>
-            </div>
-        </nav>
-    </div>
-    {% with messages = get_flashed_messages(with_categories=true) %} {% if messages %} {% for category, message in messages %}
+        <a class="navbar-brand col-lg-3 me-0" href="{{ url_for('main.home') }}">
+          <i class="bi bi-pencil-square" style="font-size: 2rem;"></i>
+        </a>
 
-    <div class="container text-center">
-        <div class="row justify-content-center">
-            <div class="col col-lg-4">
-                <div class="alert alert-{{ category }} alert-dismissible fade show bg-opacity-10 rounded-pill" role="alert">
-                    <div>
-                        <button type="button" class="btn-close rounded" data-bs-dismiss="alert" aria-label="Close"></button>
-                        <em>{{ message }}</em>
-                    </div>
-                </div>
-            </div>
+      {% if current_user.is_authenticated %}
+        <ul class="navbar-nav col-lg-6 justify-content-md-center">
+
+          <li class="nav-item">
+            <a href="{{ url_for('main.home') }}" class="nav-link">Home</a>
+          </li>
+        
+          <li class="nav-item">
+            <a href="{{ url_for('main.create_document') }}" class="nav-link">Redactar</a>
+          </li>
+
+          <li class="nav-item">
+            <a href="{{ url_for('main.prices') }}" class="nav-link">Precios</a>
+          </li>
+        
+          <li class="nav-item">
+            <a href="{{ url_for('main.test') }}" class="nav-link">test</a>
+          </li>
+        
+          <li class="nav-item">
+            <a href="#blog" class="nav-link">Blog</a>
+          </li>
+        
+          <li class="nav-item">
+            <a href="#contact" class="nav-link">Contacto</a>
+          </li>
+
+        </ul>
+
+        <div class="d-lg-flex col-lg-3 justify-content-md-end">
+          <ul class="navbar-nav">      
+            <li class="nav-item">
+              <a href="{{ url_for('auth.logout') }}" class="nav-link">Logout</a>
+            </li>
+          </ul>
         </div>
+
+      {% else %}
+
+        <ul class="navbar-nav col-lg-6 justify-content-md-center">
+
+          <li class="nav-item">
+            <a href="/" class="nav-link">Home</a>
+          </li>
+        
+          <li class="nav-item">
+            <a href="{{ url_for('main.prices') }}" class="nav-link">Precios</a>
+          </li>
+        
+          <li class="nav-item">
+            <a href="#blog" class="nav-link">Blog</a>
+          </li>
+        
+          <li class="nav-item">
+            <a href="#contact" class="nav-link">Contacto</a>
+          </li>
+
+        </ul>
+
+        <div class="d-lg-flex col-lg-3 justify-content-md-end">
+          <ul class="navbar-nav">
+
+            <li class="nav-item">
+              <a href="{{ url_for('auth.login') }}" class="nav-link">Inicio</a>
+            </li>
+
+            <li class="nav-item">
+              <a href="{{ url_for('auth.register') }}" class="nav-link">Registrarse</a>
+            </li>
+
+          </ul>
+        </div>
+
+      {% endif %}
+      </div>
+    </div>
+  </nav>
+</header>
+
+
+<!-- 
+  Alert Messages 
+-->
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+
+    <div class="position-absolute align-self-center" style="z-index: 1030; top: 80px;">
+        {% for category, message in messages %}
+            <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                <em>{{ message }}</em>
+            </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+{% endwith %}
+
+  <!-- 
+    - CONTENT
+  -->
+<main>
+  <div class="container-fluid mb-auto mt-auto">
+
+    {% block content %}{% endblock %}
+
+  </div>
+</main>
+    
+  <!-- 
+    - FOOTER
+  -->
+  
+<footer class="footer mt-auto py-3 bg-body-tertiary">
+  <div class="container border-top">
+    <div class="col-md-4 d-flex align-items-center">
+      <a href="/" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">
+        <svg class="bi" width="30" height="24"><use xlink:href="#"/></svg>
+      </a>
+      <span class="mb-3 mb-md-0 text-body-secondary">&copy; 2023 Company, Inc</span>
     </div>
 
-    {% endfor %} {% endif %} {% endwith %}
+    <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
+      <li class="ms-3"><a class="text-body-secondary" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#twitter"/></svg></a></li>
+      <li class="ms-3"><a class="text-body-secondary" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#instagram"/></svg></a></li>
+      <li class="ms-3"><a class="text-body-secondary" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#facebook"/></svg></a></li>
+    </ul>
+  </div>
+</footer>
 
-    <div class="container mt-5">
+<!-- Bootstrap JS with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
-        {% block content %}{% endblock %}
 
-    </div>
-
-    <link 
-    rel="stylesheet"
-    href="{{ url_for('static', filename='css/base.css') }}"/>
 </body>
-
 </html>

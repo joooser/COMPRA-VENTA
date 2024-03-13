@@ -1,3 +1,5 @@
+import os
+
 from flask import Flask
 
 # Extensions
@@ -8,9 +10,18 @@ from .routes.routes import main_blueprint
 from .routes.auth_routes import auth_blueprint
 
 
-def init_app(config_class):
+def init_app(config_class=None):
     app = Flask(__name__)
-    app.config.from_object(config_class)
+
+    if config_class is None:
+        app.config.from_pyfile('../config.py', silent=True)
+    else:
+        app.config.from_object(config_class)
+
+    try:
+        os.makedirs(app.instance_path)
+    except OSError:
+        pass
 
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
 

@@ -1,16 +1,20 @@
 {% extends 'base.html' %}
 
 {% block title %}
-Compra Venta de Vehículos
+Home
 {% endblock %}
 
 {% block content %}
-This is our content for the Home Page
-{% include 'includes/new_title_modals.html' %}
 
-<!-- Button to Open Modal for New Document -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#documentTitleModal">
-    Nuevo Documento
-</button>
+
+    <div class="container pt-5">
+    This is our content for the Home Page
     
+        <!-- Button to Open Modal for New Document -->
+        <button href="{{ url_for('main.create_document') }}" type="button" class="btn btn-primary"">
+            Nuevo Documento
+        </button>
+    </div>
+
+
 {% endblock %}

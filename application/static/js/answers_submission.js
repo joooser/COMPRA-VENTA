@@ -1,17 +1,19 @@
 document.addEventListener('DOMContentLoaded', initializeFormLogic);
 
+let isSecondFormSubmitted = false; // Flag to check if the second form is being submitted
+
 document.body.addEventListener('htmx:afterSwap', function(event) {
 
   // Check if the swapped content includes the form or relevant components
-  if (event.detail.target.id === 'formAndQuestions' ||
-      event.detail.target.contains(document.getElementById('documentForm'))) {
-    initializeFormLogic();
+  if (event.detail.target.id === 'questionsContainer') {
+    isSecondFormSubmitted = true; // Set the flag to true after the first form is submitted
+    initializeFormLogic(); // Initialize the logic for the questions form
   }
 });
 
 function initializeFormLogic() {
   const form = document.getElementById('documentForm');
-  
+
   if (!form) {
     console.error('Form not found');
     return;
@@ -24,6 +26,21 @@ function initializeFormLogic() {
 function handleFormSubmit(event) {
   event.preventDefault(); // Prevent the form from submitting traditionally
   
+if (isSecondFormSubmitted) {
+    // Logic for handling the second form submission
+    submitSecondForm(event);
+  } else {
+    // Logic for handling the first form submission
+    submitFirstForm(event);
+  }
+}
+
+function submitFirstForm(event) {
+  // Logic for submitting the first form
+  // This might involve an AJAX request or some htmx logic
+}
+
+function submitSecondForm(event) {
   const formData = new FormData(event.currentTarget);
 
   // Collect question answers in an object

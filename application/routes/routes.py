@@ -6,13 +6,10 @@ from sqlalchemy.exc import SQLAlchemyError
 from markupsafe import escape
 
 from application import db
-from application.forms import VehicleSaleForm
 from application.models import DocumentType, SubDocumentType, PaymentTypeDocument, Resulting_Document
 
 from application.services.get_document_template_service import get_document_template
 from application.services.get_questions_for_template_service import fetch_questions_by_ids
-#from application.services.create_pdf_service import generate_pdf
-#from application.services.store_pdf_service import store_pdf
 
 
 main_blueprint = Blueprint('main', __name__)
@@ -38,13 +35,12 @@ def prices():
 @main_blueprint.route('/create-document', methods=['GET'])
 @login_required
 def create_document():
-    form = VehicleSaleForm()
     try:
-        questions_by_category = get_questions_grouped_by_category()
+        document_types = DocumentType.query.all()
+        return render_template('test.html', document_types=document_types)
     except SQLAlchemyError as e:
-        app.logger.error(f"Error fetching questions: {e}")
+        app.logger.error(f"Error processing request: {e}")
         return jsonify(success=False, error=str(e)), 500
-    return render_template('create_document.html', form=form, questions_by_category=questions_by_category)
 
 @main_blueprint.route('/test', methods=['GET', 'POST'])
 @login_required
@@ -195,15 +191,3 @@ def submit_answers():
         db.session.rollback()
         app.logger.error(f"Error submitting answers: {e}")
         return jsonify(success=False, error=str(e)), 500
-
-#@main_blueprint.route('/paywall')
-#@login_required
-#def paywall():
-#    # Your paywall page logic here...
-#    return render_template('paywall.html')
-#
-#@main_blueprint.route('/serve_pdf/<path:filename>')
-#@login_required
-#def serve_pdf(filename):
-#    # Logic to serve the PDF file...
-#    # Same as the existing serve_pdf route from previous suggestions

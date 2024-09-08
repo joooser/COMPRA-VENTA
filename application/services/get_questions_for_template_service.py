@@ -1,5 +1,7 @@
-from application.models import Questions
 from flask import current_app as app
+
+from contract_app.models import Questions
+
 
 def fetch_questions_by_ids(ids):
     try:

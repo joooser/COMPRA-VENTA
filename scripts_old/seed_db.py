@@ -1,11 +1,19 @@
-from application import init_app, db
-from application.models import Subscription, Role, Questions, DocumentType, SubDocumentType, PaymentTypeDocument
+from contract_app import db, init_app
+from contract_app.models import (
+    DocumentType,
+    PaymentTypeDocument,
+    Questions,
+    Role,
+    SubDocumentType,
+    Subscription,
+)
+
 
 def seed_subscriptions():
     if Subscription.query.count() == 0:
         subscriptions = [
-            Subscription(id=1, type='Free'),
-            Subscription(id=2, type='Pro'),
+            Subscription(id=1, type="Free"),
+            Subscription(id=2, type="Pro"),
         ]
         db.session.bulk_save_objects(subscriptions)
         db.session.commit()
@@ -13,28 +21,29 @@ def seed_subscriptions():
     else:
         print("Subscriptions types already exist.")
 
+
 def seed_roles():
     if Role.query.count() == 0:
         roles = [
-            Role(id=1, name='Guest'),
-            Role(id=2, name='Member'),
-            Role(id=3, name='Admin'),
-            Role(id=4, name='Root'),
+            Role(id=1, name="Guest"),
+            Role(id=2, name="Member"),
+            Role(id=3, name="Admin"),
+            Role(id=4, name="Root"),
         ]
         db.session.bulk_save_objects(roles)
         db.session.commit()
         print("Roles types seeded successfully.")
     else:
-        print("Roles types already exist.")        
+        print("Roles types already exist.")
 
 
 def seed_payment_types():
     # Check if there are already entries in the table
     if PaymentTypeDocument.query.count() == 0:
         payment_types = [
-            PaymentTypeDocument(name='Efectivo'),
-            PaymentTypeDocument(name='Transferencia'),
-            PaymentTypeDocument(name='Cheque'),
+            PaymentTypeDocument(name="Efectivo"),
+            PaymentTypeDocument(name="Transferencia"),
+            PaymentTypeDocument(name="Cheque"),
         ]
         db.session.bulk_save_objects(payment_types)
         db.session.commit()
@@ -42,12 +51,19 @@ def seed_payment_types():
     else:
         print("Payment types already exist.")
 
+
 def seed_sub_document_types():
-    compra_venta_vehiculo = DocumentType.query.filter_by(value='Compra_Venta_Vehiculo').first()
+    compra_venta_vehiculo = DocumentType.query.filter_by(
+        value="Compra_Venta_Vehiculo"
+    ).first()
     if compra_venta_vehiculo and SubDocumentType.query.count() == 0:
         sub_document_types = [
-            SubDocumentType(name='TITULO INTTT', document_type_id=compra_venta_vehiculo.id),
-            SubDocumentType(name='DOCUMENTO NOTARIADO', document_type_id=compra_venta_vehiculo.id),
+            SubDocumentType(
+                name="TITULO INTTT", document_type_id=compra_venta_vehiculo.id
+            ),
+            SubDocumentType(
+                name="DOCUMENTO NOTARIADO", document_type_id=compra_venta_vehiculo.id
+            ),
         ]
         db.session.bulk_save_objects(sub_document_types)
         db.session.commit()
@@ -59,15 +75,20 @@ def seed_sub_document_types():
 def seed_document_types():
     if DocumentType.query.count() == 0:
         document_types = [
-            DocumentType(id=1, value='Compra_Venta_Vehiculo', label='Compra-Venta Vehiculo'),
-            DocumentType(id=2, value='Compra_Venta_Casa', label='Compra-Venta Casa'),
-            DocumentType(id=3, value='Compra_Venta_Lancha', label='Compra-Venta Lancha'),
+            DocumentType(
+                id=1, value="Compra_Venta_Vehiculo", label="Compra-Venta Vehiculo"
+            ),
+            DocumentType(id=2, value="Compra_Venta_Casa", label="Compra-Venta Casa"),
+            DocumentType(
+                id=3, value="Compra_Venta_Lancha", label="Compra-Venta Lancha"
+            ),
         ]
         db.session.bulk_save_objects(document_types)
         db.session.commit()
         print("DocumentTypes types seeded successfully.")
     else:
         print("DocumentTypes types already exist.")
+
 
 def seed_questions():
     if Questions.query.count() == 0:
@@ -115,7 +136,7 @@ def seed_questions():
             "¿Cual es el estado de la notaria?",
             "¿Cual es el nº de cuenta de donde sale el dinero?",
             "¿Cual es el número de tranferencia?",
-            "¿Cual es el nº de cuenta que recibe el dinero?"
+            "¿Cual es el nº de cuenta que recibe el dinero?",
         ]
         for text in question_texts:
             if not Questions.query.filter_by(text=text).first():
@@ -126,7 +147,8 @@ def seed_questions():
     else:
         print("Questions already exist.")
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     app = init_app()
     with app.app_context():
         seed_subscriptions()

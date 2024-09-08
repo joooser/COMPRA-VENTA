@@ -1,0 +1,7 @@
+#!/bin/sh
+
+export PGUSER=$POSTGRES_USER
+
+psql -c "CREATE DATABASE $POSTGRES_DB;"
+
+psql $POSTGRES_DB -c "CREATE EXTENSION IF NOT EXISTS \"uuid-ossp\";"

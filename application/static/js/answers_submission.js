@@ -1,71 +1,95 @@
 document.addEventListener('DOMContentLoaded', initializeFormLogic);
 
+<<<<<<< Updated upstream
 document.body.addEventListener('htmx:afterSwap', function(event) {
 
   // Check if the swapped content includes the form or relevant components
   if (event.detail.target.id === 'formAndQuestions' ||
       event.detail.target.contains(document.getElementById('documentForm'))) {
     initializeFormLogic();
+=======
+let dropdownSelections = {}; // Object to store selections from the first form
+
+document.body.addEventListener('htmx:afterSwap', function(event) {
+  if (event.detail.target.id === 'questionsContainer') {
+    // Ensure the form event listener is attached only after the first form has been submitted
+    // and the questions have been loaded.
+    const questionsForm = document.getElementById('questionsContainer');
+    if (questionsForm) {
+      questionsForm.removeEventListener('submit', submitSecondForm); // Prevent multiple bindings
+      questionsForm.addEventListener('submit', submitSecondForm);
+    }
+>>>>>>> Stashed changes
   }
 });
 
 function initializeFormLogic() {
   const form = document.getElementById('documentForm');
+<<<<<<< Updated upstream
   
+=======
+>>>>>>> Stashed changes
   if (!form) {
     console.error('Form not found');
     return;
   }
-
+  
   form.removeEventListener('submit', handleFormSubmit); // Remove existing listener to prevent duplicates
   form.addEventListener('submit', handleFormSubmit);
 }
 
 function handleFormSubmit(event) {
   event.preventDefault(); // Prevent the form from submitting traditionally
-  
   const formData = new FormData(event.currentTarget);
-
-  // Collect question answers in an object
-  const answers = {};
-  document.querySelectorAll('[data-question-id]').forEach(input => {
-    formData.append(`answer_${input.getAttribute('data-question-id')}`, input.value);
+  
+<<<<<<< Updated upstream
+  const formData = new FormData(event.currentTarget);
+=======
+  // Record the selections from the first form
+  formData.forEach((value, key) => {
+    dropdownSelections[key] = value;
   });
 
-  // Serialize answers object into JSON and add to formData
-  formData.append('answers_json', JSON.stringify(answers));
+  console.log('Recorded selections:', dropdownSelections);
+  
+  // Assuming the use of HTMX for AJAX submission, let HTMX handle the form submission.
+}
 
-  // Add plain text version of the document to formData
-  const plainText = document.getElementById('templateDisplay') ? document.getElementById('templateDisplay').innerText : '';
-  formData.append('plain_text', plainText);
+function submitSecondForm(event) {
+  event.preventDefault(); // Prevent the form from submitting traditionally
+>>>>>>> Stashed changes
 
-  // Retrieve the template ID and other necessary information
-  const templateDisplayElement = document.getElementById('templateDisplay');
-  const documentTemplateId = templateDisplayElement ? templateDisplayElement.getAttribute('data-template-id') : '';
-  formData.append('document_template_id', documentTemplateId);
+  const questionsAndAnswers = {};
+  document.querySelectorAll('[data-question-id]').forEach(input => {
+    const questionId = input.getAttribute('data-question-id');
+    const questionText = document.querySelector(`label[for="answer_${questionId}"]`)?.innerText || 'Question not found';
+    questionsAndAnswers[questionId] = {
+      question: questionText,
+      answer: input.value
+    };
+  });
 
-  // Assuming you have elements for documentType and documentTypeId, modify as necessary
-  const documentTypeId = templateDisplayElement ? templateDisplayElement.getAttribute('data-type-id') : '';
-  formData.append('document_type_id', documentTypeId);
+  const templateText = document.getElementById('templateDisplay')?.innerText || '';
 
-  // Log FormData contents for debugging
-  for (let [key, value] of formData.entries()) {
-    console.log(`${key}: ${value}`);
-  }
+  const submissionData = {
+    Type: dropdownSelections,
+    QA: questionsAndAnswers,
+    Document: {
+      template: templateText
+    }
+  };
 
-  // Submit the form data to the server
+  // Fetch API with error handling
   fetch('/submit_answers', {
     method: 'POST',
-    body: formData,
+    body: JSON.stringify(submissionData),
     headers: {
-      // If your server expects JSON, you'll need to handle this differently.
-      // 'Content-Type': 'application/json',
-      // 'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
     },
   })
   .then(response => {
     if (!response.ok) {
-      // If the server response was not ok, throw an error to be caught in the catch block
       throw new Error(`Server responded with ${response.status}: ${response.statusText}`);
     }
     return response.json();
@@ -73,19 +97,12 @@ function handleFormSubmit(event) {
   .then(data => {
     console.log(data.message);
     if (data.success) {
-      // Handle success, such as redirecting or opening a download link
-      window.location.href = data.redirect_url;
-      // If there's a URL for PDF download and the user is subscribed, initiate the download
-      if (data.pdf_download_url) {
-        window.open(data.pdf_download_url, '_blank');
-      }
+      window.location.href = '/home';
     } else {
-      // Handle failure based on server's response message
       alert(data.message || 'An error occurred while submitting your answers.');
     }
   })
   .catch(error => {
-    // Handle any errors that occurred during fetch
     console.error('Submission failed', error);
     alert(`Failed to submit: ${error.message}`);
   });

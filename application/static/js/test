@@ -1,0 +1,48 @@
+function submitSecondForm(event) {
+  event.preventDefault(); // Prevent the form from submitting traditionally
+
+  const questions = [...document.querySelectorAll('[data-question-id]')].map(input => ({
+      id: input.getAttribute('data-question-id'),
+      question: document.querySelector(`label[for="answer_${input.getAttribute('data-question-id')}"]`)?.innerText || 'Question not found',
+      answer: input.value
+  }));
+
+  const submissionData = {
+      Type: dropdownSelections,
+      QA: questions.reduce((acc, curr) => ({
+          ...acc,
+          [curr.id]: {
+              question: curr.question,
+              answer: curr.answer
+          }
+      }), {}),
+      Document: {
+          template: document.getElementById('templateDisplay')?.innerText || ''
+      }
+  };
+
+  console.log('Final submission data:', submissionData);
+
+  fetch('/submit_answers', {
+      method: 'POST',
+      body: JSON.stringify(submissionData),
+      headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+      },
+  })
+  .then(response => {
+      if (!response.ok) {
+          throw new Error(`Server responded with ${response.status}: ${response.statusText}`);
+      }
+      return response.json();
+  })
+  .then(data => {
+      console.log('Server response:', data);
+      // Handle the server response (e.g., redirect or alert)
+  })
+  .catch(error => {
+      console.error('Submission failed:', error);
+      alert(`Failed to submit: ${error.message}`);
+  });
+}
